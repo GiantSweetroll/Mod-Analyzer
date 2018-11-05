@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import constants.Constants;
+import dataDrivers.Mod;
 import giantsweetroll.gui.swing.Gbm;
 import giantsweetroll.gui.swing.TextAreaManager;
 import interfaces.FormEssentials;
@@ -33,7 +34,7 @@ public class ModForm extends JPanel implements FormEssentials, ActionListener
 	private JTextArea taNotes;
 	private JButton butCancel, butSave;
 	private JPanel panelCenter, panelBelow;
-	private JScrollPane scrollNotes;
+	private JScrollPane scrollNotes, scrollCenter;
 	
 	private final String SAVE = "Save";
 	private final String CANCEL = "Cancel";
@@ -48,12 +49,13 @@ public class ModForm extends JPanel implements FormEssentials, ActionListener
 		//Initialization
 		this.initPanelBelow();
 		this.initPanelCenter();
+		this.scrollCenter = new JScrollPane(this.panelCenter, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
 		//Properties
 		this.setLayout(new BorderLayout());
 		
 		//Add to panel
-		this.add(this.panelCenter, BorderLayout.CENTER);
+		this.add(this.scrollCenter, BorderLayout.CENTER);
 		this.add(this.panelBelow, BorderLayout.SOUTH);
 	}
 	public void initPanelBelow()
@@ -137,6 +139,26 @@ public class ModForm extends JPanel implements FormEssentials, ActionListener
 		Gbm.newGridLine(c);
 		c.gridwidth = 4;
 		this.panelCenter.add(this.scrollNotes, c);					//Notes Text Area
+	}
+	
+	//Private Methods
+	private Mod getData()
+	{
+		Mod mod = new Mod(this.tfModName.getText().trim());
+		
+		mod.setAuthor(this.tfAuthor.getText().trim());
+		mod.setLink(this.tfLink.getText().trim());
+		mod.setVersion(this.tfVersion.getText().trim());	
+		mod.setNotes(this.taNotes.getText().trim());
+		//set compatibility
+		
+		return mod;
+	}
+	
+	//Public methods
+	public void setData(Mod mod)
+	{
+		
 	}
 	
 	//Interface
