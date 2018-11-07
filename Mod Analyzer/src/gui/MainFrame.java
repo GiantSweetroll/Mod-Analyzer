@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 
 import constants.Constants;
 import constants.Globals;
+import gui.compatibilityPanel.CompatibilityDetailsPanel;
 
 public class MainFrame extends JFrame
 {
@@ -30,6 +31,7 @@ public class MainFrame extends JFrame
 		this.setLocationRelativeTo(null);
 		
 		//Add to frame
-		this.add(Globals.MOD_FORM, MainFrame.MOD_FORM);
+//		this.add(Globals.MOD_FORM, MainFrame.MOD_FORM);
+		this.add(new CompatibilityDetailsPanel(), "sdsd");
 	}
 }

@@ -1,4 +1,4 @@
-package gui;
+package gui.compatibilityPanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 import methods.Methods;
 
-public class ModCompatibilityPanel extends JPanel implements ActionListener
+public class CompatibilityManagerPanel extends JPanel implements ActionListener
 {
 
 	/**

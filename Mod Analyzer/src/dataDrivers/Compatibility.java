@@ -5,6 +5,11 @@ public class Compatibility
 	private String general;
 	//Placeholder for not manual compatibility
 	
+	//Constants
+	public static final String SOFT = "soft",
+								MEDIUM = "medium",
+								HARD = "hard";
+	
 	//Public methods
 	//Setters
 	public void setCompatibility(Compatibility comp)
