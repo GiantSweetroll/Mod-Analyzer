@@ -10,6 +10,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import dataDrivers.Mod;
+
 public class CompatibilityModSelectionPanel extends JPanel
 {
 
@@ -24,7 +26,7 @@ public class CompatibilityModSelectionPanel extends JPanel
 	
 	public CompatibilityModSelectionPanel()
 	{
-		super(new BorderLayout());
+		this.initGUI();
 	}
 	//Create GUI
 	private void initGUI()
@@ -33,9 +35,12 @@ public class CompatibilityModSelectionPanel extends JPanel
 		this.initPanelCenter();
 		this.initPanelTop();
 		
+		//Properties
+		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		
 		//Add to panel
-		this.add(this.panelCenter, BorderLayout.CENTER);
-		this.add(this.panelTop, BorderLayout.NORTH);
+		this.add(this.panelTop);
+		this.add(this.panelCenter);
 	}
 	private void initPanelTop()
 	{
@@ -54,5 +59,14 @@ public class CompatibilityModSelectionPanel extends JPanel
 		
 		//Properties
 		this.panelCenter.setLayout(new BoxLayout(this.panelCenter, BoxLayout.Y_AXIS));
+	}
+
+	//Public methods
+	public void addMod(Set<Mod> mods)
+	{
+		for (Mod mod : mods)
+		{
+			JCheckBox jc = new JCheckBox(mod.getName());
+		}
 	}
 }
