@@ -2,6 +2,8 @@ package gui.compatibilityPanel;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
@@ -16,8 +18,9 @@ import dataDrivers.Compatibility;
 import giantsweetroll.gui.swing.Gbm;
 import giantsweetroll.gui.swing.ScrollPaneManager;
 import giantsweetroll.gui.swing.TextAreaManager;
+import interfaces.FormEssentials;
 
-public class CompatibilityDetailsPanel extends JPanel
+public class CompatibilityDetailsPanel extends JPanel implements FormEssentials
 {
 
 	/**
@@ -31,10 +34,12 @@ public class CompatibilityDetailsPanel extends JPanel
 	private JTextField tfLink;
 	private ButtonGroup groupCompat, groupSeverity, groupPatch;
 	private JScrollPane scrollReason, scrollNotes;
+	private CompatibilityModSelectionPanel modSelection;
 	
-	public CompatibilityDetailsPanel()
+	public CompatibilityDetailsPanel(CompatibilityModSelectionPanel modSelection)
 	{
 		this.initGUI();
+		this.modSelection = modSelection;
 	}
 	//Create GUI
 	private void initGUI()
@@ -212,4 +217,64 @@ public class CompatibilityDetailsPanel extends JPanel
 	{
 		this.taNotes.setText(notes);
 	}
+	public void setData(Compatibility compat)
+	{
+		
+	}
+	
+	//Private Methods
+	private void setCompatibilityButtonsEnabled(boolean enabled)
+	{
+		this.radCompatYes.setEnabled(enabled);
+		this.radCompatNo.setEnabled(enabled);
+	}
+	private void setSeverityButtonsEnabled(boolean b)
+	{
+		this.radCompatSoft.setEnabled(b);
+		this.radCompatMed.setEnabled(b);
+		this.radCompatHard.setEnabled(b);
+	}
+	private void setPatchButtonsEnabled(boolean b)
+	{
+		this.radPatchNo.setEnabled(b);
+		this.radPatchYes.setEnabled(b);
+	}
+	
+	//Interfaces
+	@Deprecated
+	@Override
+	public void refresh() 
+	{}
+	@Override
+	public void resetDefaults() 
+	{
+		this.radCompatYes.setSelected(false);
+		this.radCompatNo.setSelected(false);
+		this.radCompatSoft.setSelected(false);
+		this.radCompatMed.setSelected(false);
+		this.radCompatHard.setSelected(false);
+		this.radPatchYes.setSelected(false);
+		this.radPatchNo.setSelected(false);
+		this.taReason.setText("");
+		this.tfLink.setText("");
+		this.taNotes.setText("");
+	}
+	private ItemListener compatibilityListener = new ItemListener()
+			{
+
+				@Override
+				public void itemStateChanged(ItemEvent arg0) 
+				{
+					if (radCompatNo.isSelected())
+					{
+						setSeverityButtonsEnabled(true);
+						setPatchButtonsEnabled(true);
+					}
+					else
+					{
+						setSeverityButtonsEnabled(false);
+						setPatchButtonsEnabled(false);
+					}
+				}
+			};
 }

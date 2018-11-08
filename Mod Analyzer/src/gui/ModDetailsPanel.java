@@ -13,8 +13,9 @@ import constants.Constants;
 import dataDrivers.Mod;
 import giantsweetroll.gui.swing.SpringUtilities;
 import giantsweetroll.gui.swing.TextAreaManager;
+import interfaces.FormEssentials;
 
-public class ModDetailsPanel extends JPanel
+public class ModDetailsPanel extends JPanel implements FormEssentials
 {
 
 	/**
@@ -22,49 +23,53 @@ public class ModDetailsPanel extends JPanel
 	 */
 	private static final long serialVersionUID = -3438270466642105159L;
 
-	private JLabel labName, labAuthor, labVersion, labLink, labNotes;
+	private JLabel labName, labAuthor, labVersion, labLink, labNotes, name, author, version, link;
 	private JPanel panelCenter, panelNotes;
 	private JTextArea taNotes;
 	private JScrollPane scrollNotes;
 	
-	public ModDetailsPanel(Mod mod)
+	public ModDetailsPanel()
 	{
 		super(new BorderLayout());
-		this.initGUI(mod);
+		this.initGUI();
 	}
 	//Create GUI
-	private void initGUI(Mod mod)
+	private void initGUI()
 	{
 		//Initialization
-		this.initPanelCenter(mod);
-		this.initPanelNotes(mod);
+		this.initPanelCenter();
+		this.initPanelNotes();
 		
 		//Add to panel
 		this.add(this.panelCenter, BorderLayout.CENTER);
 		this.add(this.panelNotes, BorderLayout.SOUTH);
 	}
-	private void initPanelCenter(Mod mod)
+	private void initPanelCenter()
 	{
 		//Initialize GUI
 		this.panelCenter = new JPanel(new SpringLayout());
 		this.labName = new JLabel("Mod Name:");
+		this.name = new JLabel();
 		this.labAuthor = new JLabel("Author:");
+		this.author = new JLabel();
 		this.labVersion = new JLabel("Version:");
+		this.version = new JLabel();
 		this.labLink = new JLabel("Link:");
+		this.link = new JLabel();
 		
 		//Add to panel
 		this.panelCenter.add(labName);
-		this.panelCenter.add(new JLabel(mod.getName()));
+		this.panelCenter.add(this.name);
 		this.panelCenter.add(this.labAuthor);
-		this.panelCenter.add(new JLabel(mod.getAuthor()));
+		this.panelCenter.add(this.author);
 		this.panelCenter.add(this.labVersion);
-		this.panelCenter.add(new JLabel(mod.getVersion()));
+		this.panelCenter.add(this.version);
 		this.panelCenter.add(this.labLink);
-		this.panelCenter.add(new JLabel(mod.getLink()));
+		this.panelCenter.add(this.link);
 		
 		SpringUtilities.makeCompactGrid(this.panelCenter, 2, 4, 0, 0, Constants.INSETS_BASE, Constants.INSETS_BASE);
 	}
-	private void initPanelNotes(Mod mod)
+	private void initPanelNotes()
 	{
 		//Initialization
 		this.panelNotes = new JPanel();
@@ -79,5 +84,30 @@ public class ModDetailsPanel extends JPanel
 		//Add to panel
 		this.panelNotes.add(this.labNotes);
 		this.panelNotes.add(this.scrollNotes);
+	}
+
+	//Public methods
+	public void displayModDetails(Mod mod)
+	{
+		this.name.setText(mod.getName());
+		this.author.setText(mod.getAuthor());
+		this.version.setText(mod.getVersion());
+		this.link.setText(mod.getLink());
+		this.taNotes.setText(mod.getNotes());
+	}
+	
+	//Interfaces
+	@Deprecated
+	@Override
+	public void refresh()
+	{}
+	@Override
+	public void resetDefaults() 
+	{
+		this.name.setText("");
+		this.author.setText("");
+		this.version.setText("");
+		this.link.setText("");
+		this.taNotes.setText("");
 	}
 }
