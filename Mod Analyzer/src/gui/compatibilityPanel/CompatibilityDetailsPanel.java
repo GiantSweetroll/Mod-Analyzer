@@ -259,7 +259,7 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials
 		this.tfLink.setText("");
 		this.taNotes.setText("");
 	}
-	private ItemListener compatibilityListener = new ItemListener()
+	private ItemListener CompatibilityListener = new ItemListener()
 			{
 
 				@Override

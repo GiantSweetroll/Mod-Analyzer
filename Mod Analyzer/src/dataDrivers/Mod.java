@@ -3,13 +3,13 @@ package dataDrivers;
 public class Mod
 {
 	private String name, author, version, link, notes, id;
-	private Compatibility compatibility;
+	private CompatibilityList compatibility;
 	private Tags tags;
 	
 	public Mod(String name)
 	{
 		this.name = name;
-		this.compatibility = new Compatibility();
+		this.compatibility = new CompatibilityList();
 		this.tags = new Tags();
 	}
 	
@@ -22,7 +22,7 @@ public class Mod
 	public void setNotes(String notes)	{this.notes = notes;}
 	public void setID(String id)	{this.id = id;}
 	public void setTags(Tags tags)	{this.tags = tags;}
-	public void setCompatibility(Compatibility compat)	{this.compatibility = compat;}
+	public void setCompatibility(CompatibilityList compat)	{this.compatibility = compat;}
 	//Getters
 	public String getName()	{return this.name;}
 	public String getAuthor()	{return this.author;}
@@ -30,6 +30,6 @@ public class Mod
 	public String getLink()	{return this.link;}
 	public String getNotes()	{return this.notes;}
 	public String getID()	{return this.id;}
-	public Compatibility getCompatibilities()	{return this.compatibility;}
+	public CompatibilityList getCompatibilities()	{return this.compatibility;}
 	public Tags getTags()	{return this.tags;}
 }

@@ -32,6 +32,6 @@ public class MainFrame extends JFrame
 		
 		//Add to frame
 //		this.add(Globals.MOD_FORM, MainFrame.MOD_FORM);
-		this.add(new CompatibilityDetailsPanel(), "sdsd");
+//		this.add(new CompatibilityDetailsPanel(), "sdsd");
 	}
 }
