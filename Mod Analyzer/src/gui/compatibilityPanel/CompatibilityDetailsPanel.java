@@ -34,12 +34,11 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials
 	private JTextField tfLink;
 	private ButtonGroup groupCompat, groupSeverity, groupPatch;
 	private JScrollPane scrollReason, scrollNotes;
-	private CompatibilityModSelectionPanel modSelection;
+	private String activeModID;
 	
-	public CompatibilityDetailsPanel(CompatibilityModSelectionPanel modSelection)
+	public CompatibilityDetailsPanel()
 	{
 		this.initGUI();
-		this.modSelection = modSelection;
 	}
 	//Create GUI
 	private void initGUI()
@@ -129,6 +128,7 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials
 	}
 
 	//Public Methods
+	//Getters
 	public boolean isCompatible()
 	{
 		return !this.radCompatNo.isSelected();
@@ -168,16 +168,34 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials
 	{
 		return this.taNotes.getText().trim();
 	}
+	public Compatibility getData()
+	{
+		Compatibility compat = new Compatibility(this.activeModID);
+		
+		compat.setIsCompatible(this.isCompatible());
+		compat.setNotes(this.getNotes());
+		compat.setPatchAvailable(this.isPatchAvailable());
+		compat.setPatchLink(this.getPatchLink());
+		compat.setReason(this.getReasonOfIncompatibility());
+		compat.setSeverity(this.getSeverityOfIncompatibility());
+		
+		return compat;
+	}
+	//Setters
 	public void setCompatible(boolean compatible)
 	{
-		if (compatible)
+		try
 		{
-			this.radCompatYes.setSelected(true);
+			if (compatible)
+			{
+				this.radCompatYes.setSelected(true);
+			}
+			else
+			{
+				this.radCompatNo.setSelected(true);
+			}
 		}
-		else
-		{
-			this.radCompatNo.setSelected(true);
-		}
+		catch(NullPointerException ex) {}
 	}
 	public void setSeverityOfIncompatibility(String severity)
 	{
@@ -200,14 +218,18 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials
 	}
 	public void setPatchAvailable(boolean available)
 	{
-		if (available)
+		try
 		{
-			this.radPatchYes.setSelected(true);
+			if (available)
+			{
+				this.radPatchYes.setSelected(true);
+			}
+			else
+			{
+				this.radPatchNo.setSelected(true);
+			}
 		}
-		else
-		{
-			this.radPatchNo.setSelected(true);
-		}
+		catch(NullPointerException ex) {}
 	}
 	public void setPatchLink(String link)
 	{
@@ -219,7 +241,13 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials
 	}
 	public void setData(Compatibility compat)
 	{
-		
+		this.activeModID = compat.getModID();
+		this.setCompatible(compat.isCompatible());
+		this.setSeverityOfIncompatibility(compat.getSeverity());
+		this.setReasonOfIncompatibility(compat.getReason());
+		this.setPatchAvailable(compat.isPatchAvailable());
+		this.setPatchLink(compat.getPatchLink());
+		this.setNotes(compat.getNotes());
 	}
 	
 	//Private Methods
@@ -259,7 +287,7 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials
 		this.tfLink.setText("");
 		this.taNotes.setText("");
 	}
-	private ItemListener CompatibilityListener = new ItemListener()
+	private ItemListener compatibilityListener = new ItemListener()
 			{
 
 				@Override

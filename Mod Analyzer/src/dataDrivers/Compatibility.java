@@ -7,13 +7,12 @@ public class Compatibility
 	
 	//Constants
 	public static final String SOFT = "soft",
-			MEDIUM = "medium",
-			HARD = "hard";
+								MEDIUM = "medium",
+								HARD = "hard";
 	
-	public Compatibility(String modID, boolean compatible)
+	public Compatibility(String modID)
 	{
 		this.modID = modID;
-		this.compatible = compatible;
 	}
 	
 	//Public methods
@@ -53,7 +52,11 @@ public class Compatibility
 	}
 	public void setIsCompatible(boolean b)
 	{
-		this.compatible = b;
+		try
+		{
+			this.compatible = b;
+		}
+		catch(NullPointerException ex) {}
 	}
 	public void setSeverity(String severity)
 	{
@@ -65,7 +68,11 @@ public class Compatibility
 	}
 	public void setPatchAvailable(boolean b)
 	{
-		this.patchAvailable = b;
+		try
+		{
+			this.patchAvailable = b;
+		}
+		catch(NullPointerException ex) {}
 	}
 	public void setPatchLink(String link)
 	{

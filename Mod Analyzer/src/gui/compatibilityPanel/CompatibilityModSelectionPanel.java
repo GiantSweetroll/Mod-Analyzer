@@ -26,7 +26,7 @@ public class CompatibilityModSelectionPanel extends JPanel
 	private static final long serialVersionUID = -6255726460480029514L;
 
 	private JPanel panelTop, panelCenter;
-	private JLabel labMod;
+	private JLabel labMod; 
 	private List<ModCheckBox> MODS;
 	private ModDetailsPanel modDetails;
 	private CompatibilityDetailsPanel compatDetails;
@@ -83,6 +83,10 @@ public class CompatibilityModSelectionPanel extends JPanel
 						public void mouseClicked(MouseEvent arg0) 
 						{
 							modDetails.displayModDetails(mod);
+							if(jc.isSelected())
+							{
+								
+							}
 						}
 
 						@Override
