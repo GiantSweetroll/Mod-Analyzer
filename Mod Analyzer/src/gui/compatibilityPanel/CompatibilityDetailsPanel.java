@@ -80,6 +80,8 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials
 		TextAreaManager.autoConfigureTextArea(this.taReason, true);
 		ScrollPaneManager.autoConfigureScrollPane(this.scrollNotes);
 		ScrollPaneManager.autoConfigureScrollPane(this.scrollReason);
+		this.radCompatYes.addItemListener(this.compatibilityListener);
+		this.radCompatNo.addItemListener(this.compatibilityListener);
 		
 		//Add to panel
 		Gbm.goToOrigin(c);
@@ -266,6 +268,18 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials
 	{
 		this.radPatchNo.setEnabled(b);
 		this.radPatchYes.setEnabled(b);
+	}
+	
+	//Overridden Methods
+	@Override
+	public void setEnabled(boolean b)
+	{
+		this.setCompatibilityButtonsEnabled(b);
+		this.setSeverityButtonsEnabled(b);
+		this.setPatchButtonsEnabled(b);
+		this.taNotes.setEnabled(b);
+		this.taReason.setEnabled(b);
+		this.tfLink.setEnabled(b);
 	}
 	
 	//Interfaces

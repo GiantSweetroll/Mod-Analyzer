@@ -16,9 +16,11 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import constants.Constants;
+import dataDrivers.CompatibilityList;
 import dataDrivers.Mod;
 import giantsweetroll.gui.swing.Gbm;
 import giantsweetroll.gui.swing.TextAreaManager;
+import gui.compatibilityPanel.CompatibilityManagerPanel;
 import interfaces.FormEssentials;
 
 public class ModForm extends JPanel implements FormEssentials, ActionListener
@@ -35,6 +37,8 @@ public class ModForm extends JPanel implements FormEssentials, ActionListener
 	private JButton butCancel, butSave;
 	private JPanel panelCenter, panelBelow;
 	private JScrollPane scrollNotes, scrollCenter;
+	private String activeID;
+	private CompatibilityManagerPanel compatPanel;
 	
 	private final String SAVE = "Save";
 	private final String CANCEL = "Cancel";
@@ -93,6 +97,7 @@ public class ModForm extends JPanel implements FormEssentials, ActionListener
 		this.labLink = new JLabel("Link", SwingConstants.RIGHT);
 		this.tfLink = new JTextField(50);
 		this.labCompatibility = new JLabel("Compatibility", SwingConstants.RIGHT);
+		this.compatPanel = new CompatibilityManagerPanel();
 		this.labNotes = new JLabel("Notes", SwingConstants.LEFT);
 		this.taNotes = new JTextArea(15, 20);
 		this.scrollNotes = new JScrollPane(this.taNotes, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -131,7 +136,7 @@ public class ModForm extends JPanel implements FormEssentials, ActionListener
 		this.panelCenter.add(this.labCompatibility, c);			//Compatibility
 		Gbm.newGridLine(c);
 		c.gridwidth = 4;
-		//Placeholder to place Compatibility panel
+		this.panelCenter.add(this.compatPanel, c);				//Compatibility Manager Panel
 		Gbm.newGridLine(c);
 		c.gridwidth = 1;
 		c.insets = Constants.INSETS_TIGHT;
@@ -158,6 +163,13 @@ public class ModForm extends JPanel implements FormEssentials, ActionListener
 	//Public methods
 	public void setData(Mod mod)
 	{
+		this.tfModName.setText(mod.getName());
+		this.tfAuthor.setText(mod.getName());
+		this.tfVersion.setText(mod.getVersion());
+		this.tfLink.setText(mod.getLink());
+		this.taNotes.setText(mod.getNotes());
+		this.activeID = mod.getID();
+		CompatibilityList compatList = mod.getCompatibilities();
 		
 	}
 	
@@ -175,6 +187,7 @@ public class ModForm extends JPanel implements FormEssentials, ActionListener
 		this.tfVersion.setText("");
 		this.tfLink.setText("");
 		this.taNotes.setText("");
+		this.activeID = "";
 		//Placeholder to call resetDefaults of compatibility panel
 	}
 	

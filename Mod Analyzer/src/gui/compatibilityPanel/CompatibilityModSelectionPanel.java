@@ -13,11 +13,14 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import constants.Globals;
+import dataDrivers.CompatibilityList;
 import dataDrivers.Mod;
 import gui.ModCheckBox;
 import gui.ModDetailsPanel;
+import interfaces.FormEssentials;
 
-public class CompatibilityModSelectionPanel extends JPanel
+public class CompatibilityModSelectionPanel extends JPanel implements FormEssentials
 {
 
 	/**
@@ -31,11 +34,11 @@ public class CompatibilityModSelectionPanel extends JPanel
 	private ModDetailsPanel modDetails;
 	private CompatibilityDetailsPanel compatDetails;
 	
-	public CompatibilityModSelectionPanel(ModDetailsPanel detailPanel, CompatibilityDetailsPanel compatDetails)
+	public CompatibilityModSelectionPanel(ModDetailsPanel modDetails, CompatibilityDetailsPanel compatDetails)
 	{
 		this.initGUI();
-		this.modDetails = detailPanel;
-		this.compatDetails = compatDetails;
+		this.setModDetailsPanel(modDetails);
+		this.setCompatibilityDetailsPanel(compatDetails);
 	}
 	//Create GUI
 	private void initGUI()
@@ -71,6 +74,14 @@ public class CompatibilityModSelectionPanel extends JPanel
 	}
 
 	//Public methods
+	public void setModDetailsPanel(ModDetailsPanel details)
+	{
+		this.modDetails = details;
+	}
+	public void setCompatibilityDetailsPanel(CompatibilityDetailsPanel compat)
+	{
+		this.compatDetails = compat;
+	}
 	public void addMod(Set<Mod> mods)
 	{
 		for (Mod mod : mods)
@@ -83,10 +94,7 @@ public class CompatibilityModSelectionPanel extends JPanel
 						public void mouseClicked(MouseEvent arg0) 
 						{
 							modDetails.displayModDetails(mod);
-							if(jc.isSelected())
-							{
-								
-							}
+							compatDetails.setEnabled(jc.isSelected());
 						}
 
 						@Override
@@ -111,5 +119,33 @@ public class CompatibilityModSelectionPanel extends JPanel
 	{
 		this.MODS.clear();
 		this.addMod(mods);
+	}
+	public void setData(CompatibilityList compatList)
+	{
+		for (String id : compatList.getModIDs())
+		{
+			for (ModCheckBox check : this.MODS)
+			{
+				if (check.getMod().getID().equals(id))
+				{
+					check.setSelected(true);
+				}
+			}
+		}
+	}
+	
+	//Interfaces
+	@Override
+	public void refresh() 
+	{
+		this.setMods(Globals.MODS);
+	}
+	@Override
+	public void resetDefaults() 
+	{
+		for (ModCheckBox check : this.MODS)
+		{
+			check.setSelected(false);
+		}
 	}
 }

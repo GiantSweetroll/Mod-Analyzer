@@ -1,5 +1,6 @@
 package gui.compatibilityPanel;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,10 +27,28 @@ public class CompatibilityManagerPanel extends JPanel implements ActionListener
 	private JTextField tfName, tfAuthor;
 	private JButton butFilter;
 	private JComboBox<String> comboName, comboAuthor;
+	private CompatibilitySelectionPanel compatSelection;
 	
 	//Constructor
+	public CompatibilityManagerPanel()
+	{
+		this.createGUI();
+	}
 	
 	//Initialize GUI
+	private void createGUI()
+	{
+		//Initialization
+		this.initPanelSearch();
+		this.compatSelection = new CompatibilitySelectionPanel();
+		
+		//Properties
+		this.setLayout(new BorderLayout());
+		
+		//Add to panel
+		this.add(this.panelSearch, BorderLayout.NORTH);
+		this.add(this.compatSelection, BorderLayout.CENTER);
+	}
 	private void initPanelSearch()
 	{
 		//Initialization
@@ -38,9 +57,10 @@ public class CompatibilityManagerPanel extends JPanel implements ActionListener
 		this.checkName = new JCheckBox("Name");
 		this.checkAuthor = new JCheckBox();
 		this.tfName = new JTextField(15);
-		this.tfName = new JTextField(25);
+		this.tfAuthor = new JTextField(25);
 		this.comboAuthor = new JComboBox<String>(Methods.getNamesOfAuthorsFromRegisteredMods());
 	}
+	
 	
 	//Interfaces
 	@Override

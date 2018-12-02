@@ -36,7 +36,6 @@ public class ModCheckBox extends JCheckBox
 	//Comparator
 	public static final Comparator<ModCheckBox> MOD_CHECKER_COMPARATOR = new Comparator<ModCheckBox>()
 			{
-
 				@Override
 				public int compare(ModCheckBox mod1, ModCheckBox mod2) 
 				{
