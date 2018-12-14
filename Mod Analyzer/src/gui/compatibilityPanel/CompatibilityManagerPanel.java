@@ -1,6 +1,8 @@
 package gui.compatibilityPanel;
 
 import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,9 +13,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import constants.Constants;
+import giantsweetroll.gui.swing.Gbm;
+import interfaces.FormEssentials;
 import methods.Methods;
 
-public class CompatibilityManagerPanel extends JPanel implements ActionListener
+public class CompatibilityManagerPanel extends JPanel implements ActionListener, FormEssentials
 {
 
 	/**
@@ -52,20 +57,50 @@ public class CompatibilityManagerPanel extends JPanel implements ActionListener
 	private void initPanelSearch()
 	{
 		//Initialization
-		this.panelSearch = new JPanel();
+		this.panelSearch = new JPanel(new GridBagLayout());
 		this.labFilter = new JLabel("Filter");
 		this.checkName = new JCheckBox("Name");
 		this.checkAuthor = new JCheckBox();
 		this.tfName = new JTextField(15);
 		this.tfAuthor = new JTextField(25);
 		this.comboAuthor = new JComboBox<String>(Methods.getNamesOfAuthorsFromRegisteredMods());
+		this.butFilter = new JButton("Filter");
+		GridBagConstraints c = new GridBagConstraints();
+		
+		//Properties
+		this.butFilter.addActionListener(this);
+		
+		//Add to panel
+		Gbm.goToOrigin(c);
+		c.insets = Constants.INSETS_TOP_COMPONENT;
+		c.gridwidth = 100;
+		this.panelSearch.add(this.labFilter, c);				//Filter label
+		Gbm.newGridLine(c);
+		c.fill = GridBagConstraints.BOTH;
+		c.insets = Constants.INSETS_GENERAL;
+		c.gridwidth = 1;
+		this.panelSearch.add(this.checkName, c);				//Name check box
+		Gbm.nextGridColumn(c);
+		this.panelSearch.add(this.comboName, c);				//Name Combo box
+		Gbm.nextGridColumn(c);
+		this.panelSearch.add(this.tfName, c);					//Name text field
 	}
-	
 	
 	//Interfaces
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
 		
+	}
+
+	@Deprecated
+	@Override
+	public void refresh() 
+	{
+	}
+
+	@Override
+	public void resetDefaults() 
+	{
 	}
 }

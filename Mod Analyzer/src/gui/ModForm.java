@@ -155,6 +155,7 @@ public class ModForm extends JPanel implements FormEssentials, ActionListener
 		mod.setLink(this.tfLink.getText().trim());
 		mod.setVersion(this.tfVersion.getText().trim());	
 		mod.setNotes(this.taNotes.getText().trim());
+//		mod.setCompatibility(this.compatPanel);
 		//set compatibility
 		
 		return mod;
@@ -177,7 +178,6 @@ public class ModForm extends JPanel implements FormEssentials, ActionListener
 	@Override
 	public void refresh() 
 	{
-		// TODO Auto-generated method stub	
 	}
 	@Override
 	public void resetDefaults() 
@@ -188,7 +188,7 @@ public class ModForm extends JPanel implements FormEssentials, ActionListener
 		this.tfLink.setText("");
 		this.taNotes.setText("");
 		this.activeID = "";
-		//Placeholder to call resetDefaults of compatibility panel
+		this.compatPanel.resetDefaults();
 	}
 	
 	@Override
