@@ -10,10 +10,11 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.SpringLayout;
 
+import constants.Globals;
+import dataDrivers.Compatibility;
 import dataDrivers.CompatibilityList;
 import giantsweetroll.gui.swing.ScrollPaneManager;
 import giantsweetroll.gui.swing.TextAreaManager;
-import gui.ModDetailsPanel;
 import interfaces.FormEssentials;
 
 public class CompatibilitySelectionPanel extends JPanel implements FormEssentials
@@ -28,15 +29,14 @@ public class CompatibilitySelectionPanel extends JPanel implements FormEssential
 	private JPanel panelGeneralCompat, panelCompat;
 	private JLabel labGeneralCompat;
 	private JTextArea taGeneralCompat;
-	private CompatibilityModSelectionPanel modSelection;
-	private CompatibilityDetailsPanel compatDetailPanel;
-	private ModDetailsPanel modDetails;
+	private CompatibilityList compatList;
 	
 	//Constructor
 	public CompatibilitySelectionPanel()
 	{
 		super(new BorderLayout());
 		this.createGUI();
+		this.compatList = new CompatibilityList();
 	}
 	
 	//Create GUI
@@ -73,19 +73,14 @@ public class CompatibilitySelectionPanel extends JPanel implements FormEssential
 	private void initPanelCompat()
 	{
 		//Initialization
-		this.panelCompat = new JPanel();
-		this.modDetails = new ModDetailsPanel();
-		this.compatDetailPanel = new CompatibilityDetailsPanel();
-		this.modSelection = new CompatibilityModSelectionPanel(this.modDetails, this.compatDetailPanel);
-		JScrollPane scrollModSelection = ScrollPaneManager.generateDefaultScrollPane(this.modSelection, 10, 10),
-					scrollModDetails = ScrollPaneManager.generateDefaultScrollPane(this.modDetails, 10, 10),
-					scrollCompatDetails = ScrollPaneManager.generateDefaultScrollPane(this.compatDetailPanel, 10, 10);
+		this.panelCompat = new JPanel();;
+		JScrollPane scrollModSelection = ScrollPaneManager.generateDefaultScrollPane(Globals.COMPATIBILITY_MOD_SELECTION_PANEL, 10, 10),
+					scrollModDetails = ScrollPaneManager.generateDefaultScrollPane(Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL, 10, 10),
+					scrollCompatDetails = ScrollPaneManager.generateDefaultScrollPane(Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL, 10, 10);
 		SpringLayout spr = new SpringLayout();
 		
 		//Properties
 		this.panelCompat.setLayout(spr);
-		this.modSelection.setModDetailsPanel(this.modDetails);
-		this.modSelection.setCompatibilityDetailsPanel(this.compatDetailPanel);
 		
 		//Add to panel
 		spr.putConstraint(SpringLayout.NORTH, scrollModSelection, 0, SpringLayout.NORTH, this.panelCompat);
@@ -107,7 +102,20 @@ public class CompatibilitySelectionPanel extends JPanel implements FormEssential
 	//Public methods
 	public void setData(CompatibilityList compatList)
 	{
-		this.modSelection.setData(compatList);
+		this.compatList = compatList;
+		Globals.COMPATIBILITY_MOD_SELECTION_PANEL.setData(compatList);
+	}
+	public CompatibilityList getCompatibilityList()
+	{
+		return this.compatList;
+	}
+	public void updateCompatibility(Compatibility compat)
+	{
+		this.compatList.addCompatibility(compat);
+	}
+	public void removeCompatibility(String modID)
+	{
+		this.compatList.removeCompatibility(modID);
 	}
 	
 	//Interfaces

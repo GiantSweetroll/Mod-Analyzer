@@ -78,4 +78,9 @@ public class CompatibilityList
 		
 		return set;
 	}
+	//Other Methods
+	public void removeCompatibility(String modID)
+	{
+		this.compat.remove(modID);
+	}
 }

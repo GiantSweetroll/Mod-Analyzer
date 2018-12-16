@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 
 import constants.Constants;
 import constants.Globals;
+import gui.compatibilityPanel.CompatibilitySelectionPanel;
 
 public class MainFrame extends JFrame
 {
@@ -22,6 +23,7 @@ public class MainFrame extends JFrame
 	{
 		//Initialization
 		Globals.MOD_FORM = new ModForm();
+		Globals.COMPATIBILITY_SELECTION_PANEL = new CompatibilitySelectionPanel();
 		
 		//Properties
 		this.setLayout(new CardLayout());

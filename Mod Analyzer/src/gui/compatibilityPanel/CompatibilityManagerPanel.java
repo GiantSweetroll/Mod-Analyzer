@@ -1,20 +1,18 @@
 package gui.compatibilityPanel;
 
 import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
-import constants.Constants;
-import giantsweetroll.gui.swing.Gbm;
+import constants.Globals;
+import dataDrivers.CompatibilityList;
+import dataDrivers.ModLite;
+import gui.FilterElement;
 import interfaces.FormEssentials;
 import methods.Methods;
 
@@ -26,13 +24,14 @@ public class CompatibilityManagerPanel extends JPanel implements ActionListener,
 	 */
 	private static final long serialVersionUID = 8062423562858065850L;
 	
-	private JPanel panelSearch;
-	private JLabel labFilter;
-	private JCheckBox checkName, checkAuthor;
-	private JTextField tfName, tfAuthor;
-	private JButton butFilter;
-	private JComboBox<String> comboName, comboAuthor;
-	private CompatibilitySelectionPanel compatSelection;
+	private JPanel panelSearchFilters, panelSearchBelow, panelSearch;
+	private JButton butFilter, butReset;
+	private FilterElement<ModLite> filterModName;
+	private FilterElement<String> filterModAuthor;
+	
+	//Constants
+	private final String FILTER = "filter";
+	private final String RESET = "reset";
 	
 	//Constructor
 	public CompatibilityManagerPanel()
@@ -45,52 +44,77 @@ public class CompatibilityManagerPanel extends JPanel implements ActionListener,
 	{
 		//Initialization
 		this.initPanelSearch();
-		this.compatSelection = new CompatibilitySelectionPanel();
 		
 		//Properties
 		this.setLayout(new BorderLayout());
 		
 		//Add to panel
-		this.add(this.panelSearch, BorderLayout.NORTH);
-		this.add(this.compatSelection, BorderLayout.CENTER);
+		this.add(this.panelSearchFilters, BorderLayout.NORTH);
+		this.add(Globals.COMPATIBILITY_SELECTION_PANEL, BorderLayout.CENTER);
+	}
+	private void initPanelSearchFilters()
+	{
+		//Initialization
+		this.panelSearchFilters = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		this.filterModName = new FilterElement<ModLite>("Name", Methods.convertRegisteredModsToModLite());
+		this.filterModAuthor = new FilterElement<String>("Author", Methods.getNamesOfAuthorsFromRegisteredMods());
+		this.butFilter = new JButton("Filter");
+		
+		//Properties
+		this.panelSearchFilters.setBorder(BorderFactory.createTitledBorder("Filter"));
+		this.butFilter.addActionListener(this);
+		
+		//Add to panel
+		this.panelSearchFilters.add(this.filterModName);
+		this.panelSearchFilters.add(this.filterModAuthor);
+	}
+	private void initPanelBelow()
+	{
+		//Initialization
+		this.panelSearchBelow = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		this.butFilter = new JButton("Filter");
+		this.butReset = new JButton("Reset All");
+		
+		//Properties
+		this.butReset.addActionListener(this);
+		this.butReset.setActionCommand(this.RESET);
+		this.butFilter.addActionListener(this);
+		this.butFilter.setActionCommand(this.FILTER);
+		
+		//Add to panel
+		this.panelSearchBelow.add(this.butFilter);
 	}
 	private void initPanelSearch()
 	{
 		//Initialization
-		this.panelSearch = new JPanel(new GridBagLayout());
-		this.labFilter = new JLabel("Filter");
-		this.checkName = new JCheckBox("Name");
-		this.checkAuthor = new JCheckBox();
-		this.tfName = new JTextField(15);
-		this.tfAuthor = new JTextField(25);
-		this.comboAuthor = new JComboBox<String>(Methods.getNamesOfAuthorsFromRegisteredMods());
-		this.butFilter = new JButton("Filter");
-		GridBagConstraints c = new GridBagConstraints();
+		this.panelSearch = new JPanel(new BorderLayout());
+		this.initPanelBelow();
+		this.initPanelSearchFilters();
 		
-		//Properties
-		this.butFilter.addActionListener(this);
-		
-		//Add to panel
-		Gbm.goToOrigin(c);
-		c.insets = Constants.INSETS_TOP_COMPONENT;
-		c.gridwidth = 100;
-		this.panelSearch.add(this.labFilter, c);				//Filter label
-		Gbm.newGridLine(c);
-		c.fill = GridBagConstraints.BOTH;
-		c.insets = Constants.INSETS_GENERAL;
-		c.gridwidth = 1;
-		this.panelSearch.add(this.checkName, c);				//Name check box
-		Gbm.nextGridColumn(c);
-		this.panelSearch.add(this.comboName, c);				//Name Combo box
-		Gbm.nextGridColumn(c);
-		this.panelSearch.add(this.tfName, c);					//Name text field
+		//add to panel
+		this.panelSearch.add(this.panelSearchFilters, BorderLayout.CENTER);
+		this.panelSearch.add(this.panelSearchBelow, BorderLayout.SOUTH);
+	}
+	//Public Methods
+	public void setData(CompatibilityList compatList)
+	{
+		Globals.COMPATIBILITY_SELECTION_PANEL.setData(compatList);
 	}
 	
 	//Interfaces
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		
+		switch(e.getActionCommand())
+		{
+			case RESET:
+				this.resetDefaults();
+				break;
+				
+			case FILTER:
+				//Filter Function
+				break;
+		}
 	}
 
 	@Deprecated
@@ -102,5 +126,7 @@ public class CompatibilityManagerPanel extends JPanel implements ActionListener,
 	@Override
 	public void resetDefaults() 
 	{
+		this.filterModAuthor.resetDefaults();
+		this.filterModName.resetDefaults();
 	}
 }

@@ -2,6 +2,8 @@ package gui.compatibilityPanel;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -17,7 +19,6 @@ import constants.Globals;
 import dataDrivers.CompatibilityList;
 import dataDrivers.Mod;
 import gui.ModCheckBox;
-import gui.ModDetailsPanel;
 import interfaces.FormEssentials;
 
 public class CompatibilityModSelectionPanel extends JPanel implements FormEssentials
@@ -30,15 +31,11 @@ public class CompatibilityModSelectionPanel extends JPanel implements FormEssent
 
 	private JPanel panelTop, panelCenter;
 	private JLabel labMod; 
-	private List<ModCheckBox> MODS;
-	private ModDetailsPanel modDetails;
-	private CompatibilityDetailsPanel compatDetails;
+	private List<ModCheckBox> MODS;;
 	
-	public CompatibilityModSelectionPanel(ModDetailsPanel modDetails, CompatibilityDetailsPanel compatDetails)
+	public CompatibilityModSelectionPanel()
 	{
 		this.initGUI();
-		this.setModDetailsPanel(modDetails);
-		this.setCompatibilityDetailsPanel(compatDetails);
 	}
 	//Create GUI
 	private void initGUI()
@@ -74,14 +71,6 @@ public class CompatibilityModSelectionPanel extends JPanel implements FormEssent
 	}
 
 	//Public methods
-	public void setModDetailsPanel(ModDetailsPanel details)
-	{
-		this.modDetails = details;
-	}
-	public void setCompatibilityDetailsPanel(CompatibilityDetailsPanel compat)
-	{
-		this.compatDetails = compat;
-	}
 	public void addMod(Set<Mod> mods)
 	{
 		for (Mod mod : mods)
@@ -93,8 +82,8 @@ public class CompatibilityModSelectionPanel extends JPanel implements FormEssent
 						@Override
 						public void mouseClicked(MouseEvent arg0) 
 						{
-							modDetails.displayModDetails(mod);
-							compatDetails.setEnabled(jc.isSelected());
+							Globals.MOD_FORM_MOD_DETAILS_PANEL.displayModDetails(mod);
+							Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.setEnabled(jc.isSelected());
 						}
 
 						@Override
@@ -108,6 +97,16 @@ public class CompatibilityModSelectionPanel extends JPanel implements FormEssent
 
 						@Override
 						public void mouseReleased(MouseEvent arg0) {}
+					});
+			jc.addActionListener(new ActionListener()
+					{
+						public void actionPerformed(ActionEvent e)
+						{
+							if (jc.isSelected())
+							{
+								
+							}
+						}
 					});
 			this.MODS.add(jc);
 		}

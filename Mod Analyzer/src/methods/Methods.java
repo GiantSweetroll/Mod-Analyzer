@@ -8,6 +8,7 @@ import org.w3c.dom.Element;
 
 import constants.Globals;
 import dataDrivers.Mod;
+import dataDrivers.ModLite;
 import giantsweetroll.xml.dom.XMLManager;
 
 public class Methods
@@ -22,6 +23,18 @@ public class Methods
 		}
 		
 		return set.toArray(new String[set.size()]);
+	}
+	
+	public static ModLite[] convertRegisteredModsToModLite()
+	{
+		SortedSet<ModLite> set = new TreeSet<ModLite>();
+		
+		for (Mod mod : Globals.MODS)
+		{
+			set.add(new ModLite(mod.getID(), mod.getName()));
+		}
+		
+		return set.toArray(new ModLite[set.size()]);
 	}
 	
 	public static Element createElement(Document doc, String tagName, String text)
