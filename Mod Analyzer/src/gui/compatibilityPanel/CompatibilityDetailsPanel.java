@@ -310,6 +310,19 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials,
 	{
 		this.activeModID = modID;
 	}
+	public void resetComponentsToDefaults()
+	{
+		this.radCompatYes.setSelected(true);
+		this.radCompatNo.setSelected(false);
+		this.radCompatSoft.setSelected(true);
+		this.radCompatMed.setSelected(false);
+		this.radCompatHard.setSelected(false);
+		this.radPatchYes.setSelected(false);
+		this.radPatchNo.setSelected(true);
+		this.taReason.setText("");
+		this.tfLink.setText("");
+		this.taNotes.setText("");
+	}
 	//Others
 	public void updateCurrentCompatibility()
 	{
@@ -360,7 +373,7 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials,
 				break;
 				
 			case RESET:
-				this.resetDefaults();
+				this.resetComponentsToDefaults();
 				break;
 				
 			case SET:
@@ -375,16 +388,8 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials,
 	@Override
 	public void resetDefaults() 
 	{
-		this.radCompatYes.setSelected(true);
-		this.radCompatNo.setSelected(false);
-		this.radCompatSoft.setSelected(true);
-		this.radCompatMed.setSelected(false);
-		this.radCompatHard.setSelected(false);
-		this.radPatchYes.setSelected(false);
-		this.radPatchNo.setSelected(true);
-		this.taReason.setText("");
-		this.tfLink.setText("");
-		this.taNotes.setText("");
+		this.resetComponentsToDefaults();
+		this.activeModID = "";
 	}
 	private ItemListener compatibilityListener = new ItemListener()
 			{

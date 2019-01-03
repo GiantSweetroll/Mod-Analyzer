@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -14,9 +15,13 @@ import javax.swing.JPanel;
 
 import constants.Globals;
 import dataDrivers.CompatibilityList;
+import dataDrivers.Mod;
 import dataDrivers.ModLite;
 import gui.FilterElement;
+import gui.ModCheckBox;
 import interfaces.FormEssentials;
+import methods.FileOperation;
+import methods.Filter;
 import methods.Methods;
 
 public class CompatibilityManagerPanel extends JPanel implements ActionListener, FormEssentials
@@ -141,6 +146,75 @@ public class CompatibilityManagerPanel extends JPanel implements ActionListener,
 			this.filters.get(i).setSelected(false);
 		}	
 	}
+	public String getModNameFilter()
+	{
+		ModLite mod = null;
+		if (this.filterModName.customKeywordSelected())
+		{
+			return this.filterModName.getFilterKeyword();
+		}
+		else
+		{
+			mod = this.filterModName.getFilterSelection();
+			return mod.getName();
+		}
+	}
+	public String getModIDFilter()
+	{
+		ModLite mod = null;
+		if (this.filterModName.customKeywordSelected())
+		{
+			return this.filterModName.getFilterKeyword();
+		}
+		else
+		{
+			mod = this.filterModName.getFilterSelection();
+			return mod.getID();
+		}
+	}
+	public String getAuthorFilter()
+	{
+		if (this.filterModAuthor.customKeywordSelected())
+		{
+			return this.filterModAuthor.getFilterKeyword();
+		}
+		else
+		{
+			return this.filterModAuthor.getFilterSelection();
+		}
+	}
+	public boolean authorFilterSelected()
+	{
+		return this.filterModAuthor.isSelected();
+	}
+	public boolean modNameOrIDFilterSelected()
+	{
+		return this.filterModName.isSelected();
+	}
+	//Private Methods
+	private void applyFilter()
+	{
+		//Update Compatibility before filtering
+		ModCheckBox mcb = Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModCheckBox();
+		mcb.updateCompatibility();
+		
+		//Prepare Filter
+		Set<Mod> mods = Globals.MODS;
+		if (this.authorFilterSelected())
+		{
+			Filter.modsByAuthor(mods, this.getAuthorFilter());
+		}
+		if (this.modNameOrIDFilterSelected())
+		{
+			Filter.modsByName(mods, this.getModNameFilter());
+		}
+		
+		Globals.COMPATIBILITY_MOD_SELECTION_PANEL.setMods(mods);
+		Globals.MOD_FORM.revalidate();
+		Globals.MOD_FORM.refresh();
+		Globals.COMPATIBILITY_MOD_SELECTION_PANEL.setData(Globals.COMPATIBILITY_SELECTION_PANEL.getCompatibilityList());
+		Methods.refreshModList();
+	}
 	
 	//Interfaces
 	@Override
@@ -153,7 +227,7 @@ public class CompatibilityManagerPanel extends JPanel implements ActionListener,
 				break; 
 				
 			case FILTER:
-				//Filter Function
+				this.applyFilter();
 				break;
 				
 			case DISABLE_FILTERS:

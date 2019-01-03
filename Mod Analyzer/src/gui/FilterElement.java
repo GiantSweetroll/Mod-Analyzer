@@ -218,7 +218,7 @@ public class FilterElement<T> extends JPanel implements FormEssentials, ActionLi
 				@Override
 				public void mousePressed(MouseEvent arg0) 
 				{
-					if (check.isSelected())
+					if (!check.isSelected())
 					{
 						check.setSelected(true);
 					}

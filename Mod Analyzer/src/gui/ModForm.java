@@ -239,6 +239,10 @@ public class ModForm extends JPanel implements FormEssentials, ActionListener
 		this.newEntry = true;
 		this.activeID = Methods.generateModID(new Date());
 	}
+	public CompatibilityManagerPanel getCompatibilityManagerPanel()
+	{
+		return this.compatPanel;
+	}
 	
 	//Interface
 	@Override

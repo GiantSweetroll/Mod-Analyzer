@@ -156,7 +156,7 @@ public class ModCheckBox extends JPanel implements ItemListener, ActionListener
 	}
 	
 	//Private Methods
-	private void updateCompatibility()
+	public void updateCompatibility()
 	{
 	/*	String compatDetailModID = Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.getActiveModID();
 		System.out.println(compatDetailModID + " vs " + Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModID());

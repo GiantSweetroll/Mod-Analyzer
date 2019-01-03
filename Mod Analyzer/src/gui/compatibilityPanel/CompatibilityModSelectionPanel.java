@@ -112,7 +112,10 @@ public class CompatibilityModSelectionPanel extends JPanel implements FormEssent
 	public void setMods(Set<Mod> mods)
 	{
 		this.removeModsFromSelectionDisplay();
+		this.activeModID = "";
+		this.activeModIndex = 0;
 		this.MODS.clear();
+//		Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.resetDefaults();
 		this.addMod(mods);
 	}
 	public void setData(CompatibilityList compatList)
