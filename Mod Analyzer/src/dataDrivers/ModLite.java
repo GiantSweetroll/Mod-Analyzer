@@ -1,6 +1,6 @@
 package dataDrivers;
 
-public class ModLite 
+public class ModLite implements Comparable<ModLite>
 {
 	private String name, id;
 	
@@ -39,5 +39,10 @@ public class ModLite
 	public String toString()
 	{
 		return this.name;
+	}
+	@Override
+	public int compareTo(ModLite m) 
+	{
+		return this.getName().compareTo(m.getName());
 	}
 }

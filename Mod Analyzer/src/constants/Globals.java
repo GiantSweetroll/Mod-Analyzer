@@ -9,6 +9,7 @@ import gui.ModForm;
 import gui.compatibilityPanel.CompatibilityDetailsPanel;
 import gui.compatibilityPanel.CompatibilityModSelectionPanel;
 import gui.compatibilityPanel.CompatibilitySelectionPanel;
+import gui.overview.OverviewPanel;
 
 public class Globals 
 {
@@ -18,6 +19,7 @@ public class Globals
 	public static CompatibilityModSelectionPanel COMPATIBILITY_MOD_SELECTION_PANEL;
 	public static CompatibilityDetailsPanel MOD_FORM_COMPATIBILITY_DETAILS_PANEL;
 	public static ModDetailsPanel MOD_FORM_MOD_DETAILS_PANEL;
+	public static OverviewPanel OVERVIEW;
 	
 	public static Set<Mod> MODS;
 }

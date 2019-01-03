@@ -21,7 +21,6 @@ public class Compatibility
 								NOTES = "compat_notes",
 								IS_COMPATIBLE = "is_compatible",
 								PATCH_AVAILABLE = "patch_available",
-								GENERAL_COMPATIBILITY = "general compatibility",
 								COMPATIBILITY_NODE = "compatibility";
 	
 	//Constructors

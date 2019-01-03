@@ -1,11 +1,10 @@
 package gui.compatibilityPanel;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,13 +14,14 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import constants.Constants;
 import constants.Globals;
 import dataDrivers.CompatibilityList;
 import dataDrivers.Mod;
 import gui.ModCheckBox;
 import interfaces.FormEssentials;
 
-public class CompatibilityModSelectionPanel extends JPanel implements FormEssentials
+public class CompatibilityModSelectionPanel extends JPanel implements FormEssentials, ItemListener
 {
 
 	/**
@@ -31,11 +31,15 @@ public class CompatibilityModSelectionPanel extends JPanel implements FormEssent
 
 	private JPanel panelTop, panelCenter;
 	private JLabel labMod; 
-	private List<ModCheckBox> MODS;;
+	private List<ModCheckBox> MODS;
+	
+	private String activeModID;
+	private int activeModIndex;
 	
 	public CompatibilityModSelectionPanel()
 	{
 		this.initGUI();
+		this.activeModID = "";
 	}
 	//Create GUI
 	private void initGUI()
@@ -57,6 +61,10 @@ public class CompatibilityModSelectionPanel extends JPanel implements FormEssent
 		this.panelTop = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		this.labMod = new JLabel("Mod");
 		
+		//Properties
+		this.panelTop.setMaximumSize(new Dimension(this.panelTop.getMaximumSize().width, 50));
+		this.labMod.setFont(Constants.GENERAL_FONT_BOLD);
+		
 		//Add to panel
 		this.panelTop.add(this.labMod, BorderLayout.CENTER);
 	}
@@ -68,6 +76,7 @@ public class CompatibilityModSelectionPanel extends JPanel implements FormEssent
 		
 		//Properties
 		this.panelCenter.setLayout(new BoxLayout(this.panelCenter, BoxLayout.Y_AXIS));
+//		this.panelCenter.setLayout(new GridLayout(1, 0));
 	}
 
 	//Public methods
@@ -76,46 +85,33 @@ public class CompatibilityModSelectionPanel extends JPanel implements FormEssent
 		for (Mod mod : mods)
 		{
 			ModCheckBox jc = new ModCheckBox(mod);
-			jc.addMouseListener(new MouseListener()
-					{
-
-						@Override
-						public void mouseClicked(MouseEvent arg0) 
-						{
-							Globals.MOD_FORM_MOD_DETAILS_PANEL.displayModDetails(mod);
-							Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.setEnabled(jc.isSelected());
-						}
-
-						@Override
-						public void mouseEntered(MouseEvent arg0) {}
-
-						@Override
-						public void mouseExited(MouseEvent arg0) {}
-
-						@Override
-						public void mousePressed(MouseEvent arg0) {}
-
-						@Override
-						public void mouseReleased(MouseEvent arg0) {}
-					});
-			jc.addActionListener(new ActionListener()
-					{
-						public void actionPerformed(ActionEvent e)
-						{
-							if (jc.isSelected())
-							{
-								
-							}
-						}
-					});
+			jc.setMaximumSize(new Dimension(jc.getMaximumSize().width, 50));
 			this.MODS.add(jc);
 		}
 
 		//Sort
 		Collections.sort(this.MODS, ModCheckBox.MOD_CHECKER_COMPARATOR);
+		
+		//Create index
+		this.recreateModIndex();
+		
+		//Add to panel
+		for (ModCheckBox ck : this.MODS)
+		{
+			this.panelCenter.add(ck);
+		}
 	}
+	public void recreateModIndex()
+	{
+		for (int i=0; i<this.MODS.size(); i++)
+		{
+			this.MODS.get(i).setIndex(i);
+		}
+	}
+	//Setters
 	public void setMods(Set<Mod> mods)
 	{
+		this.removeModsFromSelectionDisplay();
 		this.MODS.clear();
 		this.addMod(mods);
 	}
@@ -132,6 +128,52 @@ public class CompatibilityModSelectionPanel extends JPanel implements FormEssent
 			}
 		}
 	}
+	public void setActiveModID(String modID)
+	{
+		this.activeModID = modID;
+	}
+	public void setActiveModIndex(int index)
+	{
+		this.activeModIndex = index;
+	}
+	//Getters
+	public String getActiveModID()
+	{
+		return this.activeModID;
+	}
+	public int getActiveModIndex()
+	{
+		return this.activeModIndex;
+	}
+	public ModCheckBox getActiveModCheckBox()
+	{
+		return this.MODS.get(this.getActiveModIndex());
+	}
+	//Others
+	public void removeModFromList(String id)
+	{
+		for (int i=0; i<this.MODS.size(); i++)
+		{
+			if (this.MODS.get(i).getMod().getID().equals(id))
+			{
+				this.panelCenter.remove(this.MODS.get(i));
+				this.MODS.remove(i);
+				this.panelCenter.revalidate();
+				this.panelCenter.repaint();
+				this.recreateModIndex();
+				break;
+			}
+		}
+	}
+	public void removeModsFromSelectionDisplay()
+	{
+		for(int i=0; i<this.MODS.size(); i++)
+		{
+			this.panelCenter.remove(this.MODS.get(i));
+		}
+		this.panelCenter.revalidate();
+		this.panelCenter.repaint();		
+	}
 	
 	//Interfaces
 	@Override
@@ -146,5 +188,10 @@ public class CompatibilityModSelectionPanel extends JPanel implements FormEssent
 		{
 			check.setSelected(false);
 		}
+		this.activeModID = "";
+	}
+	@Override
+	public void itemStateChanged(ItemEvent e)
+	{
 	}
 }

@@ -1,7 +1,14 @@
 package constants;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Insets;
+import java.io.File;
+import java.util.Comparator;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
 
 public class Constants 
 {
@@ -29,6 +36,37 @@ public class Constants
 															INSETS_GENERAL.right);
 	
 	public static final Dimension DEFAULT_FRAME_SIZE = new Dimension(1280, 768);
+	
+	//Database
+	public static final String DATABASE_FOLDER = "./database" + File.separator;
+	public static final String MOD_ENTRY_FILE_EXTENSION = ".mod";
+	public static final String MOD_ENTRY_DATABASE_FOLDER = DATABASE_FOLDER + "mod_entries" + File.separator;
+	
+	//Font Settings
+	public static final String FONT_TYPE_GENERAL = "verdana";
+	public static final int FONT_GENERAL_SIZE = 15;
+	public static final Font GENERAL_FONT_BOLD = new Font(Constants.FONT_TYPE_GENERAL, Font.BOLD, Constants.FONT_GENERAL_SIZE);
+	
+	//Color
+	public static final Color HIGHLIGHT_COLOR = new Color(0, 120, 215);
+	
+	//Comparators
+	public static final Comparator<JButton> MOD_NAME_BUTTON_COMPARATOR = new Comparator<JButton>()
+	{
+		@Override
+		public int compare(JButton b1, JButton b2) 
+		{
+			return b1.getText().compareTo(b2.getText());
+		}
+	};	
+	public static final Comparator<JLabel> JLABEL_COMPARATOR = new Comparator<JLabel>()
+			{
+				@Override
+				public int compare(JLabel b1, JLabel b2)
+				{
+					return b1.getText().compareTo(b2.getText());
+				}
+			};
 	
 	//Tags
 	public static String[] TAGS_SKYRIM = {"Ammunition - Overwrite",

@@ -1,11 +1,15 @@
 package gui.compatibilityPanel;
 
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -14,13 +18,14 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import constants.Constants;
+import constants.Globals;
 import dataDrivers.Compatibility;
 import giantsweetroll.gui.swing.Gbm;
 import giantsweetroll.gui.swing.ScrollPaneManager;
 import giantsweetroll.gui.swing.TextAreaManager;
 import interfaces.FormEssentials;
 
-public class CompatibilityDetailsPanel extends JPanel implements FormEssentials
+public class CompatibilityDetailsPanel extends JPanel implements FormEssentials, ActionListener
 {
 
 	/**
@@ -29,16 +34,25 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials
 	private static final long serialVersionUID = 2038053529114446886L;
 
 	private JLabel labCompatible, labSeverity, labReason, labPatch, labLink, labNotes;
+	private JPanel panelButtons;
 	private JRadioButton radCompatYes, radCompatNo, radCompatSoft, radCompatMed, radCompatHard, radPatchYes, radPatchNo;
 	private JTextArea taReason, taNotes;
 	private JTextField tfLink;
 	private ButtonGroup groupCompat, groupSeverity, groupPatch;
 	private JScrollPane scrollReason, scrollNotes;
 	private String activeModID;
+	private JButton butCancel, butSet, butReset;
+	
+	//Constants
+	private final String CANCEL = "cancel",
+							SET = "set",
+							RESET = "reset";
 	
 	public CompatibilityDetailsPanel()
 	{
+		this.activeModID = "";
 		this.initGUI();
+		this.setEnabled(false);
 	}
 	//Create GUI
 	private void initGUI()
@@ -52,19 +66,20 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials
 		this.radCompatMed = new JRadioButton("Medium");
 		this.radCompatHard = new JRadioButton("Hard");
 		this.labReason = new JLabel("Reason");
-		this.taReason = new JTextArea(15, 20);
+		this.taReason = new JTextArea(10, 5);
 		this.labPatch = new JLabel("Path Available?");
 		this.radPatchYes = new JRadioButton("Yes");
 		this.radPatchNo = new JRadioButton("No");
 		this.labLink = new JLabel("Link");
-		this.tfLink = new JTextField(50);
+		this.tfLink = new JTextField(30);
 		this.labNotes = new JLabel("Notes");
-		this.taNotes = new JTextArea(15, 20);
+		this.taNotes = new JTextArea(10, 5);
 		this.groupCompat = new ButtonGroup();
 		this.groupPatch = new ButtonGroup();
 		this.groupSeverity = new ButtonGroup();
 		this.scrollNotes = new JScrollPane(this.taNotes, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		this.scrollReason = new JScrollPane(this.taReason, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		this.initPanelButtons();
 		GridBagConstraints c = new GridBagConstraints();
 		
 		//Properties
@@ -81,7 +96,19 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials
 		ScrollPaneManager.autoConfigureScrollPane(this.scrollNotes);
 		ScrollPaneManager.autoConfigureScrollPane(this.scrollReason);
 		this.radCompatYes.addItemListener(this.compatibilityListener);
+		this.radCompatYes.setOpaque(false);
 		this.radCompatNo.addItemListener(this.compatibilityListener);
+		this.radCompatNo.setOpaque(false);
+		this.radPatchNo.addItemListener(this.patchListener);
+		this.radPatchNo.setOpaque(false);
+		this.radPatchYes.setOpaque(false);
+		this.radPatchYes.addItemListener(this.patchListener);
+		this.radCompatHard.setOpaque(false);
+		this.radCompatMed.setOpaque(false);
+		this.radCompatSoft.setOpaque(false);
+		this.radCompatSoft.setSelected(true);
+		this.radPatchNo.setSelected(true);
+		this.radCompatYes.setSelected(true);
 		
 		//Add to panel
 		Gbm.goToOrigin(c);
@@ -109,7 +136,7 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials
 		c.gridwidth = 3;
 		this.add(this.labReason, c);					//Reason label
 		Gbm.newGridLine(c);
-		this.add(this.scrollReason, c);						//Reason Text Area
+		this.add(this.scrollReason, c);					//Reason Text Area
 		Gbm.newGridLine(c);
 		this.add(this.labPatch, c);						//Patch Available Label
 		Gbm.newGridLine(c);
@@ -126,9 +153,33 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials
 		c.gridwidth = 3;
 		this.add(this.labNotes, c);						//Notes label
 		Gbm.newGridLine(c);
-		this.add(this.scrollNotes, c);						//Notes Text Area
+		this.add(this.scrollNotes, c);					//Notes Text Area
+		Gbm.newGridLine(c);
+		c.gridwidth = 100;
+		this.add(this.panelButtons, c);					//Buttons Panel
 	}
-
+	private void initPanelButtons()
+	{
+		//Initialization
+		this.panelButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		this.butCancel = new JButton("Cancel");
+		this.butReset = new JButton("Reset");
+		this.butSet = new JButton("Set");
+		
+		//Properties
+		this.butCancel.setActionCommand(this.CANCEL);
+		this.butCancel.addActionListener(this);
+		this.butSet.setActionCommand(this.SET);
+		this.butSet.addActionListener(this);
+		this.butReset.setActionCommand(this.RESET);
+		this.butReset.addActionListener(this);
+		this.butReset.setEnabled(false);
+		
+		//Add to panel
+//		this.panelButtons.add(this.butCancel);
+		this.panelButtons.add(this.butReset);
+//		this.panelButtons.add(this.butSet);
+	}
 	//Public Methods
 	//Getters
 	public boolean isCompatible()
@@ -182,6 +233,10 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials
 		compat.setSeverity(this.getSeverityOfIncompatibility());
 		
 		return compat;
+	}
+	public String getActiveModID()
+	{
+		return this.activeModID;
 	}
 	//Setters
 	public void setCompatible(boolean compatible)
@@ -251,7 +306,15 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials
 		this.setPatchLink(compat.getPatchLink());
 		this.setNotes(compat.getNotes());
 	}
-	
+	public void setActiveModID(String modID)
+	{
+		this.activeModID = modID;
+	}
+	//Others
+	public void updateCurrentCompatibility()
+	{
+		Globals.COMPATIBILITY_SELECTION_PANEL.getCompatibilityList().setCompatibility(Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.getActiveModID(), this.getData());
+	}
 	//Private Methods
 	private void setCompatibilityButtonsEnabled(boolean enabled)
 	{
@@ -275,14 +338,36 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials
 	public void setEnabled(boolean b)
 	{
 		this.setCompatibilityButtonsEnabled(b);
+		this.butReset.setEnabled(b);
+		b = this.radCompatNo.isSelected();
 		this.setSeverityButtonsEnabled(b);
 		this.setPatchButtonsEnabled(b);
 		this.taNotes.setEnabled(b);
 		this.taReason.setEnabled(b);
-		this.tfLink.setEnabled(b);
+		b = this.radPatchYes.isSelected();
+		this.tfLink.setEditable(b);
 	}
 	
 	//Interfaces
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+		switch(e.getActionCommand())
+		{
+			case CANCEL:
+				this.resetDefaults();
+				this.setActiveModID("");
+				break;
+				
+			case RESET:
+				this.resetDefaults();
+				break;
+				
+			case SET:
+				this.updateCurrentCompatibility();
+				break;
+		}
+	}
 	@Deprecated
 	@Override
 	public void refresh() 
@@ -290,13 +375,13 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials
 	@Override
 	public void resetDefaults() 
 	{
-		this.radCompatYes.setSelected(false);
+		this.radCompatYes.setSelected(true);
 		this.radCompatNo.setSelected(false);
-		this.radCompatSoft.setSelected(false);
+		this.radCompatSoft.setSelected(true);
 		this.radCompatMed.setSelected(false);
 		this.radCompatHard.setSelected(false);
 		this.radPatchYes.setSelected(false);
-		this.radPatchNo.setSelected(false);
+		this.radPatchNo.setSelected(true);
 		this.taReason.setText("");
 		this.tfLink.setText("");
 		this.taNotes.setText("");
@@ -305,17 +390,28 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials
 			{
 
 				@Override
-				public void itemStateChanged(ItemEvent arg0) 
+				public void itemStateChanged(ItemEvent e) 
 				{
-					if (radCompatNo.isSelected())
+					boolean b = radCompatNo.isSelected();
+					setSeverityButtonsEnabled(b);
+					taReason.setEditable(b);
+					setPatchButtonsEnabled(b);
+					tfLink.setEditable(b);
+				}
+			};
+	private ItemListener patchListener = new ItemListener()
+			{
+				@Override
+				public void itemStateChanged(ItemEvent e)
+				{
+					if (radPatchNo.isSelected())
 					{
-						setSeverityButtonsEnabled(true);
-						setPatchButtonsEnabled(true);
+						tfLink.setText("");
+						tfLink.setEditable(false);
 					}
 					else
 					{
-						setSeverityButtonsEnabled(false);
-						setPatchButtonsEnabled(false);
+						tfLink.setEditable(true);
 					}
 				}
 			};

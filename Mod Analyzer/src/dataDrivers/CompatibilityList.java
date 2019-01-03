@@ -1,5 +1,6 @@
 package dataDrivers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,6 @@ import giantsweetroll.xml.dom.XMLManager;
 
 public class CompatibilityList 
 {
-	private String general;
 	private HashMap<String, Compatibility> compat;
 	
 	//Constructor
@@ -27,11 +27,10 @@ public class CompatibilityList
 	//Setters
 	public void setCompatibility(CompatibilityList comp)
 	{
-		this.general = comp.getGeneralCompatibility();
 	}
-	public void setGeneralaCompatibility(String str)
+	public void setCompatibility(String modID, Compatibility compat)
 	{
-		this.general = str;
+		this.compat.put(modID, compat);
 	}
 	public void addCompatibility(Compatibility compat)
 	{
@@ -47,7 +46,6 @@ public class CompatibilityList
 		}
 	}
 	//Getters
-	public String getGeneralCompatibility() {return this.general;}
 	public HashMap<String, Compatibility> getListOfModCompatibility()
 	{
 		return this.compat;
@@ -77,6 +75,36 @@ public class CompatibilityList
 		}
 		
 		return set;
+	}
+	public List<Compatibility> getListOfCompatibleMods()
+	{
+		List<Compatibility> list = new ArrayList<Compatibility>();
+		
+		for (Map.Entry<String, Compatibility> entry : this.compat.entrySet())
+		{
+			Compatibility comp = entry.getValue();
+			if (comp.isCompatible())
+			{
+				list.add(comp);
+			}
+		}
+		
+		return list;
+	}
+	public List<Compatibility> getListOfIncompatibleMods()
+	{
+		List<Compatibility> list = new ArrayList<Compatibility>();
+		
+		for (Map.Entry<String, Compatibility> entry : this.compat.entrySet())
+		{
+			Compatibility comp = entry.getValue();
+			if (!comp.isCompatible())
+			{
+				list.add(comp);
+			}
+		}
+		
+		return list;		
 	}
 	//Other Methods
 	public void removeCompatibility(String modID)
