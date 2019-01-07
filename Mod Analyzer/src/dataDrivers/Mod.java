@@ -18,8 +18,9 @@ public class Mod
 					id, 
 					generalCompatibility;
 	private CompatibilityList compatibility;
-	private Tags tags;
 	private Date dateCreated, dateModified;
+	
+	private Tags tags;			//not used
 	
 	//Constants
 	public static final String NAME = "name",
@@ -104,9 +105,9 @@ public class Mod
 	public String getID()	{return this.id;}
 	public String getGeneralCompatibility() {return this.generalCompatibility;}
 	public CompatibilityList getCompatibilities()	{return this.compatibility;}
-	public Tags getTags()	{return this.tags;}
 	public Date getDateCreated()	{return this.dateCreated;}
 	public Date getDateModified()	{return this.dateModified;}
+	public Tags getTags()	{return this.tags;}
 	public Document getXMLDocument()
 	{
 		try

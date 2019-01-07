@@ -168,6 +168,7 @@ public class ModCheckBox extends JPanel implements ItemListener, ActionListener
 			}
 		}		*/
 //		Globals.MOD_FORM_MOD_DETAILS_PANEL.displayModDetails(mod);
+		System.out.println("Before: " + Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModID());
 		if (!Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModID().equals(""))
 		{
 			//Saves the previous active item
@@ -176,10 +177,12 @@ public class ModCheckBox extends JPanel implements ItemListener, ActionListener
 				ModCheckBox mcb = Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModCheckBox();
 				if (mcb.isSelected())
 				{
+					System.out.println("Compatibility updated..." + " (" + mcb.getModName() + ")");
 					Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.updateCurrentCompatibility();		
 				}
 				else
 				{
+					System.out.println("Compatibility removed..." + " (" + mcb.getModName() + ")");
 					Globals.COMPATIBILITY_SELECTION_PANEL.removeCompatibility(Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.getActiveModID());
 				}	
 			}
@@ -196,7 +199,9 @@ public class ModCheckBox extends JPanel implements ItemListener, ActionListener
 			}
 			catch(NullPointerException ex) 
 			{
+				System.out.println("null");
 				Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.resetDefaults();
+				Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.setActiveModID(modID);
 			}
 		}
 		else
@@ -207,6 +212,8 @@ public class ModCheckBox extends JPanel implements ItemListener, ActionListener
 			Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.setActiveModID(modID);
 			Globals.COMPATIBILITY_MOD_SELECTION_PANEL.setActiveModIndex(this.getIndex());
 		}
+		System.out.println("Now: " + Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModID());
+		Methods.printCompatibilityIDs(Globals.COMPATIBILITY_SELECTION_PANEL.getCompatibilityList());
 	}
 	
 	//Comparator
@@ -234,6 +241,7 @@ public class ModCheckBox extends JPanel implements ItemListener, ActionListener
 	@Override
 	public void itemStateChanged(ItemEvent e) 
 	{
+		
 		if (this.justFilling)
 		{
 			this.justFilling = false;

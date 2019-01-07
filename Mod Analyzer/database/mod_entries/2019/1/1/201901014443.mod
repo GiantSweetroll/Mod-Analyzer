@@ -38,14 +38,6 @@
                <reason/>
                <compat_notes/>
           </compatibility>
-          <compatibility mod_id="">
-               <is_compatible>true</is_compatible>
-               <patch_available>false</patch_available>
-               <patch_link/>
-               <severity>soft</severity>
-               <reason/>
-               <compat_notes/>
-          </compatibility>
           <compatibility mod_id="201812310791">
                <is_compatible>false</is_compatible>
                <patch_available>false</patch_available>

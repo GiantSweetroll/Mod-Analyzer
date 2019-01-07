@@ -2,6 +2,7 @@ package methods;
 
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -16,6 +17,8 @@ import org.w3c.dom.Element;
 
 import constants.Constants;
 import constants.Globals;
+import dataDrivers.Compatibility;
+import dataDrivers.CompatibilityList;
 import dataDrivers.Mod;
 import dataDrivers.ModLite;
 import giantsweetroll.date.Date;
@@ -57,11 +60,25 @@ public class Methods
 	}
 	public static String getTextContent(Document doc, String tagName)
 	{
-		return XMLManager.getElement(doc.getElementsByTagName(tagName), 0).getTextContent();
+		try
+		{
+			return XMLManager.getElement(doc.getElementsByTagName(tagName), 0).getTextContent();
+		}
+		catch(Exception ex)
+		{
+			return "";
+		}
 	}
 	public static String getTextContent(Element elm, String tagName)
 	{
-		return XMLManager.getElement(elm.getElementsByTagName(tagName), 0).getTextContent();
+		try
+		{
+			return XMLManager.getElement(elm.getElementsByTagName(tagName), 0).getTextContent();
+		}
+		catch(Exception ex)
+		{
+			return "";
+		}
 	}
 	
 	public static String generateModID(Date dateCreated)
@@ -164,5 +181,15 @@ public class Methods
 	public static void refreshModList()
 	{
 		Globals.MODS = FileOperation.importAllMods();
+	}
+	
+	public static void printCompatibilityIDs(CompatibilityList compatList)
+	{
+		System.out.println("Mods in compatibility list:");
+		for (Map.Entry<String, Compatibility> entry : compatList.getListOfModCompatibility().entrySet())
+		{
+			System.out.println(entry.getKey());
+		}
+		System.out.println();
 	}
 }

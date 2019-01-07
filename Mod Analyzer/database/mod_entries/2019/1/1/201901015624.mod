@@ -14,14 +14,6 @@
      <date_modified_month>1</date_modified_month>
      <date_modified_year>2019</date_modified_year>
      <compatibility_collection>
-          <compatibility mod_id="">
-               <is_compatible>true</is_compatible>
-               <patch_available>false</patch_available>
-               <patch_link/>
-               <severity>soft</severity>
-               <reason/>
-               <compat_notes/>
-          </compatibility>
           <compatibility mod_id="201901030476">
                <is_compatible>true</is_compatible>
                <patch_available>false</patch_available>

@@ -326,6 +326,7 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials,
 	//Others
 	public void updateCurrentCompatibility()
 	{
+		System.out.println("Mod Details ACTIVE MOD ID: " + Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.getActiveModID());
 		Globals.COMPATIBILITY_SELECTION_PANEL.getCompatibilityList().setCompatibility(Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.getActiveModID(), this.getData());
 	}
 	//Private Methods

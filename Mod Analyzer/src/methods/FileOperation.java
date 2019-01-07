@@ -1,10 +1,14 @@
 package methods;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
+
+import org.xml.sax.SAXException;
 
 import constants.Constants;
 import dataDrivers.Mod;
@@ -45,10 +49,11 @@ public class FileOperation
 		getListOfFiles(modFiles, Constants.DATABASE_FOLDER, true);
 		for (File file : modFiles)
 		{
-			try
+			try 
 			{
 				mods.add(new Mod(XMLManager.createDocument(file.getAbsolutePath(), false)));
-			}
+			} 
+			catch (ParserConfigurationException | SAXException | IOException e) {}
 			catch (Exception ex) 
 			{
 				ex.printStackTrace();
