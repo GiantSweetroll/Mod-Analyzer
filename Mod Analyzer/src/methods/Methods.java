@@ -192,4 +192,9 @@ public class Methods
 		}
 		System.out.println();
 	}
+	
+	public static String getDateAsString(Date date)
+	{
+		return date.getDay() + "/" + date.getMonth() + "/" + date.getYear();
+	}
 }

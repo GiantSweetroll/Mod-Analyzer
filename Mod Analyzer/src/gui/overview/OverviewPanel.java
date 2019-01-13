@@ -23,6 +23,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import constants.Constants;
+import constants.Globals;
 import dataDrivers.CompatibilityList;
 import dataDrivers.Mod;
 import giantsweetroll.gui.swing.ScrollPaneManager;
@@ -250,12 +251,14 @@ public class OverviewPanel extends JPanel implements ActionListener, FormEssenti
 		this.highlightedButtonIndex = Integer.parseInt(((ButtonLabel)e.getSource()).getName());
 		this.buttons.get(this.highlightedButtonIndex).setForeground(Color.WHITE);
 		this.buttons.get(this.highlightedButtonIndex).setOpaque(true);
+		Globals.MAIN_FRAME.setEditButtonEnabled(this.hasModHighlighted());
+		Globals.MAIN_FRAME.setDeleteButtonEnabled(this.hasModHighlighted());
 	}
 
 	@Override
-	public void refresh() {
-		// TODO Auto-generated method stub
-		
+	public void refresh()
+	{
+		this.setData(Globals.MODS);
 	}
 
 	@Override

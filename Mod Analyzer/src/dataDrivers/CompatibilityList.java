@@ -111,4 +111,11 @@ public class CompatibilityList
 	{
 		this.compat.remove(modID);
 	}
+	public void printAllCompatibilities()
+	{
+		for (Map.Entry<String, Compatibility> entry : this.compat.entrySet())
+		{
+			entry.getValue().printCompatibility();
+		}
+	}
 }

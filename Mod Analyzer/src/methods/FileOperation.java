@@ -119,4 +119,15 @@ public class FileOperation
 			}
 		}
 	}
+
+	public static void deleteMod(Mod mod)
+	{
+		Date dateCreated = mod.getDateCreated();
+		String path = Constants.MOD_ENTRY_DATABASE_FOLDER + File.separator +
+						Integer.toString(dateCreated.getYear()) + File.separator + 
+						Integer.toString(dateCreated.getMonth()) + File.separator + 
+						Integer.toString(dateCreated.getDay()) + File.separator;
+		File file = new File(path + mod.getID() + Constants.MOD_ENTRY_FILE_EXTENSION);
+		file.delete();
+	}
 }

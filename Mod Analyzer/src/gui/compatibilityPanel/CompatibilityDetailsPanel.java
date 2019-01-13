@@ -353,11 +353,11 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials,
 	{
 		this.setCompatibilityButtonsEnabled(b);
 		this.butReset.setEnabled(b);
+		this.taNotes.setEditable(b);
 		b = this.radCompatNo.isSelected();
 		this.setSeverityButtonsEnabled(b);
 		this.setPatchButtonsEnabled(b);
-		this.taNotes.setEnabled(b);
-		this.taReason.setEnabled(b);
+		this.taReason.setEditable(b);
 		b = this.radPatchYes.isSelected();
 		this.tfLink.setEditable(b);
 	}
@@ -402,7 +402,7 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials,
 					setSeverityButtonsEnabled(b);
 					taReason.setEditable(b);
 					setPatchButtonsEnabled(b);
-					tfLink.setEditable(b);
+			//		tfLink.setEditable(b);
 				}
 			};
 	private ItemListener patchListener = new ItemListener()

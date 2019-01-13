@@ -3,22 +3,27 @@ package gui;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
 import constants.Constants;
 import constants.Globals;
-import giantsweetroll.message.MessageManager;
+import dataDrivers.Mod;
 import gui.compatibilityPanel.CompatibilityDetailsPanel;
 import gui.compatibilityPanel.CompatibilityModSelectionPanel;
 import gui.compatibilityPanel.CompatibilitySelectionPanel;
 import gui.overview.OverviewPanel;
+import methods.FileOperation;
+import methods.Methods;
 
 public class MainFrame extends JFrame implements ActionListener, MenuListener
 {
@@ -33,7 +38,7 @@ public class MainFrame extends JFrame implements ActionListener, MenuListener
 	
 	private JMenuBar menuBar;
 	private JMenu mFile, mFilter, mSettings, mRefresh;
-	private JMenuItem newEntry, delEntry, editEntry;
+	private JMenuItem newEntry, delEntry, editEntry, refreshModList;
 	
 	//Constants
 	public static final String MOD_FORM = "modform",
@@ -41,9 +46,11 @@ public class MainFrame extends JFrame implements ActionListener, MenuListener
 	private final String NEW_ENTRY = "newEntry",
 							DELETE_ENTRY = "delEntry",
 							REFRESH = "refresh",
+							REFRESH_MOD_LIST = "refresh_mod_list",
 							FILTER = "filter",
 							SETTINGS = "settings",
-							EDIT_ENTRY = "editEntry";
+							EDIT_ENTRY = "editEntry",
+							FILE = "file";
 	
 	public MainFrame()
 	{
@@ -85,31 +92,50 @@ public class MainFrame extends JFrame implements ActionListener, MenuListener
 		this.mFilter = new JMenu("Filter");
 		this.mSettings = new JMenu("Settings");
 		this.mRefresh = new JMenu("Refresh");
-		this.newEntry = new JMenuItem("New Entry");
+		this.newEntry = new JMenuItem("New Entry", KeyEvent.VK_N);
 		this.delEntry = new JMenuItem("Delete Entry");
 		this.editEntry = new JMenuItem("Edit Entry");
+		this.refreshModList = new JMenuItem("Refresh Mod List");
 		
 		//Properties
+		this.mFile.setActionCommand(this.FILE);
 		this.mFile.addMenuListener(this);
+		this.mFile.setMnemonic(KeyEvent.VK_F);
 		this.newEntry.setActionCommand(this.NEW_ENTRY);
 		this.newEntry.addActionListener(this);
+		this.newEntry.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
 		this.delEntry.setActionCommand(this.DELETE_ENTRY);
 		this.delEntry.addActionListener(this);
+		this.delEntry.setEnabled(false);
+		this.delEntry.setMnemonic(KeyEvent.VK_D);
+		this.delEntry.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, ActionEvent.CTRL_MASK));
 		this.editEntry.setActionCommand(this.EDIT_ENTRY);
 		this.editEntry.addActionListener(this);
 		this.editEntry.setEnabled(false);
+		this.editEntry.setMnemonic(KeyEvent.VK_E);
+		this.editEntry.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
 		this.mFilter.setActionCommand(this.FILTER);
-		this.mFile.addActionListener(this);
+		this.mFilter.addMenuListener(this);
+		this.mFilter.setMnemonic(KeyEvent.VK_I);
 		this.mSettings.setActionCommand(this.SETTINGS);
 		this.mSettings.addActionListener(this);
+		this.mSettings.setMnemonic(KeyEvent.VK_S);
+		this.refreshModList.setActionCommand(this.REFRESH_MOD_LIST);
+		this.refreshModList.addActionListener(this);
+		this.refreshModList.setMnemonic(KeyEvent.VK_R);
+		this.refreshModList.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, ActionEvent.CTRL_MASK));
 		this.mRefresh.setActionCommand(this.REFRESH);
-		this.mRefresh.addActionListener(this);
+		this.mRefresh.setMnemonic(KeyEvent.VK_R);
+//		this.mRefresh.addMenuListener(this);
 		
 		//Merge File menu
 		this.mFile.add(this.newEntry);
 		this.mFile.add(this.editEntry);
 		this.mFile.addSeparator();
 		this.mFile.add(this.delEntry);
+		
+		//Add to Refresh menu
+		this.mRefresh.add(this.refreshModList);
 		
 		//Add to menu bar
 		this.menuBar.add(this.mFile);
@@ -123,6 +149,21 @@ public class MainFrame extends JFrame implements ActionListener, MenuListener
 	{
 		this.cl.show(this.panel, keyword);
 		this.menuBar.setVisible(keyword.equals(MainFrame.OVERVIEW));
+	}
+	public void setEditButtonEnabled(boolean b)
+	{
+		this.editEntry.setEnabled(b);
+	}
+	public void setDeleteButtonEnabled(boolean b)
+	{
+		this.delEntry.setEnabled(b);
+	}
+	public void refreshModList()
+	{
+		Methods.refreshModList();
+		Globals.OVERVIEW.refresh();
+		this.editEntry.setEnabled(false);
+		this.delEntry.setEnabled(false);		
 	}
 	
 	//Interfaces
@@ -138,6 +179,13 @@ public class MainFrame extends JFrame implements ActionListener, MenuListener
 				break;
 				
 			case DELETE_ENTRY:
+				Mod mod = Globals.OVERVIEW.getSelectedMod();
+				int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete \"" + mod.getName() + "\" (ID: " + mod.getID() + ")?", "Confirm delete", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+				if (response == JOptionPane.YES_OPTION)
+				{
+					FileOperation.deleteMod(mod);
+				}
+				this.refreshModList();
 				break;
 				
 			case EDIT_ENTRY:
@@ -150,32 +198,34 @@ public class MainFrame extends JFrame implements ActionListener, MenuListener
 				catch(NullPointerException ex){}
 				break;
 				
-			case SETTINGS:
-				break;
-				
-			case FILTER:
-				break;
-				
-			case REFRESH:
+			case REFRESH_MOD_LIST:
+				this.refreshModList();
 				break;
 		}
 	}
 
 	@Override
-	public void menuCanceled(MenuEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void menuCanceled(MenuEvent arg0) {}
 
 	@Override
-	public void menuDeselected(MenuEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void menuDeselected(MenuEvent arg0) {}
 
 	@Override
-	public void menuSelected(MenuEvent arg0)
+	public void menuSelected(MenuEvent e)
 	{
-		this.editEntry.setEnabled(Globals.OVERVIEW.hasModHighlighted());
+		JMenu menu = (JMenu)e.getSource();
+		switch(menu.getActionCommand())
+		{
+			case FILE:
+	//			this.editEntry.setEnabled(Globals.OVERVIEW.hasModHighlighted());
+				break;
+
+			case SETTINGS:
+				break;
+				
+			case FILTER:
+				break;
+		}
+		
 	}
 }

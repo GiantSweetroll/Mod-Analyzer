@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -64,6 +65,7 @@ public class FilterElement<T> extends JPanel implements FormEssentials, ActionLi
 		this.check.setOpaque(false);
 		this.check.addItemListener(this);
 		this.combo.addMouseListener(this.checkBoxSelect);
+		this.combo.setBackground(Color.WHITE);
 		this.keyword.addMouseListener(this.checkBoxSelect);
 		
 		//Add to panel
@@ -165,6 +167,7 @@ public class FilterElement<T> extends JPanel implements FormEssentials, ActionLi
 		{
 			this.combo.removeMouseListener(this.comboSelect);
 			this.keyword.removeMouseListener(this.textFieldSelect);
+			this.keyword.setText("");
 		}
 	}
 	private MouseListener textFieldSelect = new MouseListener()

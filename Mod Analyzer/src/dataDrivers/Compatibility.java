@@ -122,4 +122,16 @@ public class Compatibility
 		this.setPatchLink(Methods.getTextContent(compatElement, Compatibility.PATCH_LINK));
 		this.setNotes(Methods.getTextContent(compatElement, Compatibility.NOTES));
 	}
+	//Other
+	public void printCompatibility()
+	{
+		System.out.println("---------- " + this.getModID() + " ----------");
+		System.out.println("Is compatible?: " + this.isCompatible());
+		System.out.println("Severity: " + this.getSeverity());
+		System.out.println("Reason of severity: " + this.getReason());
+		System.out.println("Is a patch available?: " + this.isPatchAvailable());
+		System.out.println("Patch link: " + this.getPatchLink());
+		System.out.println("Compatibility notes: " + this.getNotes());
+		System.out.println("--------------------------------");
+	}
 }

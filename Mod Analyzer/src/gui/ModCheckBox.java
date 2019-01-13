@@ -156,6 +156,15 @@ public class ModCheckBox extends JPanel implements ItemListener, ActionListener
 	}
 	
 	//Private Methods
+	private void select()
+	{
+		if(!Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModID().equals(""))
+		{
+			Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModCheckBox().highlight(false);
+		}
+		this.updateCompatibility();
+		this.highlight(true);		
+	}
 	public void updateCompatibility()
 	{
 	/*	String compatDetailModID = Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.getActiveModID();
@@ -168,7 +177,10 @@ public class ModCheckBox extends JPanel implements ItemListener, ActionListener
 			}
 		}		*/
 //		Globals.MOD_FORM_MOD_DETAILS_PANEL.displayModDetails(mod);
-		System.out.println("Before: " + Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModID());
+		
+//		System.out.println("Active Mod ID before updating compatibility: " + Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModID());
+//		System.out.println("Compatibility list before updating:");
+//		Globals.COMPATIBILITY_SELECTION_PANEL.getCompatibilityList().printAllCompatibilities();
 		if (!Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModID().equals(""))
 		{
 			//Saves the previous active item
@@ -177,12 +189,12 @@ public class ModCheckBox extends JPanel implements ItemListener, ActionListener
 				ModCheckBox mcb = Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModCheckBox();
 				if (mcb.isSelected())
 				{
-					System.out.println("Compatibility updated..." + " (" + mcb.getModName() + ")");
+		//			System.out.println("Compatibility updated..." + " (" + mcb.getModName() + ")");
 					Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.updateCurrentCompatibility();		
 				}
 				else
 				{
-					System.out.println("Compatibility removed..." + " (" + mcb.getModName() + ")");
+		//			System.out.println("Compatibility removed..." + " (" + mcb.getModName() + ")");
 					Globals.COMPATIBILITY_SELECTION_PANEL.removeCompatibility(Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.getActiveModID());
 				}	
 			}
@@ -195,11 +207,11 @@ public class ModCheckBox extends JPanel implements ItemListener, ActionListener
 			Globals.COMPATIBILITY_MOD_SELECTION_PANEL.setActiveModIndex(this.getIndex());
 			try
 			{
-				Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.setData(Globals.COMPATIBILITY_SELECTION_PANEL.getCompatibility(modID));
+				Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.setData(Globals.COMPATIBILITY_SELECTION_PANEL.getCompatibility(modID));			//Display compatibility data in compatibility details panel
 			}
 			catch(NullPointerException ex) 
 			{
-				System.out.println("null");
+	//			System.out.println("null");
 				Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.resetDefaults();
 				Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.setActiveModID(modID);
 			}
@@ -211,9 +223,17 @@ public class ModCheckBox extends JPanel implements ItemListener, ActionListener
 			Globals.COMPATIBILITY_MOD_SELECTION_PANEL.setActiveModID(modID);
 			Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.setActiveModID(modID);
 			Globals.COMPATIBILITY_MOD_SELECTION_PANEL.setActiveModIndex(this.getIndex());
+			//Try to check if existing compatibility data for the selected mod id exists
+			try
+			{
+				Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.setData(Globals.COMPATIBILITY_SELECTION_PANEL.getCompatibility(modID));			//Display compatibility data in compatibility details panel
+			}
+			catch(NullPointerException ex) {};
 		}
-		System.out.println("Now: " + Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModID());
-		Methods.printCompatibilityIDs(Globals.COMPATIBILITY_SELECTION_PANEL.getCompatibilityList());
+//		System.out.println("Active Mod ID after updating compatibility: " + Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModID());
+//		System.out.println("Compatibility list after updating:");
+//		Globals.COMPATIBILITY_SELECTION_PANEL.getCompatibilityList().printAllCompatibilities();
+//		Methods.printCompatibilityIDs(Globals.COMPATIBILITY_SELECTION_PANEL.getCompatibilityList());
 	}
 	
 	//Comparator
@@ -230,12 +250,7 @@ public class ModCheckBox extends JPanel implements ItemListener, ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		if(!Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModID().equals(""))
-		{
-			Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModCheckBox().highlight(false);
-		}
-		this.updateCompatibility();
-		this.highlight(true);
+		this.select();
 	}
 
 	@Override
@@ -248,12 +263,7 @@ public class ModCheckBox extends JPanel implements ItemListener, ActionListener
 		}
 		else
 		{
-			if(!Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModID().equals(""))
-			{
-				Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModCheckBox().highlight(false);
-			}
-			this.updateCompatibility();
-			this.highlight(true);
+			this.select();
 		}
 	}
 

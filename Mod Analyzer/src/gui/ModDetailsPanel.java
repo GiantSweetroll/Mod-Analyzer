@@ -25,7 +25,7 @@ public class ModDetailsPanel extends JPanel implements FormEssentials
 	 */
 	private static final long serialVersionUID = -3438270466642105159L;
 
-	private JLabel labID, labName, labAuthor, labVersion, labLink, labNotes, id, name, author, version, link, notes;
+	private JLabel labID, labName, labAuthor, labVersion, labLink, labDateCreated, labDateUpdated, labNotes, id, name, author, version, link, dateCreated, dateUpdated, notes;
 	private JPanel panelForm, panelNotes, panelCenter;
 	private JScrollPane scrollNotes;
 	
@@ -41,7 +41,7 @@ public class ModDetailsPanel extends JPanel implements FormEssentials
 		this.initPanelNotes();
 		
 		//Properties
-		this.setLayout(new BorderLayout());
+		this.setLayout(new BorderLayout(10, 10));
 		
 		//Add to panel
 		this.add(this.panelCenter, BorderLayout.CENTER);
@@ -60,6 +60,10 @@ public class ModDetailsPanel extends JPanel implements FormEssentials
 		this.author = new JLabel();
 		this.labVersion = new JLabel("Version:");
 		this.version = new JLabel();
+		this.labDateCreated = new JLabel("Registered On (DD/MM/YYYY):");
+		this.dateCreated = new JLabel();
+		this.labDateUpdated = new JLabel("Last Updated On (DD/MM/YYYY):");
+		this.dateUpdated = new JLabel();
 		this.labLink = new JLabel("Link:");
 		this.link = new JLabel();
 		GridBagConstraints c = new GridBagConstraints();
@@ -89,6 +93,14 @@ public class ModDetailsPanel extends JPanel implements FormEssentials
 		this.panelForm.add(this.labLink, c);				//Link label
 		Gbm.nextGridColumn(c);
 		this.panelForm.add(this.link, c);					//Link
+		Gbm.newGridLine(c);
+		this.panelForm.add(this.labDateCreated, c);			//Date Created label
+		Gbm.nextGridColumn(c);
+		this.panelForm.add(this.dateCreated, c);			//Date Created
+		Gbm.newGridLine(c);
+		this.panelForm.add(this.labDateUpdated, c);			//Date Last Updated Label
+		Gbm.nextGridColumn(c);
+		this.panelForm.add(this.dateUpdated, c);			//Date Last Updated
 		
 //		SpringUtilities.makeCompactGrid(this.panelCenter, 2, 4, 0, 0, Constants.INSETS_BASE, Constants.INSETS_BASE);
 	}
@@ -203,6 +215,8 @@ public class ModDetailsPanel extends JPanel implements FormEssentials
 		this.author.setText(mod.getAuthor());
 		this.version.setText(mod.getVersion());
 		this.link.setText(mod.getLink());
+		this.dateCreated.setText(Methods.getDateAsString(mod.getDateCreated()));
+		this.dateUpdated.setText(Methods.getDateAsString(mod.getDateModified()));
 		this.notes.setText(Methods.getWrappableText(mod.getNotes()));
 	}
 	
@@ -219,6 +233,8 @@ public class ModDetailsPanel extends JPanel implements FormEssentials
 		this.author.setText("");
 		this.version.setText("");
 		this.link.setText("");
+		this.dateCreated.setText("");
+		this.dateUpdated.setText("");
 		this.notes.setText("");
 	}
 }

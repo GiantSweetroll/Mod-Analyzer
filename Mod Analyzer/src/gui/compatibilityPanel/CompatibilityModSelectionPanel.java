@@ -177,6 +177,12 @@ public class CompatibilityModSelectionPanel extends JPanel implements FormEssent
 		this.panelCenter.revalidate();
 		this.panelCenter.repaint();		
 	}
+	public void disableCurrentlyActiveMod()
+	{
+		this.getActiveModCheckBox().highlight(false);
+		this.activeModID = "";
+		this.activeModIndex = 0;
+	}
 	
 	//Interfaces
 	@Override

@@ -20,7 +20,6 @@ import dataDrivers.ModLite;
 import gui.FilterElement;
 import gui.ModCheckBox;
 import interfaces.FormEssentials;
-import methods.FileOperation;
 import methods.Filter;
 import methods.Methods;
 
@@ -196,9 +195,10 @@ public class CompatibilityManagerPanel extends JPanel implements ActionListener,
 	{
 		//Update Compatibility before filtering
 		ModCheckBox mcb = Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModCheckBox();
+	//	System.out.println("Active mod check box: " + mcb.getModName());
 		mcb.updateCompatibility();
 		
-		//Prepare Filter
+		//Filter
 		Set<Mod> mods = Globals.MODS;
 		if (this.authorFilterSelected())
 		{
@@ -209,10 +209,14 @@ public class CompatibilityManagerPanel extends JPanel implements ActionListener,
 			Filter.modsByName(mods, this.getModNameFilter());
 		}
 		
-		Globals.COMPATIBILITY_MOD_SELECTION_PANEL.setMods(mods);
+		Globals.COMPATIBILITY_MOD_SELECTION_PANEL.setMods(mods);		//Apply filter to the mod selection panel
 		Globals.MOD_FORM.revalidate();
 		Globals.MOD_FORM.refresh();
 		Globals.COMPATIBILITY_MOD_SELECTION_PANEL.setData(Globals.COMPATIBILITY_SELECTION_PANEL.getCompatibilityList());
+		Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.resetDefaults();
+		Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.setEnabled(false);
+		Globals.COMPATIBILITY_MOD_SELECTION_PANEL.disableCurrentlyActiveMod();
+//		System.out.println("Active Mod ID after Filter: " + Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModID());
 		Methods.refreshModList();
 	}
 	
