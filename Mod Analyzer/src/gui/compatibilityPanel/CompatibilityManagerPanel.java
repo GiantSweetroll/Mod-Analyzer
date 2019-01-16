@@ -17,8 +17,10 @@ import constants.Globals;
 import dataDrivers.CompatibilityList;
 import dataDrivers.Mod;
 import dataDrivers.ModLite;
-import gui.FilterElement;
 import gui.ModCheckBox;
+import gui.filter.FilterDate;
+import gui.filter.FilterDropDown;
+import gui.filter.FilterElement;
 import interfaces.FormEssentials;
 import methods.Filter;
 import methods.Methods;
@@ -33,9 +35,10 @@ public class CompatibilityManagerPanel extends JPanel implements ActionListener,
 	
 	private JPanel panelSearchFilters, panelSearchBelow, panelSearch;
 	private JButton butFilter, butReset, butDisable;
-	private FilterElement<ModLite> filterModName;
-	private FilterElement<String> filterModAuthor;
-	private List<FilterElement<?>> filters;
+	private FilterDropDown<ModLite> filterModName;
+	private FilterDropDown<String> filterModAuthor;
+	private FilterDate filterDateModified;
+	private List<FilterElement> filters;
 	
 	//Constants
 	private final String FILTER = "filter";
@@ -66,9 +69,9 @@ public class CompatibilityManagerPanel extends JPanel implements ActionListener,
 	{
 		//Initialization
 		this.panelSearchFilters = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		this.filterModName = new FilterElement<ModLite>("Name", Methods.convertRegisteredModsToModLite());
-		this.filterModAuthor = new FilterElement<String>("Author", Methods.getNamesOfAuthorsFromRegisteredMods());
-		this.filters = new ArrayList<FilterElement<?>>();
+		this.filterModName = new FilterDropDown<ModLite>("Name", Methods.convertRegisteredModsToModLite());
+		this.filterModAuthor = new FilterDropDown<String>("Author", Methods.getNamesOfAuthorsFromRegisteredMods());
+		this.filters = new ArrayList<FilterElement>();
 		
 		//Properties
 		this.panelSearchFilters.setBorder(BorderFactory.createTitledBorder("Filter"));

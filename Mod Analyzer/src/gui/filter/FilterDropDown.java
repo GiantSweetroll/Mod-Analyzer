@@ -1,69 +1,54 @@
-package gui;
+package gui.filter;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import constants.Constants;
 import giantsweetroll.gui.swing.Gbm;
-import interfaces.FormEssentials;
 
-public class FilterElement<T> extends JPanel implements FormEssentials, ActionListener, ItemListener
+public class FilterDropDown<T> extends FilterElement
 {
-
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7880129475851965275L;
-
-	private JCheckBox check;
+	private static final long serialVersionUID = -1832831792734523231L;
 	private JTextField keyword;
 	private JComboBox<T> combo;
 	private T[] elements;
-	private JButton butReset;
 	
 	//Constructor
-	public FilterElement(String text)
+	public FilterDropDown(String text)
 	{
-		this.init(text);
+		super(text);
+		this.init();
 		this.setEnabled(this.hasElements());
 	}
-	public FilterElement(String text, T[] selections)
+	public FilterDropDown(String text, T[] selections)
 	{
-		this.init(text);
+		super(text);
+		this.init();
 		this.setSelection(selections);
 		this.setEnabled(this.hasElements());
 	}
 	
-	//Methods
 	//Create GUI
-	private void init(String text)
+	private void init()
 	{
 		//Initialization
-		this.check = new JCheckBox(text);
 		this.combo = new JComboBox<T>();
 		this.keyword = new JTextField(10);
-		this.butReset = new JButton("Reset");
 		GridBagConstraints c = new GridBagConstraints();
 		
 		//Properties
 		this.setLayout(new GridBagLayout());
-		this.butReset.addActionListener(this);
-		this.check.setOpaque(false);
-		this.check.addItemListener(this);
 		this.combo.addMouseListener(this.checkBoxSelect);
 		this.combo.setBackground(Color.WHITE);
 		this.keyword.addMouseListener(this.checkBoxSelect);
@@ -78,7 +63,7 @@ public class FilterElement<T> extends JPanel implements FormEssentials, ActionLi
 		Gbm.nextGridColumn(c);
 		this.add(this.keyword, c);				//Text Field
 		Gbm.nextGridColumn(c);
-		this.add(this.butReset, c);				//Reset Button
+		this.add(this.butReset, c);				//Reset Button		
 	}
 	//Public Methods
 	public T[] getItems()
@@ -97,10 +82,6 @@ public class FilterElement<T> extends JPanel implements FormEssentials, ActionLi
 	public String getFilterKeyword()
 	{
 		return this.keyword.getText();
-	}
-	public boolean isSelected()
-	{
-		return this.check.isSelected();
 	}
 	public void refresh(T[] elements)
 	{
@@ -121,10 +102,7 @@ public class FilterElement<T> extends JPanel implements FormEssentials, ActionLi
 	{
 		return this.keyword.isEditable();
 	}
-	public void setSelected(boolean b)
-	{
-		this.check.setSelected(b);
-	}
+	
 	
 	//Interfaces
 	@Deprecated
@@ -137,24 +115,17 @@ public class FilterElement<T> extends JPanel implements FormEssentials, ActionLi
 		this.keyword.setText("");
 	}
 	@Override
-	public void actionPerformed(ActionEvent e)
-	{
-		this.resetDefaults();
-	}
-	@Override
 	public void setEnabled(boolean b)
 	{
 		super.setEnabled(b);
-		this.check.setEnabled(b);
-		b = this.check.isSelected();
+		b = this.isSelected();
 		this.keyword.setEditable(b);
-		this.butReset.setEnabled(b);
 		this.combo.setEnabled(b);
-	}
+	}	
 	@Override
 	public void itemStateChanged(ItemEvent e)
 	{	
-		boolean b = this.check.isSelected();
+		boolean b = this.isSelected();
 		this.keyword.setEditable(false);
 		this.butReset.setEnabled(b);
 		this.combo.setEnabled(b);
@@ -169,7 +140,7 @@ public class FilterElement<T> extends JPanel implements FormEssentials, ActionLi
 			this.keyword.removeMouseListener(this.textFieldSelect);
 			this.keyword.setText("");
 		}
-	}
+	}	
 	private MouseListener textFieldSelect = new MouseListener()
 	{
 		@Override
@@ -228,5 +199,5 @@ public class FilterElement<T> extends JPanel implements FormEssentials, ActionLi
 				}
 				@Override
 				public void mouseReleased(MouseEvent arg0) {}		
-			};			
+			};	
 }
