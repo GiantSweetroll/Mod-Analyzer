@@ -2,30 +2,15 @@ package gui.compatibilityPanel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import constants.Globals;
 import dataDrivers.CompatibilityList;
-import dataDrivers.Mod;
-import dataDrivers.ModLite;
-import gui.ModCheckBox;
-import gui.filter.FilterDate;
-import gui.filter.FilterDropDown;
-import gui.filter.FilterElement;
 import interfaces.FormEssentials;
-import methods.Filter;
-import methods.Methods;
 
-public class CompatibilityManagerPanel extends JPanel implements ActionListener, FormEssentials
+public class CompatibilityManagerPanel extends JPanel implements FormEssentials//, ActionListener
 {
 
 	/**
@@ -33,17 +18,17 @@ public class CompatibilityManagerPanel extends JPanel implements ActionListener,
 	 */
 	private static final long serialVersionUID = 8062423562858065850L;
 	
-	private JPanel panelSearchFilters, panelSearchBelow, panelSearch;
-	private JButton butFilter, butReset, butDisable;
-	private FilterDropDown<ModLite> filterModName;
-	private FilterDropDown<String> filterModAuthor;
-	private FilterDate filterDateModified;
-	private List<FilterElement> filters;
+//	private JPanel panelSearchFilters, panelSearch, panelSearchBelow;
+//	private JButton butFilter, butReset, butDisable;
+//	private FilterDropDown<ModLite> filterModName;
+//	private FilterDropDown<String> filterModAuthor;
+//	private FilterDate filterDateModified;
+//	private List<FilterElement> filters;
 	
 	//Constants
-	private final String FILTER = "filter";
-	private final String RESET = "reset";
-	private final String DISABLE_FILTERS = "disable filters";
+//	private final String FILTER = "filter";
+//	private final String RESET = "reset";
+//	private final String DISABLE_FILTERS = "disable filters";
 	
 	//Constructor
 	public CompatibilityManagerPanel()
@@ -55,28 +40,32 @@ public class CompatibilityManagerPanel extends JPanel implements ActionListener,
 	private void createGUI()
 	{
 		//Initialization
-		this.initPanelSearch();
+	//	this.initPanelSearch();
 		
 		//Properties
 		this.setLayout(new BorderLayout());
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
 		
 		//Add to panel
-		this.add(this.panelSearch, BorderLayout.NORTH);
+//		this.add(this.panelSearch, BorderLayout.NORTH);
+		this.add(Globals.MOD_FORM_FILTER_PANEL, BorderLayout.NORTH);
 		this.add(Globals.COMPATIBILITY_SELECTION_PANEL, BorderLayout.CENTER);
 	}
+	/*
 	private void initPanelSearchFilters()
 	{
 		//Initialization
 		this.panelSearchFilters = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		this.filterModName = new FilterDropDown<ModLite>("Name", Methods.convertRegisteredModsToModLite());
 		this.filterModAuthor = new FilterDropDown<String>("Author", Methods.getNamesOfAuthorsFromRegisteredMods());
+		this.filterDateModified = new FilterDate("Last Modified");
 		this.filters = new ArrayList<FilterElement>();
 		
 		//Properties
 		this.panelSearchFilters.setBorder(BorderFactory.createTitledBorder("Filter"));
 		this.filters.add(this.filterModName);
 		this.filters.add(this.filterModAuthor);
+		this.filters.add(this.filterDateModified);
 		
 		//Add to panel
 		for (int i=0; i<this.filters.size(); i++)
@@ -115,7 +104,7 @@ public class CompatibilityManagerPanel extends JPanel implements ActionListener,
 		//add to panel
 		this.panelSearch.add(this.panelSearchFilters, BorderLayout.CENTER);
 		this.panelSearch.add(this.panelSearchBelow, BorderLayout.SOUTH);
-	}
+	}		*/
 	//Public Methods
 	public void setData(CompatibilityList compatList)
 	{
@@ -129,6 +118,7 @@ public class CompatibilityManagerPanel extends JPanel implements ActionListener,
 	{
 		return Globals.COMPATIBILITY_SELECTION_PANEL.getGeneralCompatibility();
 	}
+	/*
 	public void refreshFilters()
 	{
 		this.filterModAuthor.refresh(Methods.getNamesOfAuthorsFromRegisteredMods());
@@ -192,8 +182,9 @@ public class CompatibilityManagerPanel extends JPanel implements ActionListener,
 	public boolean modNameOrIDFilterSelected()
 	{
 		return this.filterModName.isSelected();
-	}
+	}		*/
 	//Private Methods
+	/*
 	private void applyFilter()
 	{
 		//Update Compatibility before filtering
@@ -224,6 +215,7 @@ public class CompatibilityManagerPanel extends JPanel implements ActionListener,
 	}
 	
 	//Interfaces
+	/*
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
@@ -241,18 +233,18 @@ public class CompatibilityManagerPanel extends JPanel implements ActionListener,
 				this.disableFilters();
 				break;
 		}
-	}
+	}		*/
 
 	@Override
 	public void refresh() 
 	{
-		this.refreshFilters();
+//		this.refreshFilters();
 	}
 
 	@Override
 	public void resetDefaults() 
 	{
-		this.resetFilters();
+//		this.resetFilters();
 		Globals.COMPATIBILITY_MOD_SELECTION_PANEL.resetDefaults();
 		Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.resetDefaults();
 		Globals.MOD_FORM_MOD_DETAILS_PANEL.resetDefaults();

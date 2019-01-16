@@ -1,15 +1,15 @@
 package gui.filter;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.FlowLayout;
 import java.awt.event.ItemEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import constants.Constants;
 import giantsweetroll.date.Date;
-import giantsweetroll.gui.swing.Gbm;
 import gui.DateRangePanel;
 
-public class FilterDate extends FilterElement
+public class FilterDate extends FilterElement implements MouseListener
 {
 	/**
 	 * 
@@ -28,21 +28,25 @@ public class FilterDate extends FilterElement
 	{
 		//Initialization
 		this.dateRangePanel = new DateRangePanel();
-		GridBagConstraints c = new GridBagConstraints();
+//		GridBagConstraints c = new GridBagConstraints();
 		
 		//Properties
-		this.setLayout(new GridBagLayout());
+//		this.setLayout(new GridBagLayout());
+		this.setLayout(new FlowLayout(FlowLayout.LEFT, Constants.INSETS_BASE, Constants.INSETS_BASE));
 		this.butReset.setText("Reset Dates");
+		this.dateRangePanel.setEnabled(false);
+		this.dateRangePanel.addMouseListener(this);
+		this.butReset.setEnabled(false);
 		
 		//Add to panel
-		Gbm.goToOrigin(c);
-		c.fill = GridBagConstraints.BOTH;
-		c.insets = Constants.INSETS_GENERAL;
-		this.add(this.check, c);				//Check box
-		Gbm.nextGridColumn(c);
-		this.add(this.dateRangePanel, c);		//Date Range Panel
-		Gbm.nextGridColumn(c);
-		this.add(this.butReset, c);				//Reset Button	
+//		Gbm.goToOrigin(c);
+	//	c.fill = GridBagConstraints.BOTH;
+//		c.insets = Constants.INSETS_GENERAL;
+		this.add(this.check);				//Check box
+//		Gbm.nextGridColumn(c);
+		this.add(this.dateRangePanel);		//Date Range Panel
+//		Gbm.nextGridColumn(c);
+		this.add(this.butReset);				//Reset Button	
 	}
 	
 	//Public Methods
@@ -89,4 +93,21 @@ public class FilterDate extends FilterElement
 		this.butReset.setEnabled(b);
 		this.dateRangePanel.setEnabled(b);
 	}
+	@Override
+	public void mouseClicked(MouseEvent e){}
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+	@Override
+	public void mouseExited(MouseEvent e) {}
+	@Override
+	public void mousePressed(MouseEvent e) 
+	{
+		if(!this.isSelected())
+		{
+			this.dateRangePanel.setEnabled(true);
+			this.butReset.setEnabled(true);
+		}
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {}
 }

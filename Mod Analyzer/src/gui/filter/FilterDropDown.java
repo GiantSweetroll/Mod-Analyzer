@@ -1,8 +1,7 @@
 package gui.filter;
 
 import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.FlowLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -12,7 +11,6 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
 import constants.Constants;
-import giantsweetroll.gui.swing.Gbm;
 
 public class FilterDropDown<T> extends FilterElement
 {
@@ -45,25 +43,26 @@ public class FilterDropDown<T> extends FilterElement
 		//Initialization
 		this.combo = new JComboBox<T>();
 		this.keyword = new JTextField(10);
-		GridBagConstraints c = new GridBagConstraints();
+//		GridBagConstraints c = new GridBagConstraints();
 		
 		//Properties
-		this.setLayout(new GridBagLayout());
+//		this.setLayout(new GridBagLayout());
+		this.setLayout(new FlowLayout(FlowLayout.LEFT, Constants.INSETS_BASE, Constants.INSETS_BASE));
 		this.combo.addMouseListener(this.checkBoxSelect);
 		this.combo.setBackground(Color.WHITE);
 		this.keyword.addMouseListener(this.checkBoxSelect);
 		
 		//Add to panel
-		Gbm.goToOrigin(c);
-		c.insets = Constants.INSETS_GENERAL;
-		c.fill = GridBagConstraints.BOTH;
-		this.add(this.check, c);				//Check box
-		Gbm.nextGridColumn(c);
-		this.add(this.combo, c);				//JComboBox
-		Gbm.nextGridColumn(c);
-		this.add(this.keyword, c);				//Text Field
-		Gbm.nextGridColumn(c);
-		this.add(this.butReset, c);				//Reset Button		
+//		Gbm.goToOrigin(c);
+//		c.insets = Constants.INSETS_GENERAL;
+//		c.fill = GridBagConstraints.BOTH;
+		this.add(this.check);				//Check box
+//		Gbm.nextGridColumn(c);
+		this.add(this.combo);				//JComboBox
+//		Gbm.nextGridColumn(c);
+		this.add(this.keyword);				//Text Field
+//		Gbm.nextGridColumn(c);
+		this.add(this.butReset);				//Reset Button		
 	}
 	//Public Methods
 	public T[] getItems()

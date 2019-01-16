@@ -38,7 +38,7 @@ public class MainFrame extends JFrame implements ActionListener, MenuListener
 	
 	private JMenuBar menuBar;
 	private JMenu mFile, mFilter, mSettings, mRefresh;
-	private JMenuItem newEntry, delEntry, editEntry, refreshModList;
+	private JMenuItem newEntry, delEntry, editEntry, refreshModList, filterMenu;
 	
 	//Constants
 	public static final String MOD_FORM = "modform",
@@ -48,10 +48,11 @@ public class MainFrame extends JFrame implements ActionListener, MenuListener
 							REFRESH = "refresh",
 							REFRESH_MOD_LIST = "refresh_mod_list",
 							FILTER = "filter",
+							FILTER_MENU = "filter_meny",
 							SETTINGS = "settings",
 							EDIT_ENTRY = "editEntry",
 							FILE = "file";
-	
+	//Constructor
 	public MainFrame()
 	{
 		super("Mod Analyzer");
@@ -60,8 +61,10 @@ public class MainFrame extends JFrame implements ActionListener, MenuListener
 		Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL = new CompatibilityDetailsPanel();
 		Globals.MOD_FORM_MOD_DETAILS_PANEL = new ModDetailsPanel();
 		Globals.COMPATIBILITY_SELECTION_PANEL = new CompatibilitySelectionPanel();
+		Globals.MOD_FORM_FILTER_PANEL = new FilterPanel(true, FilterPanel.MOD_FORM);
 		Globals.MOD_FORM = new ModForm();
 		Globals.OVERVIEW = new OverviewPanel();
+		Globals.OVERVIEW_FILTER_PANEL = new FilterPanel(false, FilterPanel.OVERVIEW);
 		this.cl = new CardLayout();
 		this.panel = new JPanel(cl);
 //		Globals.OVERVIEW_MOD_DETAILS_PANEL = new ModDetailsPanel();
@@ -92,6 +95,7 @@ public class MainFrame extends JFrame implements ActionListener, MenuListener
 		this.mFilter = new JMenu("Filter");
 		this.mSettings = new JMenu("Settings");
 		this.mRefresh = new JMenu("Refresh");
+		this.filterMenu = new JMenuItem("Filter Settings");
 		this.newEntry = new JMenuItem("New Entry", KeyEvent.VK_N);
 		this.delEntry = new JMenuItem("Delete Entry");
 		this.editEntry = new JMenuItem("Edit Entry");
@@ -115,7 +119,7 @@ public class MainFrame extends JFrame implements ActionListener, MenuListener
 		this.editEntry.setMnemonic(KeyEvent.VK_E);
 		this.editEntry.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
 		this.mFilter.setActionCommand(this.FILTER);
-		this.mFilter.addMenuListener(this);
+//		this.mFilter.addMenuListener(this);
 		this.mFilter.setMnemonic(KeyEvent.VK_I);
 		this.mSettings.setActionCommand(this.SETTINGS);
 		this.mSettings.addActionListener(this);
@@ -127,6 +131,10 @@ public class MainFrame extends JFrame implements ActionListener, MenuListener
 		this.mRefresh.setActionCommand(this.REFRESH);
 		this.mRefresh.setMnemonic(KeyEvent.VK_R);
 //		this.mRefresh.addMenuListener(this);
+		this.filterMenu.setActionCommand(this.FILTER_MENU);
+		this.filterMenu.addActionListener(this);
+		this.filterMenu.setMnemonic(KeyEvent.VK_F);
+		this.filterMenu.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, ActionEvent.CTRL_MASK));
 		
 		//Merge File menu
 		this.mFile.add(this.newEntry);
@@ -137,11 +145,14 @@ public class MainFrame extends JFrame implements ActionListener, MenuListener
 		//Add to Refresh menu
 		this.mRefresh.add(this.refreshModList);
 		
+		//Add to Filter menu
+		this.mFilter.add(this.filterMenu);
+		
 		//Add to menu bar
 		this.menuBar.add(this.mFile);
 		this.menuBar.add(this.mFilter);
 		this.menuBar.add(this.mRefresh);
-		this.menuBar.add(this.mSettings);
+//		this.menuBar.add(this.mSettings);
 	}
 	
 	//Public Methods
@@ -184,8 +195,13 @@ public class MainFrame extends JFrame implements ActionListener, MenuListener
 				if (response == JOptionPane.YES_OPTION)
 				{
 					FileOperation.deleteMod(mod);
+					this.refreshModList();
+					//Delete mod reference in other mod's compatibility list
+					for (Mod m : Globals.MODS)
+					{
+						m.getCompatibilities().removeCompatibility(mod.getID());
+					}
 				}
-				this.refreshModList();
 				break;
 				
 			case EDIT_ENTRY:
@@ -200,6 +216,11 @@ public class MainFrame extends JFrame implements ActionListener, MenuListener
 				
 			case REFRESH_MOD_LIST:
 				this.refreshModList();
+				break;
+				
+			case FILTER_MENU:
+				JOptionPane.showMessageDialog(null, Globals.OVERVIEW_FILTER_PANEL, "Filter", JOptionPane.PLAIN_MESSAGE, null);
+				Globals.OVERVIEW_FILTER_PANEL.applyFilter();
 				break;
 		}
 	}

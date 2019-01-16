@@ -109,7 +109,11 @@ public class CompatibilityList
 	//Other Methods
 	public void removeCompatibility(String modID)
 	{
-		this.compat.remove(modID);
+		try
+		{
+			this.compat.remove(modID);
+		}
+		catch(NullPointerException ex) {}
 	}
 	public void printAllCompatibilities()
 	{

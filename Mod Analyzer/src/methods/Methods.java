@@ -2,6 +2,7 @@ package methods;
 
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
@@ -197,4 +198,17 @@ public class Methods
 	{
 		return date.getDay() + "/" + date.getMonth() + "/" + date.getYear();
 	}
+	
+    public static void addZeroesToList(List<String> list)
+    {
+    	for (int i=0; i<list.size(); i++)
+    	{
+    		String str = list.get(i);
+    		if (str.length()==1)
+    		{
+    			str = "0" + str;
+    			list.set(i, str);
+    		}
+    	}
+    }
 }

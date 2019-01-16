@@ -7,6 +7,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -93,7 +94,9 @@ public class ModForm extends JPanel implements FormEssentials, ActionListener
 		this.panelBelow.setLayout(new BorderLayout());
 		this.panelBelow.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		this.butCancel.addActionListener(this);
+		this.butCancel.setMnemonic(KeyEvent.VK_C);
 		this.butSave.addActionListener(this);
+		this.butSave.setMnemonic(KeyEvent.VK_S);
 		panelLeft.setLayout(new FlowLayout(FlowLayout.LEFT));
 		panelRight.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		
@@ -307,7 +310,9 @@ public class ModForm extends JPanel implements FormEssentials, ActionListener
 					Globals.OVERVIEW.setData(Globals.MODS);
 					Globals.OVERVIEW.resetDefaults();
 					Globals.MAIN_FRAME.changeActivePanel(MainFrame.OVERVIEW);
-					this.compatPanel.refreshFilters();
+	//				this.compatPanel.refreshFilters();
+					Globals.MOD_FORM_FILTER_PANEL.resetFilters();
+					Globals.OVERVIEW_FILTER_PANEL.resetFilters();
 					this.refreshModSelectionList();
 				}
 				else

@@ -44,7 +44,11 @@ public class CompatibleOverviewPanel extends JPanel implements FormEssentials
 		HashMap<String, Mod> map = Methods.convertToMapByID(Globals.MODS);
 		for (Compatibility compat : list)
 		{
-			this.labels.add(new JLabel(map.get(compat.getModID()).getName()));
+			try
+			{
+				this.labels.add(new JLabel(map.get(compat.getModID()).getName()));
+			}
+			catch(NullPointerException ex){}
 		}
 		
 		//Sort labels

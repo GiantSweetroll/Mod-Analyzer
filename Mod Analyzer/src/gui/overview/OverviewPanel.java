@@ -158,6 +158,7 @@ public class OverviewPanel extends JPanel implements ActionListener, FormEssenti
 	//Public Methods
 	public void setData(Collection<Mod> mods)
 	{
+		this.resetDefaults();
 		this.removeDisplayedButtonsFromPanel();
 		this.modMap.clear();
 		this.buttons.clear();
