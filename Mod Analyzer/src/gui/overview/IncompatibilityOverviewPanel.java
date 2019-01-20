@@ -138,6 +138,7 @@ public class IncompatibilityOverviewPanel extends JPanel implements ActionListen
 			this.panelLeft.remove(button);
 		}
 		this.panelLeft.setBorder(null);
+		this.details.setBorder(null);
 		this.panelLeft.revalidate();
 		this.panelLeft.repaint();
 	}

@@ -243,6 +243,7 @@ public class ModDetailsPanel extends JPanel implements FormEssentials
 		this.dateCreated.setText(Methods.getDateAsString(mod.getDateCreated()));
 		this.dateUpdated.setText(Methods.getDateAsString(mod.getDateModified()));
 		this.notes.setText(mod.getNotes());
+		this.revalidate();
 		this.repaint();
 	}
 	

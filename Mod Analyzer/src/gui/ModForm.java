@@ -197,7 +197,7 @@ public class ModForm extends JPanel implements FormEssentials, ActionListener
 		this.newEntry = false;
 		this.compatPanel.resetDefaults();
 		this.tfModName.setText(mod.getName());
-		this.tfAuthor.setText(mod.getName());
+		this.tfAuthor.setText(mod.getAuthor());
 		this.tfVersion.setText(mod.getVersion());
 		this.tfLink.setText(mod.getLink());
 		this.taNotes.setText(mod.getNotes());

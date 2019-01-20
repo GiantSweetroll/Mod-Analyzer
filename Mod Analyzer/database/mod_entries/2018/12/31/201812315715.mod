@@ -3,58 +3,18 @@
      <name>Rigmor of Cyrodiil</name>
      <author>Rigmor</author>
      <id>201812315715</id>
-     <version>1.0</version>
-     <link/>
-     <notes/>
+     <version>1.1a</version>
+     <link>https://www.nexusmods.com/skyrim/mods/94940</link>
+     <notes>Become Rigmor's Guardian Protector once again in another DLC sized adventure. The House of Bruma, deeply worried for Rigmor's safety turn to the only one they know they can trust to escort her safely to the Imperial City. Defeater of Alduin, Champion of Whiterun, Guardian General and...Dragonborn.</notes>
      <general_compatibility/>
      <date_created_day>31</date_created_day>
      <date_created_month>12</date_created_month>
      <date_created_year>2018</date_created_year>
-     <date_modified_day>31</date_modified_day>
-     <date_modified_month>12</date_modified_month>
-     <date_modified_year>2018</date_modified_year>
+     <date_modified_day>20</date_modified_day>
+     <date_modified_month>1</date_modified_month>
+     <date_modified_year>2019</date_modified_year>
      <compatibility_collection>
-          <compatibility mod_id="201901025931">
-               <is_compatible>true</is_compatible>
-               <patch_available>false</patch_available>
-               <patch_link/>
-               <severity>soft</severity>
-               <reason/>
-               <compat_notes/>
-          </compatibility>
-          <compatibility mod_id="201901024895">
-               <is_compatible>true</is_compatible>
-               <patch_available>false</patch_available>
-               <patch_link/>
-               <severity>soft</severity>
-               <reason/>
-               <compat_notes/>
-          </compatibility>
-          <compatibility mod_id="201901038163">
-               <is_compatible>true</is_compatible>
-               <patch_available>false</patch_available>
-               <patch_link/>
-               <severity>soft</severity>
-               <reason/>
-               <compat_notes/>
-          </compatibility>
-          <compatibility mod_id="201812317505">
-               <is_compatible>false</is_compatible>
-               <patch_available>false</patch_available>
-               <patch_link/>
-               <severity>soft</severity>
-               <reason/>
-               <compat_notes/>
-          </compatibility>
-          <compatibility mod_id="201901030476">
-               <is_compatible>true</is_compatible>
-               <patch_available>false</patch_available>
-               <patch_link/>
-               <severity>soft</severity>
-               <reason/>
-               <compat_notes/>
-          </compatibility>
-          <compatibility mod_id="201901012197">
+          <compatibility mod_id="201812249716">
                <is_compatible>true</is_compatible>
                <patch_available>false</patch_available>
                <patch_link/>

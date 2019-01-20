@@ -236,6 +236,9 @@ public class OverviewPanel extends JPanel implements ActionListener, FormEssenti
 		this.compatible.display(compat.getListOfCompatibleMods());
 		this.incompatible.resetDefaults();
 		this.incompatible.setCompatibilities(compat.getListOfIncompatibleMods());
+		this.modDetails.repaint();
+		this.generalCompat.repaint();
+		this.panelRight.repaint();
 		this.repaint();
 	}
 	
