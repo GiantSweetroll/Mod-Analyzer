@@ -1,15 +1,18 @@
 package gui.overview;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import constants.Constants;
 import constants.Globals;
@@ -17,6 +20,7 @@ import dataDrivers.Compatibility;
 import dataDrivers.Mod;
 import giantsweetroll.gui.swing.Gbm;
 import gui.MainFrame;
+import gui.WrappableJLabel;
 import interfaces.FormEssentials;
 import methods.Methods;
 
@@ -35,15 +39,15 @@ public class IncompatibilityDetailPanel extends JPanel implements ActionListener
 					labNotes, 
 					severity, 
 					patchAvailable, 
-					patchLink, 
-					reason, 
-					notes;
-	
+					patchLink;
+	private WrappableJLabel reason, notes;
 	private JButton butEdit;
 	
 	private JPanel panelButton, panelMain;
 	
 	private String modID;
+	
+	private Border defaultBorder = BorderFactory.createLineBorder(Color.BLACK);
 	
 	public IncompatibilityDetailPanel()
 	{
@@ -78,17 +82,22 @@ public class IncompatibilityDetailPanel extends JPanel implements ActionListener
 		this.labSeverity = new JLabel();
 		this.severity = new JLabel();
 		this.labReason = new JLabel();
-		this.reason = new JLabel();
+		this.reason = new WrappableJLabel();
 		this.labPatch = new JLabel();
 		this.patchAvailable = new JLabel();
 		this.labPatchLink = new JLabel();
 		this.patchLink = new JLabel();
 		this.labNotes = new JLabel();
-		this.notes = new JLabel();
+		this.notes = new WrappableJLabel();
 		GridBagConstraints c = new GridBagConstraints();
 		
 		//Properties
 		this.butEdit.addActionListener(this);
+		this.labSeverity.setFont(Constants.GENERAL_FONT_BOLD);
+		this.labReason.setFont(Constants.GENERAL_FONT_BOLD);
+		this.labPatch.setFont(Constants.GENERAL_FONT_BOLD);
+		this.labPatchLink.setFont(Constants.GENERAL_FONT_BOLD);
+		this.labNotes.setFont(Constants.GENERAL_FONT_BOLD);
 		
 		//Add to panel
 		Gbm.goToOrigin(c);
@@ -141,12 +150,13 @@ public class IncompatibilityDetailPanel extends JPanel implements ActionListener
 		this.labPatch.setText("Patch Available?");
 		this.labPatchLink.setText("Link:");
 		this.labNotes.setText("Notes:");	
-		this.severity.setText(compat.getSeverity());
+		this.severity.setText(Methods.toUpperCase(compat.getSeverity()));
 		this.reason.setText(compat.getReason());
 		this.patchAvailable.setText(Methods.convertBooleanToYesNo(compat.isPatchAvailable()));
 		this.patchLink.setText(compat.getPatchLink());
 		this.notes.setText(compat.getNotes());
 		this.panelButton.add(this.butEdit);
+		this.repaint();
 	}
 	
 	//Interfaces
@@ -179,5 +189,6 @@ public class IncompatibilityDetailPanel extends JPanel implements ActionListener
 		this.patchLink.setText("");
 		this.labNotes.setText("");
 		this.panelButton.remove(this.butEdit);
+		this.repaint();
 	}
 }

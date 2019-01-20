@@ -1,8 +1,8 @@
 package gui.overview;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ public class IncompatibilityOverviewPanel extends JPanel implements ActionListen
 	
 	public IncompatibilityOverviewPanel()
 	{
-		super(new BorderLayout());
+		super();
 		this.init();
 	}
 	
@@ -59,12 +59,14 @@ public class IncompatibilityOverviewPanel extends JPanel implements ActionListen
 		this.compat = new HashMap<String, Compatibility>();
 		
 		//Properties
+//		this.setLayout(new BorderLayout());
+		this.setLayout(new GridLayout(1, 0));
 //		this.panelLeft.setBorder(this.SECTION_SEPARATOR);
-		this.details.setBorder(this.SECTION_SEPARATOR);
+//		this.details.setBorder(this.SECTION_SEPARATOR);
 		
 		//Add to panel
-		this.add(this.panelLeft, BorderLayout.WEST);
-		this.add(this.details, BorderLayout.CENTER);
+		this.add(this.panelLeft);
+		this.add(this.details);
 	}
 	private void initPanelLeft()
 	{
@@ -115,6 +117,7 @@ public class IncompatibilityOverviewPanel extends JPanel implements ActionListen
 			//Display buttons
 			this.displayButtonsOnPanel();			
 			this.panelLeft.setBorder(this.SECTION_SEPARATOR);
+			this.details.setBorder(this.SECTION_SEPARATOR);
 		}
 	}
 	

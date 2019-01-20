@@ -1,8 +1,6 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -10,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -65,12 +64,13 @@ public class FilterPanel extends JPanel implements FormEssentials, ActionListene
 		this.scroll = ScrollPaneManager.generateDefaultScrollPane(this.panelCenter, 10, 10);
 		
 		//Properties
-		this.setLayout(new BorderLayout());
+//		this.setLayout(new BorderLayout());
+		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		//Add to panel
-	//	this.add(this.scroll, BorderLayout.CENTER);
-		this.add(this.panelCenter, BorderLayout.CENTER);
-		this.add(this.panelBelow, BorderLayout.SOUTH);
+		this.add(this.scroll);
+	//	this.add(this.panelCenter, BorderLayout.CENTER);
+		this.add(this.panelBelow);
 	}
 	private void initPanelBelow(boolean displayFilterButton)
 	{
@@ -99,7 +99,7 @@ public class FilterPanel extends JPanel implements FormEssentials, ActionListene
 	private void initPanelCenter()
 	{
 		//Initialization
-		this.panelCenter = new JPanel(new GridLayout(0, 2));
+		this.panelCenter = new JPanel();
 		this.filterModName = new FilterDropDown<ModLite>("Name", Methods.convertRegisteredModsToModLite());
 		this.filterModAuthor = new FilterDropDown<String>("Author", Methods.getNamesOfAuthorsFromRegisteredMods());
 		this.filterDateModified = new FilterDate("Last Modified");
@@ -107,6 +107,7 @@ public class FilterPanel extends JPanel implements FormEssentials, ActionListene
 		this.filters = new ArrayList<FilterElement>();
 		
 		//Properties
+		this.panelCenter.setLayout(new BoxLayout(this.panelCenter, BoxLayout.Y_AXIS));
 		this.panelCenter.setBorder(BorderFactory.createTitledBorder("Filter"));
 		this.filters.add(this.filterModName);
 		this.filters.add(this.filterModAuthor);
@@ -201,73 +202,57 @@ public class FilterPanel extends JPanel implements FormEssentials, ActionListene
 		//	System.out.println("Active mod check box: " + mcb.getModName());
 			mcb.updateCompatibility();
 			
-			boolean filtered = false;
 			//Filter
 			Set<Mod> mods = Globals.MODS;
 			if (this.authorFilterSelected())
 			{
 				Filter.modsByAuthor(mods, this.getAuthorFilter());
-				filtered = true;
 			}
 			if (this.modNameOrIDFilterSelected())
 			{
 				Filter.modsByName(mods, this.getModNameFilter());
-				filtered = true;
 			}
 			if (this.dateRegisteredFilterSelected())
 			{
 				Filter.modsByDateRegistered(mods, this.filterDateRegistered.getDateFrom(), this.filterDateRegistered.getDateTo(), Filter.DESCENDING_ORDER);
-				filtered = true;
 			}
 			if (this.dateModifiedFilterSelected())
 			{
 				Filter.modsByDateModified(mods, this.filterDateModified.getDateFrom(), this.filterDateModified.getDateTo(), Filter.DESCENDING_ORDER);
-				filtered = true;
 			}
 			
-			if (filtered)
-			{
-				Globals.COMPATIBILITY_MOD_SELECTION_PANEL.setMods(mods);		//Apply filter to the mod selection panel
-				Globals.MOD_FORM.revalidate();
-				Globals.MOD_FORM.refresh();
-				Globals.COMPATIBILITY_MOD_SELECTION_PANEL.setData(Globals.COMPATIBILITY_SELECTION_PANEL.getCompatibilityList());
-				Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.resetDefaults();
-				Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.setEnabled(false);
-				Globals.COMPATIBILITY_MOD_SELECTION_PANEL.disableCurrentlyActiveMod();
-//				System.out.println("Active Mod ID after Filter: " + Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModID());
-				Methods.refreshModList();	
-			}
+			Globals.COMPATIBILITY_MOD_SELECTION_PANEL.setMods(mods);		//Apply filter to the mod selection panel
+			Globals.MOD_FORM.revalidate();
+			Globals.MOD_FORM.refresh();
+			Globals.COMPATIBILITY_MOD_SELECTION_PANEL.setData(Globals.COMPATIBILITY_SELECTION_PANEL.getCompatibilityList());
+			Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.resetDefaults();
+			Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.setEnabled(false);
+			Globals.COMPATIBILITY_MOD_SELECTION_PANEL.disableCurrentlyActiveMod();
+//			System.out.println("Active Mod ID after Filter: " + Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModID());
+			Methods.refreshModList();
 		}
 		else if (this.formType.equals(FilterPanel.OVERVIEW))	//If for OverviewPanel
 		{
-			boolean filtered = false;
 			//Filter
 			Set<Mod> mods = Globals.MODS;
 			if (this.authorFilterSelected())
 			{
 				Filter.modsByAuthor(mods, this.getAuthorFilter());
-				filtered = true;
 			}
 			if (this.modNameOrIDFilterSelected())
 			{
 				Filter.modsByName(mods, this.getModNameFilter());
-				filtered = true;
 			}
 			if (this.dateRegisteredFilterSelected())
 			{
 				Filter.modsByDateRegistered(mods, this.filterDateRegistered.getDateFrom(), this.filterDateRegistered.getDateTo(), Filter.DESCENDING_ORDER);
-				filtered = true;
 			}
 			if (this.dateModifiedFilterSelected())
 			{
 				Filter.modsByDateModified(mods, this.filterDateModified.getDateFrom(), this.filterDateModified.getDateTo(), Filter.DESCENDING_ORDER);
-				filtered = true;
 			}
 			Globals.OVERVIEW.setData(mods);
-			if(filtered)
-			{
-				Methods.refreshModList();
-			}
+			Methods.refreshModList();
 		}
 	}
 	

@@ -7,13 +7,11 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 import constants.Constants;
 import dataDrivers.Mod;
 import giantsweetroll.gui.swing.Gbm;
-import giantsweetroll.gui.swing.ScrollPaneManager;
 import interfaces.FormEssentials;
 import methods.Methods;
 
@@ -25,9 +23,25 @@ public class ModDetailsPanel extends JPanel implements FormEssentials
 	 */
 	private static final long serialVersionUID = -3438270466642105159L;
 
-	private JLabel labID, labName, labAuthor, labVersion, labLink, labDateCreated, labDateUpdated, labNotes, id, name, author, version, link, dateCreated, dateUpdated, notes;
+	private JLabel labID, 
+					labName, 
+					labAuthor,
+					labVersion, 
+					labLink, 
+					labDateCreated, 
+					labDateUpdated, 
+					labNotes, 
+					id, 
+					name, 
+					author, 
+					version, 
+					link, 
+					dateCreated, 
+					dateUpdated;
+//					notes;
 	private JPanel panelForm, panelNotes, panelCenter;
-	private JScrollPane scrollNotes;
+//	private JScrollPane scrollNotes;
+	private WrappableJLabel notes;
 	
 	public ModDetailsPanel()
 	{
@@ -67,6 +81,15 @@ public class ModDetailsPanel extends JPanel implements FormEssentials
 		this.labLink = new JLabel("Link:");
 		this.link = new JLabel();
 		GridBagConstraints c = new GridBagConstraints();
+		
+		//Properties
+		this.labID.setFont(Constants.GENERAL_FONT_BOLD);
+		this.labName.setFont(Constants.GENERAL_FONT_BOLD);
+		this.labAuthor.setFont(Constants.GENERAL_FONT_BOLD);
+		this.labVersion.setFont(Constants.GENERAL_FONT_BOLD);
+		this.labLink.setFont(Constants.GENERAL_FONT_BOLD);
+		this.labDateCreated.setFont(Constants.GENERAL_FONT_BOLD);
+		this.labDateUpdated.setFont(Constants.GENERAL_FONT_BOLD);
 
 		//Add to panel
 		Gbm.goToOrigin(c);
@@ -190,20 +213,22 @@ public class ModDetailsPanel extends JPanel implements FormEssentials
 		this.panelNotes = new JPanel();
 		this.labNotes = new JLabel("   Notes:");
 //		this.taNotes = new WrappableJLabel(8, 20);
-		this.notes = new JLabel();
+//		this.notes = new JLabel();
+		this.notes = new WrappableJLabel();
 //		this.scrollNotes = ScrollPaneManager.generateDefaultScrollPane(this.taNotes, 10, 10);
-		this.scrollNotes = ScrollPaneManager.generateDefaultScrollPane(this.notes, 10, 10);
+//		this.scrollNotes = ScrollPaneManager.generateDefaultScrollPane(this.notes, 10, 10);
 		
 		//Properties
 		this.panelNotes.setLayout(new BorderLayout(Constants.INSETS_BASE, Constants.INSETS_BASE));
 //		TextAreaManager.autoConfigureTextArea(this.taNotes, false);
-		this.scrollNotes.setBorder(null);
+//		this.scrollNotes.setBorder(null);
 //		this.taNotes.setBorder(null);
+		this.labNotes.setFont(Constants.GENERAL_FONT_BOLD);
 		
 		//Add to panel
 		this.panelNotes.add(new JPanel(), BorderLayout.WEST);
 		this.panelNotes.add(this.labNotes, BorderLayout.NORTH);
-		this.panelNotes.add(this.scrollNotes, BorderLayout.CENTER);
+		this.panelNotes.add(this.notes, BorderLayout.CENTER);
 		this.panelNotes.add(new JPanel(), BorderLayout.EAST);
 	}
 
@@ -217,7 +242,8 @@ public class ModDetailsPanel extends JPanel implements FormEssentials
 		this.link.setText(mod.getLink());
 		this.dateCreated.setText(Methods.getDateAsString(mod.getDateCreated()));
 		this.dateUpdated.setText(Methods.getDateAsString(mod.getDateModified()));
-		this.notes.setText(Methods.getWrappableText(mod.getNotes()));
+		this.notes.setText(mod.getNotes());
+		this.repaint();
 	}
 	
 	//Interfaces

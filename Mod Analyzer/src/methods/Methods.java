@@ -211,4 +211,9 @@ public class Methods
     		}
     	}
     }
+    
+    public static String toUpperCase(String str)
+    {
+    	return str.substring(0, 1).toUpperCase() + str.substring(1);
+    }
 }

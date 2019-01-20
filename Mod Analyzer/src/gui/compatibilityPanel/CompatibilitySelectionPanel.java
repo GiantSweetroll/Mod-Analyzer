@@ -2,7 +2,6 @@ package gui.compatibilityPanel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -81,14 +80,16 @@ public class CompatibilitySelectionPanel extends JPanel implements FormEssential
 	//	this.panelCompat = new JPanel(new BorderLayout());
 		this.panelCompat = new JPanel();
 	//	JScrollPane scrollModSelection = ScrollPaneManager.generateDefaultScrollPane(Globals.COMPATIBILITY_MOD_SELECTION_PANEL, 10, 10);
-		JScrollPane scrollModSelection = new JScrollPane(Globals.COMPATIBILITY_MOD_SELECTION_PANEL, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+//		JScrollPane scrollModSelection = new JScrollPane(Globals.COMPATIBILITY_MOD_SELECTION_PANEL, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 	//	SpringLayout spr = new SpringLayout();
 //		this.initPanelCompatRight();
 		
 		//Properties
-		this.panelCompat.setLayout(new BoxLayout(this.panelCompat, BoxLayout.X_AXIS));
+		this.panelCompat.setLayout(new BorderLayout());
+//		this.panelCompat.setLayout(new BoxLayout(this.panelCompat, BoxLayout.X_AXIS));
 //		Globals.COMPATIBILITY_MOD_SELECTION_PANEL.setMaximumSize(new Dimension(Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getMaximumSize().width, Integer.MAX_VALUE));
-		scrollModSelection.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+//		scrollModSelection.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		Globals.COMPATIBILITY_MOD_SELECTION_PANEL.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.setBorder(BorderFactory.createLineBorder(Color.black));
 //		scrollModSelection.setMaximumSize(new Dimension(200, 500));
 //		this.panelCompatRight.setMaximumSize(new Dimension(this.panelCompatRight.getMaximumSize().width, scrollModSelection.getMaximumSize().height));
@@ -111,8 +112,9 @@ public class CompatibilitySelectionPanel extends JPanel implements FormEssential
 		this.panelCompat.add(scrollCompatDetails);
 		this.panelCompat.add(scrollModDetails);
 		this.panelCompat.add(scrollModSelection);		*/
-		this.panelCompat.add(scrollModSelection);
-		this.panelCompat.add(Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL);
+//		this.panelCompat.add(scrollModSelection);
+		this.panelCompat.add(Globals.COMPATIBILITY_MOD_SELECTION_PANEL, BorderLayout.WEST);
+		this.panelCompat.add(Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL, BorderLayout.EAST);
 	}
 	/*
 	private void initPanelCompatRight()

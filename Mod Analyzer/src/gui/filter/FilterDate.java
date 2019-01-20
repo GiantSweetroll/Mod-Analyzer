@@ -104,6 +104,7 @@ public class FilterDate extends FilterElement implements MouseListener
 	{
 		if(!this.isSelected())
 		{
+			this.setSelected(true);
 			this.dateRangePanel.setEnabled(true);
 			this.butReset.setEnabled(true);
 		}

@@ -13,11 +13,13 @@ import java.util.Set;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import constants.Constants;
 import constants.Globals;
 import dataDrivers.CompatibilityList;
 import dataDrivers.Mod;
+import giantsweetroll.gui.swing.ScrollPaneManager;
 import gui.ModCheckBox;
 import interfaces.FormEssentials;
 
@@ -32,6 +34,7 @@ public class CompatibilityModSelectionPanel extends JPanel implements FormEssent
 	private JPanel panelTop, panelCenter;
 	private JLabel labMod; 
 	private List<ModCheckBox> MODS;
+	private JScrollPane scrollMods;
 	
 	private String activeModID;
 	private int activeModIndex;
@@ -47,13 +50,15 @@ public class CompatibilityModSelectionPanel extends JPanel implements FormEssent
 		//Initialization
 		this.initPanelCenter();
 		this.initPanelTop();
+		this.scrollMods = ScrollPaneManager.generateDefaultScrollPane(this.panelCenter, 10, 10);
 		
 		//Properties
-		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+	//	this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		this.setLayout(new BorderLayout(5, 5));
 		
 		//Add to panel
-		this.add(this.panelTop);
-		this.add(this.panelCenter);
+		this.add(this.panelTop, BorderLayout.NORTH);
+		this.add(this.scrollMods, BorderLayout.CENTER);
 	}
 	private void initPanelTop()
 	{
@@ -76,7 +81,7 @@ public class CompatibilityModSelectionPanel extends JPanel implements FormEssent
 		
 		//Properties
 		this.panelCenter.setLayout(new BoxLayout(this.panelCenter, BoxLayout.Y_AXIS));
-//		this.panelCenter.setLayout(new GridLayout(1, 0));
+//		this.panelCenter.setLayout(new GridLayout(0, 1));
 	}
 
 	//Public methods

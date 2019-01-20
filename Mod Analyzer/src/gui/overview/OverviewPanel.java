@@ -50,7 +50,7 @@ public class OverviewPanel extends JPanel implements ActionListener, FormEssenti
 
 	private CompatibleOverviewPanel compatible;
 	private IncompatibilityOverviewPanel incompatible;
-	private JScrollPane scrollCompatible, scrollIncompatible, scrollModList;
+	private JScrollPane scrollCompatible, scrollIncompatible, scrollModList, scrollModDetails;
 	private JTabbedPane tabCompat;
 	private ModDetailsPanel modDetails;
 	private GeneralCompatibilityPanel generalCompat;
@@ -110,19 +110,21 @@ public class OverviewPanel extends JPanel implements ActionListener, FormEssenti
 	private void initPanelRightTop()
 	{
 		//Initialization
-		this.panelRightTop = new JPanel(new GridLayout(1, 2));
+		this.panelRightTop = new JPanel();
 		this.generalCompat = new GeneralCompatibilityPanel();
 		this.modDetails = new ModDetailsPanel();
-		JScrollPane scrollModDetails = ScrollPaneManager.generateDefaultScrollPane(this.modDetails, 10, 10),
-					scrollGeneralCompat = ScrollPaneManager.generateDefaultScrollPane(this.generalCompat, 10, 10);
+		this.scrollModDetails = ScrollPaneManager.generateDefaultScrollPane(this.modDetails, 10, 10);
+		//			scrollGeneralCompat = ScrollPaneManager.generateDefaultScrollPane(this.generalCompat, 10, 10);
 		
 		//Properties
+		this.panelRightTop.setLayout(new GridLayout(1, 2));
 		this.modDetails.setBorder(this.SECTION_SEPARATOR);
 		this.generalCompat.setBorder(this.SECTION_SEPARATOR);
 		
 		//Add to panel
 		this.panelRightTop.add(scrollModDetails);
-		this.panelRightTop.add(scrollGeneralCompat);
+//		this.panelRightTop.add(scrollGeneralCompat);
+		this.panelRightTop.add(this.generalCompat);
 	}
 	private void initPanelRight()
 	{
@@ -234,6 +236,7 @@ public class OverviewPanel extends JPanel implements ActionListener, FormEssenti
 		this.compatible.display(compat.getListOfCompatibleMods());
 		this.incompatible.resetDefaults();
 		this.incompatible.setCompatibilities(compat.getListOfIncompatibleMods());
+		this.repaint();
 	}
 	
 	//Interfaces
@@ -269,5 +272,6 @@ public class OverviewPanel extends JPanel implements ActionListener, FormEssenti
 		this.generalCompat.resetDefaults();
 		this.compatible.resetDefaults();
 		this.incompatible.resetDefaults();
+		this.repaint();
 	}
 }
