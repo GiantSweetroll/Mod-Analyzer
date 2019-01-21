@@ -1,8 +1,8 @@
 package gui.compatibilityPanel;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
@@ -10,10 +10,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
+import javax.swing.border.EtchedBorder;
 
 import constants.Constants;
 import constants.Globals;
@@ -63,12 +66,17 @@ public class CompatibilityModSelectionPanel extends JPanel implements FormEssent
 	private void initPanelTop()
 	{
 		//Initialization
-		this.panelTop = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		this.labMod = new JLabel("Mod");
+		this.panelTop = new JPanel();
+		this.labMod = new JLabel("Mods", SwingConstants.CENTER);
 		
 		//Properties
+		this.panelTop.setLayout(new BoxLayout(this.panelTop, BoxLayout.X_AXIS));
 		this.panelTop.setMaximumSize(new Dimension(this.panelTop.getMaximumSize().width, 50));
 		this.labMod.setFont(Constants.GENERAL_FONT_BOLD);
+		this.labMod.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
+		this.labMod.setBackground(new Color (67, 70, 75));
+		this.labMod.setOpaque(true);
+		this.labMod.setMaximumSize(new Dimension(Integer.MAX_VALUE, labMod.getMaximumSize().height));
 		
 		//Add to panel
 		this.panelTop.add(this.labMod, BorderLayout.CENTER);

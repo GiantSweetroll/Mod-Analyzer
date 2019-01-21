@@ -21,6 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 
 import constants.Constants;
 import constants.Globals;
@@ -60,7 +61,7 @@ public class OverviewPanel extends JPanel implements ActionListener, FormEssenti
 	private HashMap<String, Mod> modMap;
 	
 	//Constants
-	private final Border SECTION_SEPARATOR = BorderFactory.createLineBorder(Color.BLACK, 2);
+	private final Border SECTION_SEPARATOR = BorderFactory.createLineBorder(Constants.SECTION_BORDER_COLOR, 2);
 	
 	//Changing
 	private int highlightedButtonIndex;
@@ -150,9 +151,12 @@ public class OverviewPanel extends JPanel implements ActionListener, FormEssenti
 		this.panelModList.setBorder(this.SECTION_SEPARATOR);
 		this.labMod.setMaximumSize(new Dimension(Integer.MAX_VALUE, this.labMod.getMaximumSize().height));
 		this.labMod.setFont(Constants.GENERAL_FONT_BOLD);
+		this.labMod.setBackground(new Color (67, 70, 75));
+		this.labMod.setOpaque(true);
+		this.labMod.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
 		
 		//Add to panel
-		this.panelModList.add(Box.createRigidArea(new Dimension(3, 3)));
+	//	this.panelModList.add(Box.createRigidArea(new Dimension(3, 3)));
 		this.panelModList.add(this.labMod);
 		this.panelModList.add(Box.createRigidArea(new Dimension(Constants.INSETS_BASE, Constants.INSETS_BASE)));
 	}
@@ -252,7 +256,7 @@ public class OverviewPanel extends JPanel implements ActionListener, FormEssenti
 		//Highlight
 		if (this.highlightedButtonIndex!=-1)
 		{
-			this.buttons.get(this.highlightedButtonIndex).setForeground(Color.BLACK);
+	//		this.buttons.get(this.highlightedButtonIndex).setForeground(Color.BLACK);
 			this.buttons.get(this.highlightedButtonIndex).setOpaque(false);
 		}
 		this.highlightedButtonIndex = Integer.parseInt(((ButtonLabel)e.getSource()).getName());

@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -130,6 +129,7 @@ public class ModCheckBox extends JPanel implements ItemListener, ActionListener
 		this.cb.setOpaque(b);
 		this.label.setOpaque(b);
 		this.panelButton.setOpaque(b);
+		/*
 		if (b)
 		{
 			this.label.setForeground(Color.WHITE);
@@ -137,7 +137,7 @@ public class ModCheckBox extends JPanel implements ItemListener, ActionListener
 		else
 		{
 			this.label.setForeground(Color.BLACK);
-		}
+		}		*/
 		this.revalidate();
 		this.repaint();
 	}

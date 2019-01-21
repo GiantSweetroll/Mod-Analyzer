@@ -39,7 +39,7 @@ public class IncompatibilityOverviewPanel extends JPanel implements ActionListen
 	private List<ButtonLabel> buttons;
 	
 	//Constants
-	private final Border SECTION_SEPARATOR = BorderFactory.createLineBorder(Color.BLACK, 1);	
+	private final Border SECTION_SEPARATOR = BorderFactory.createLineBorder(Constants.SECTION_BORDER_COLOR, 1);	
 	
 	//Changing
 	private int highlightedButtonIndex;	

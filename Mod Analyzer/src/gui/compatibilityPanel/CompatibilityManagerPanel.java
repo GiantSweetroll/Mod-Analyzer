@@ -1,9 +1,7 @@
 package gui.compatibilityPanel;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import constants.Globals;
@@ -44,7 +42,7 @@ public class CompatibilityManagerPanel extends JPanel implements FormEssentials/
 		
 		//Properties
 		this.setLayout(new BorderLayout());
-		this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
+	//	this.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1, true));
 		
 		//Add to panel
 //		this.add(this.panelSearch, BorderLayout.NORTH);
@@ -109,6 +107,10 @@ public class CompatibilityManagerPanel extends JPanel implements FormEssentials/
 	public void setData(CompatibilityList compatList)
 	{
 		Globals.COMPATIBILITY_SELECTION_PANEL.setData(compatList);
+	}
+	public void setGeneralCompatibility(String generalCompat)
+	{
+		Globals.COMPATIBILITY_SELECTION_PANEL.setGeneralCompatibility(generalCompat);
 	}
 	public CompatibilityList getCompatibilityData()
 	{

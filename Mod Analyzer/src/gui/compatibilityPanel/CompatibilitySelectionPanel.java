@@ -1,15 +1,14 @@
 package gui.compatibilityPanel;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 
+import constants.Constants;
 import constants.Globals;
 import dataDrivers.Compatibility;
 import dataDrivers.CompatibilityList;
@@ -89,8 +88,8 @@ public class CompatibilitySelectionPanel extends JPanel implements FormEssential
 //		this.panelCompat.setLayout(new BoxLayout(this.panelCompat, BoxLayout.X_AXIS));
 //		Globals.COMPATIBILITY_MOD_SELECTION_PANEL.setMaximumSize(new Dimension(Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getMaximumSize().width, Integer.MAX_VALUE));
 //		scrollModSelection.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		Globals.COMPATIBILITY_MOD_SELECTION_PANEL.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.setBorder(BorderFactory.createLineBorder(Color.black));
+		Globals.COMPATIBILITY_MOD_SELECTION_PANEL.setBorder(BorderFactory.createLineBorder(Constants.SECTION_BORDER_COLOR));
+		Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.setBorder(BorderFactory.createLineBorder(Constants.SECTION_BORDER_COLOR));
 //		scrollModSelection.setMaximumSize(new Dimension(200, 500));
 //		this.panelCompatRight.setMaximumSize(new Dimension(this.panelCompatRight.getMaximumSize().width, scrollModSelection.getMaximumSize().height));
 //		this.panelCompat.setMaximumSize(new Dimension(this.panelCompat.getMaximumSize().width, scrollModSelection.getMaximumSize().height));

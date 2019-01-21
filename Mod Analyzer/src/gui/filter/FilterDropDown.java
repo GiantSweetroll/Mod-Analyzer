@@ -22,6 +22,9 @@ public class FilterDropDown<T> extends FilterElement
 	private JComboBox<T> combo;
 	private T[] elements;
 	
+	//Constants
+	protected final Color DISABLED_COLOR = Color.GRAY;
+	
 	//Constructor
 	public FilterDropDown(String text)
 	{
@@ -49,7 +52,7 @@ public class FilterDropDown<T> extends FilterElement
 //		this.setLayout(new GridBagLayout());
 		this.setLayout(new FlowLayout(FlowLayout.LEFT, Constants.INSETS_BASE, Constants.INSETS_BASE));
 		this.combo.addMouseListener(this.checkBoxSelect);
-		this.combo.setBackground(Color.WHITE);
+//		this.combo.setBackground(Color.WHITE);
 		this.keyword.addMouseListener(this.checkBoxSelect);
 		
 		//Add to panel
@@ -119,6 +122,14 @@ public class FilterDropDown<T> extends FilterElement
 		super.setEnabled(b);
 		b = this.isSelected();
 		this.keyword.setEditable(b);
+		if (b)
+		{
+			this.keyword.setBackground(Constants.MENU_BAR_COLOR);
+		}
+		else
+		{
+			this.keyword.setBackground(this.DISABLED_COLOR);
+		}
 		this.combo.setEnabled(b);
 	}	
 	@Override
@@ -154,6 +165,7 @@ public class FilterDropDown<T> extends FilterElement
 			if (!keyword.isEditable())
 			{
 				keyword.setEditable(true);
+				keyword.setBackground(Constants.MENU_BAR_COLOR);
 				combo.setEnabled(false);
 			}
 		}
@@ -175,6 +187,7 @@ public class FilterDropDown<T> extends FilterElement
 			{
 				combo.setEnabled(true);
 				keyword.setEditable(false);
+				keyword.setBackground(DISABLED_COLOR);
 			}
 		}
 		@Override

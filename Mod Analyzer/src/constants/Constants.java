@@ -48,7 +48,12 @@ public class Constants
 	public static final Font GENERAL_FONT_BOLD = new Font(Constants.FONT_TYPE_GENERAL, Font.BOLD, Constants.FONT_GENERAL_SIZE);
 	
 	//Color
-	public static final Color HIGHLIGHT_COLOR = new Color(0, 120, 215);
+//	public static final Color HIGHLIGHT_COLOR = new Color(0, 120, 215);
+	public static final Color HIGHLIGHT_COLOR = new Color(49, 66, 82);
+	public static final Color SECTION_BORDER_COLOR = new Color(160,160, 160);
+	public static final Color BUTTON_COLOR = new Color(70, 119, 180);
+	public static final Color PANEL_COLOR = new Color(41, 44, 49);
+	public static final Color MENU_BAR_COLOR = new Color(56, 57, 62);
 	
 	//Comparators
 	public static final Comparator<JButton> MOD_NAME_BUTTON_COMPARATOR = new Comparator<JButton>()

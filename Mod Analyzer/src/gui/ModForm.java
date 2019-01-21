@@ -19,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.EtchedBorder;
 
 import constants.Constants;
 import constants.Globals;
@@ -92,7 +93,8 @@ public class ModForm extends JPanel implements FormEssentials, ActionListener
 		
 		//Properties
 		this.panelBelow.setLayout(new BorderLayout());
-		this.panelBelow.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		this.panelBelow.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
+		this.panelBelow.setBackground(new Color(46, 48, 58));
 		this.butCancel.addActionListener(this);
 		this.butCancel.setMnemonic(KeyEvent.VK_C);
 		this.butSave.addActionListener(this);
@@ -203,6 +205,7 @@ public class ModForm extends JPanel implements FormEssentials, ActionListener
 		this.taNotes.setText(mod.getNotes());
 		this.activeID = mod.getID();
 		this.compatPanel.setData(mod.getCompatibilities());
+		this.compatPanel.setGeneralCompatibility(mod.getGeneralCompatibility());
 		this.activeID = mod.getID();
 		this.dateCreated = mod.getDateCreated();
 		this.dateModified = mod.getDateModified();

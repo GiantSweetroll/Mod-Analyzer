@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.ComponentOrientation;
 
 import javax.swing.JTextArea;
@@ -60,5 +61,6 @@ public class WrappableJLabel extends JTextArea
 		this.setBorder(null);
 		this.setOpaque(false);
 		this.setText(text);
+		this.setForeground(Color.WHITE);
 	}
 }

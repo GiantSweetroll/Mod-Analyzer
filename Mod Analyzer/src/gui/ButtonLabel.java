@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Insets;
 
 import javax.swing.JButton;
@@ -20,5 +21,6 @@ public class ButtonLabel extends JButton
 		this.setContentAreaFilled(false);
 		this.setBorderPainted(false);
 		this.setOpaque(false);
+		this.setForeground(Color.white);
 	}
 }

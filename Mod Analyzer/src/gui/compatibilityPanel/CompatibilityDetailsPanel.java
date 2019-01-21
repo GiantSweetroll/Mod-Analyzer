@@ -1,5 +1,6 @@
 package gui.compatibilityPanel;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -47,6 +48,7 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials,
 	private final String CANCEL = "cancel",
 							SET = "set",
 							RESET = "reset";
+	private final Color DISABLED_COLOR = Color.GRAY;
 	
 	public CompatibilityDetailsPanel()
 	{
@@ -207,7 +209,7 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials,
 	}
 	public String getReasonOfIncompatibility()
 	{
-		return this.taNotes.getText().trim();
+		return this.taReason.getText().trim();
 	}
 	public boolean isPatchAvailable()
 	{
@@ -326,7 +328,7 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials,
 	//Others
 	public void updateCurrentCompatibility()
 	{
-		System.out.println("Mod Details ACTIVE MOD ID: " + Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.getActiveModID());
+//		System.out.println("Mod Details ACTIVE MOD ID: " + Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.getActiveModID());
 		Globals.COMPATIBILITY_SELECTION_PANEL.getCompatibilityList().setCompatibility(Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.getActiveModID(), this.getData());
 	}
 	//Private Methods
@@ -354,10 +356,26 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials,
 		this.setCompatibilityButtonsEnabled(b);
 		this.butReset.setEnabled(b);
 		this.taNotes.setEditable(b);
+		if (b)
+		{
+			this.taNotes.setBackground(Color.WHITE);
+		}
+		else
+		{
+			this.taNotes.setBackground(this.DISABLED_COLOR);
+		}
 		b = this.radCompatNo.isSelected();
 		this.setSeverityButtonsEnabled(b);
 		this.setPatchButtonsEnabled(b);
 		this.taReason.setEditable(b);
+		if (b)
+		{
+			this.taReason.setBackground(Color.WHITE);
+		}
+		else
+		{
+			this.taReason.setBackground(this.DISABLED_COLOR);
+		}
 		b = this.radPatchYes.isSelected();
 		this.tfLink.setEditable(b);
 	}
@@ -401,6 +419,14 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials,
 					boolean b = radCompatNo.isSelected();
 					setSeverityButtonsEnabled(b);
 					taReason.setEditable(b);
+					if (b)
+					{
+						taReason.setBackground(Color.WHITE);
+					}
+					else
+					{
+						taReason.setBackground(DISABLED_COLOR);
+					}
 					setPatchButtonsEnabled(b);
 			//		tfLink.setEditable(b);
 				}

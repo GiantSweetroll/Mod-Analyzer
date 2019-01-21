@@ -1,5 +1,6 @@
 package gui.filter;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
@@ -30,6 +31,7 @@ public abstract class FilterElement extends JPanel implements FormEssentials, It
 		this.butReset.addActionListener(this);
 		this.check.setOpaque(false);
 		this.check.addItemListener(this);
+		this.check.setForeground(Color.WHITE);
 	}
 	
 	//Public Methods
