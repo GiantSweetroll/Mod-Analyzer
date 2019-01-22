@@ -13,6 +13,7 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
@@ -20,6 +21,7 @@ import constants.Constants;
 import constants.Globals;
 import dataDrivers.Compatibility;
 import dataDrivers.Mod;
+import giantsweetroll.gui.swing.ScrollPaneManager;
 import gui.ButtonLabel;
 import interfaces.FormEssentials;
 import methods.Methods;
@@ -34,6 +36,7 @@ public class IncompatibilityOverviewPanel extends JPanel implements ActionListen
 	
 	private JPanel panelLeft;
 	private IncompatibilityDetailPanel details;
+	private JScrollPane scrollMods, scrollDetails;
 	
 	private HashMap<String, Compatibility> compat;
 	private List<ButtonLabel> buttons;
@@ -57,6 +60,8 @@ public class IncompatibilityOverviewPanel extends JPanel implements ActionListen
 		this.initPanelLeft();
 		this.details = new IncompatibilityDetailPanel();
 		this.compat = new HashMap<String, Compatibility>();
+		this.scrollMods = ScrollPaneManager.generateDefaultScrollPane(this.panelLeft, 10, 10);
+		this.scrollDetails = ScrollPaneManager.generateDefaultScrollPane(this.details, 10, 10);
 		
 		//Properties
 //		this.setLayout(new BorderLayout());
@@ -65,8 +70,8 @@ public class IncompatibilityOverviewPanel extends JPanel implements ActionListen
 //		this.details.setBorder(this.SECTION_SEPARATOR);
 		
 		//Add to panel
-		this.add(this.panelLeft);
-		this.add(this.details);
+		this.add(this.scrollMods);
+		this.add(this.scrollDetails);
 	}
 	private void initPanelLeft()
 	{

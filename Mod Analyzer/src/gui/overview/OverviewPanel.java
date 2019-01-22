@@ -51,7 +51,7 @@ public class OverviewPanel extends JPanel implements ActionListener, FormEssenti
 
 	private CompatibleOverviewPanel compatible;
 	private IncompatibilityOverviewPanel incompatible;
-	private JScrollPane scrollCompatible, scrollIncompatible, scrollModList, scrollModDetails;
+	private JScrollPane scrollCompatible, scrollModList, scrollModDetails;
 	private JTabbedPane tabCompat;
 	private ModDetailsPanel modDetails;
 	private GeneralCompatibilityPanel generalCompat;
@@ -94,7 +94,7 @@ public class OverviewPanel extends JPanel implements ActionListener, FormEssenti
 		this.compatible = new CompatibleOverviewPanel();
 		this.incompatible = new IncompatibilityOverviewPanel();
 		this.scrollCompatible = ScrollPaneManager.generateDefaultScrollPane(this.compatible, 10, 10);
-		this.scrollIncompatible = ScrollPaneManager.generateDefaultScrollPane(this.incompatible, 10, 10);
+//		this.scrollIncompatible = ScrollPaneManager.generateDefaultScrollPane(this.incompatible, 10, 10);
 		this.tabCompat = new JTabbedPane();
 		
 		//Properties
@@ -102,7 +102,7 @@ public class OverviewPanel extends JPanel implements ActionListener, FormEssenti
 		this.compatible.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 		//Add to tab
-		this.tabCompat.addTab("Incompatible Mods", this.scrollIncompatible);
+		this.tabCompat.addTab("Incompatible Mods", this.incompatible);
 		this.tabCompat.addTab("Compatible Mods", this.scrollCompatible);
 		
 		//Add to panel
@@ -114,13 +114,14 @@ public class OverviewPanel extends JPanel implements ActionListener, FormEssenti
 		this.panelRightTop = new JPanel();
 		this.generalCompat = new GeneralCompatibilityPanel();
 		this.modDetails = new ModDetailsPanel();
-		this.scrollModDetails = ScrollPaneManager.generateDefaultScrollPane(this.modDetails, 10, 10);
+		this.scrollModDetails = new JScrollPane(this.modDetails, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		//			scrollGeneralCompat = ScrollPaneManager.generateDefaultScrollPane(this.generalCompat, 10, 10);
 		
 		//Properties
 		this.panelRightTop.setLayout(new GridLayout(1, 2));
 		this.modDetails.setBorder(this.SECTION_SEPARATOR);
 		this.generalCompat.setBorder(this.SECTION_SEPARATOR);
+		this.scrollModDetails.getVerticalScrollBar().setUnitIncrement(10);
 		
 		//Add to panel
 		this.panelRightTop.add(scrollModDetails);

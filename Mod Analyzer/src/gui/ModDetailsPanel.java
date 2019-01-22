@@ -31,17 +31,16 @@ public class ModDetailsPanel extends JPanel implements FormEssentials
 					labDateCreated, 
 					labDateUpdated, 
 					labNotes, 
-					id, 
-					name, 
+					id,  
 					author, 
 					version, 
-					link, 
 					dateCreated, 
 					dateUpdated;
 //					notes;
 	private JPanel panelForm, panelNotes, panelCenter;
 //	private JScrollPane scrollNotes;
 	private WrappableJLabel notes;
+	private TextFieldLabel name, link;
 	
 	public ModDetailsPanel()
 	{
@@ -69,17 +68,17 @@ public class ModDetailsPanel extends JPanel implements FormEssentials
 		this.labID = new JLabel ("Mod ID:", SwingConstants.LEFT);
 		this.id = new JLabel();
 		this.labName = new JLabel("Mod Name:", SwingConstants.LEFT);
-		this.name = new JLabel();
+		this.name = new TextFieldLabel();
 		this.labAuthor = new JLabel("Author:");
 		this.author = new JLabel();
 		this.labVersion = new JLabel("Version:");
 		this.version = new JLabel();
-		this.labDateCreated = new JLabel("Registered On (DD/MM/YYYY):");
+		this.labDateCreated = new JLabel("Registered On:");
 		this.dateCreated = new JLabel();
-		this.labDateUpdated = new JLabel("Last Updated On (DD/MM/YYYY):");
+		this.labDateUpdated = new JLabel("Last Updated On:");
 		this.dateUpdated = new JLabel();
 		this.labLink = new JLabel("Link:");
-		this.link = new JLabel();
+		this.link = new TextFieldLabel();
 		GridBagConstraints c = new GridBagConstraints();
 		
 		//Properties
@@ -89,7 +88,9 @@ public class ModDetailsPanel extends JPanel implements FormEssentials
 		this.labVersion.setFont(Constants.GENERAL_FONT_BOLD);
 		this.labLink.setFont(Constants.GENERAL_FONT_BOLD);
 		this.labDateCreated.setFont(Constants.GENERAL_FONT_BOLD);
+		this.labDateCreated.setToolTipText("DD/MM/YYYY");
 		this.labDateUpdated.setFont(Constants.GENERAL_FONT_BOLD);
+		this.labDateUpdated.setToolTipText("DD/MM/YYYY");
 
 		//Add to panel
 		Gbm.goToOrigin(c);
@@ -103,8 +104,11 @@ public class ModDetailsPanel extends JPanel implements FormEssentials
 		c.insets = Constants.INSETS_GENERAL;
 		this.panelForm.add(this.labName, c);				//Name label
 		Gbm.nextGridColumn(c);
+		c.gridheight = 2;
 		this.panelForm.add(this.name, c);					//Name
 		Gbm.newGridLine(c);
+		Gbm.newGridLine(c);
+		c.gridheight = 1;
 		this.panelForm.add(this.labAuthor, c);				//Author label
 		Gbm.nextGridColumn(c);
 		this.panelForm.add(this.author, c);					//Author
@@ -115,8 +119,11 @@ public class ModDetailsPanel extends JPanel implements FormEssentials
 		Gbm.newGridLine(c);
 		this.panelForm.add(this.labLink, c);				//Link label
 		Gbm.nextGridColumn(c);
+		c.gridheight = 2;
 		this.panelForm.add(this.link, c);					//Link
 		Gbm.newGridLine(c);
+		Gbm.newGridLine(c);
+		c.gridheight = 1;
 		this.panelForm.add(this.labDateCreated, c);			//Date Created label
 		Gbm.nextGridColumn(c);
 		this.panelForm.add(this.dateCreated, c);			//Date Created
