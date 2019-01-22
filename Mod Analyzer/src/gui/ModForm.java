@@ -130,6 +130,10 @@ public class ModForm extends JPanel implements FormEssentials, ActionListener
 		//Properties
 		this.panelCenter.setLayout(new GridBagLayout());
 		TextAreaManager.autoConfigureTextArea(this.taNotes, true);
+		this.tfModName.setCaretColor(Color.WHITE);
+		this.tfAuthor.setCaretColor(Color.WHITE);
+		this.tfVersion.setCaretColor(Color.WHITE);
+		this.tfLink.setCaretColor(Color.WHITE);
 		
 		//Add to panel
 		Gbm.goToOrigin(c);
@@ -211,6 +215,8 @@ public class ModForm extends JPanel implements FormEssentials, ActionListener
 		this.dateModified = mod.getDateModified();
 		//Remove same mod id from mod list
 		Globals.COMPATIBILITY_MOD_SELECTION_PANEL.removeModFromList(mod.getID());
+		this.revalidate();
+		this.repaint();
 	}
 	public Mod getData()
 	{
@@ -266,6 +272,8 @@ public class ModForm extends JPanel implements FormEssentials, ActionListener
 		this.taNotes.setText("");
 		this.activeID = "";
 		this.compatPanel.resetDefaults();
+		this.revalidate();
+		this.repaint();
 	}
 	
 	@Override
@@ -284,7 +292,8 @@ public class ModForm extends JPanel implements FormEssentials, ActionListener
 					else
 					{
 						Globals.COMPATIBILITY_SELECTION_PANEL.removeCompatibility(Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModID());
-					}					
+					}
+	//				Methods.printCompatibilityIDs(Globals.COMPATIBILITY_SELECTION_PANEL.getCompatibilityList());
 //					this.prepareForExport();
 					
 					//Export Data
@@ -303,10 +312,14 @@ public class ModForm extends JPanel implements FormEssentials, ActionListener
 					HashMap<String, Mod> map = Methods.convertToMapByID(Globals.MODS);
 					for (Map.Entry<String, Compatibility> entry : compat.getListOfModCompatibility().entrySet())
 					{
-						Mod mod = new Mod(map.get(entry.getKey()).getXMLDocument());
-						mod.getCompatibilities().addCompatibility(entry.getValue());
-						mod.getCompatibilities().getModCompatibility(entry.getKey()).setModID(this.activeID);
-						FileOperation.saveModEntry(mod);
+						try
+						{
+							Mod mod = new Mod(map.get(entry.getKey()).getXMLDocument());
+							mod.getCompatibilities().addCompatibility(entry.getValue());
+							mod.getCompatibilities().getModCompatibility(entry.getKey()).setModID(this.activeID);
+							FileOperation.saveModEntry(mod);
+						}
+						catch(NullPointerException ex) {}
 					}
 					
 					Methods.refreshModList();
@@ -314,8 +327,8 @@ public class ModForm extends JPanel implements FormEssentials, ActionListener
 					Globals.OVERVIEW.resetDefaults();
 					Globals.MAIN_FRAME.changeActivePanel(MainFrame.OVERVIEW);
 	//				this.compatPanel.refreshFilters();
-					Globals.MOD_FORM_FILTER_PANEL.resetFilters();
-					Globals.OVERVIEW_FILTER_PANEL.resetFilters();
+					Globals.MOD_FORM_FILTER_PANEL.disableFilters();
+					Globals.OVERVIEW_FILTER_PANEL.disableFilters();
 					this.refreshModSelectionList();
 				}
 				else

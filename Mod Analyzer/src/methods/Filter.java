@@ -74,14 +74,14 @@ public class Filter
 	{
 		if (source.length() == keyword.length())
 		{
-			return source.equals(keyword);
+			return source.equalsIgnoreCase(keyword);
 		}
 		else if (source.length() > keyword.length())
 		{
 			int leap = keyword.length();
 			for (int i=0; i<source.length()-leap; i++)
 			{
-				if(source.substring(i, i+leap).equals(keyword))
+				if(source.substring(i, i+leap).equalsIgnoreCase(keyword))
 				{
 					return true;
 				}

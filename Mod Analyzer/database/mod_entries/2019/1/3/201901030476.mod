@@ -78,6 +78,14 @@
                <reason/>
                <compat_notes/>
           </compatibility>
+          <compatibility mod_id="201901223633">
+               <is_compatible>true</is_compatible>
+               <patch_available>false</patch_available>
+               <patch_link/>
+               <severity>soft</severity>
+               <reason/>
+               <compat_notes/>
+          </compatibility>
           <compatibility mod_id="201901017963">
                <is_compatible>true</is_compatible>
                <patch_available>false</patch_available>
@@ -87,6 +95,14 @@
                <compat_notes/>
           </compatibility>
           <compatibility mod_id="201901014443">
+               <is_compatible>true</is_compatible>
+               <patch_available>false</patch_available>
+               <patch_link/>
+               <severity>soft</severity>
+               <reason/>
+               <compat_notes/>
+          </compatibility>
+          <compatibility mod_id="201812249716">
                <is_compatible>true</is_compatible>
                <patch_available>false</patch_available>
                <patch_link/>
@@ -110,7 +126,7 @@
                <reason/>
                <compat_notes/>
           </compatibility>
-          <compatibility mod_id="201901037783">
+          <compatibility mod_id="201812310791">
                <is_compatible>true</is_compatible>
                <patch_available>false</patch_available>
                <patch_link/>
@@ -118,7 +134,7 @@
                <reason/>
                <compat_notes/>
           </compatibility>
-          <compatibility mod_id="201812310791">
+          <compatibility mod_id="201901037783">
                <is_compatible>true</is_compatible>
                <patch_available>false</patch_available>
                <patch_link/>

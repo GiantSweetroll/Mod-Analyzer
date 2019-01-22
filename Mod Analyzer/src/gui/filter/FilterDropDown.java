@@ -54,6 +54,7 @@ public class FilterDropDown<T> extends FilterElement
 		this.combo.addMouseListener(this.checkBoxSelect);
 //		this.combo.setBackground(Color.WHITE);
 		this.keyword.addMouseListener(this.checkBoxSelect);
+		this.keyword.setCaretColor(Color.WHITE);
 		
 		//Add to panel
 //		Gbm.goToOrigin(c);

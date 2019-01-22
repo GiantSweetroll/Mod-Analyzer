@@ -13,13 +13,11 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 import constants.Constants;
 import constants.Globals;
 import dataDrivers.Mod;
-import giantsweetroll.gui.swing.ScrollPaneManager;
 import methods.Methods;
 
 public class ModCheckBox extends JPanel implements ItemListener, ActionListener
@@ -273,10 +271,11 @@ public class ModCheckBox extends JPanel implements ItemListener, ActionListener
 				public void actionPerformed(ActionEvent e)
 				{
 					Globals.MOD_FORM_MOD_DETAILS_PANEL.displayModDetails(mod);
-					JScrollPane scroll = ScrollPaneManager.generateDefaultScrollPane(Globals.MOD_FORM_MOD_DETAILS_PANEL, 10, 10);
-					scroll.setBorder(null);
-					scroll.getViewport().setBackground(null);
-					JOptionPane.showMessageDialog(null, scroll, mod.getName(), JOptionPane.PLAIN_MESSAGE, null);
+		//			JScrollPane scroll = ScrollPaneManager.generateDefaultScrollPane(Globals.MOD_FORM_MOD_DETAILS_PANEL, 10, 10);
+		//			scroll.setBorder(null);
+		//			scroll.getViewport().setBackground(null);
+					Globals.MOD_FORM_MOD_DETAILS_PANEL.repaint();
+					JOptionPane.showMessageDialog(null, Globals.MOD_FORM_MOD_DETAILS_PANEL, mod.getName(), JOptionPane.PLAIN_MESSAGE, null);
 				}
 			};
 }

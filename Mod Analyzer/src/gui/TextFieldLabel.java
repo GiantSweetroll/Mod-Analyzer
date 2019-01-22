@@ -22,6 +22,16 @@ public class TextFieldLabel extends JTextField
 		super(text);
 		this.init();
 	}
+	public TextFieldLabel(String text, int columns)
+	{
+		super(text, columns);
+		this.init();
+	}
+	public TextFieldLabel(int columns)
+	{
+		super(columns);
+		this.init();
+	}
 	
 	//Methods
 	private void init()

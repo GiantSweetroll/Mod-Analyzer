@@ -1,18 +1,15 @@
 package gui.overview;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 
 import constants.Constants;
 import constants.Globals;
@@ -20,6 +17,7 @@ import dataDrivers.Compatibility;
 import dataDrivers.Mod;
 import giantsweetroll.gui.swing.Gbm;
 import gui.MainFrame;
+import gui.TextFieldLabel;
 import gui.WrappableJLabel;
 import interfaces.FormEssentials;
 import methods.Methods;
@@ -38,16 +36,16 @@ public class IncompatibilityDetailPanel extends JPanel implements ActionListener
 					labPatchLink,
 					labNotes, 
 					severity, 
-					patchAvailable, 
-					patchLink;
+					patchAvailable;
 	private WrappableJLabel reason, notes;
 	private JButton butEdit;
+	private TextFieldLabel patchLink;
 	
 	private JPanel panelButton, panelMain;
 	
 	private String modID;
 	
-	private Border defaultBorder = BorderFactory.createLineBorder(Color.BLACK);
+//	private Border defaultBorder = BorderFactory.createLineBorder(Color.BLACK);
 	
 	public IncompatibilityDetailPanel()
 	{
@@ -86,7 +84,7 @@ public class IncompatibilityDetailPanel extends JPanel implements ActionListener
 		this.labPatch = new JLabel();
 		this.patchAvailable = new JLabel();
 		this.labPatchLink = new JLabel();
-		this.patchLink = new JLabel();
+		this.patchLink = new TextFieldLabel();
 		this.labNotes = new JLabel();
 		this.notes = new WrappableJLabel();
 		GridBagConstraints c = new GridBagConstraints();
@@ -188,6 +186,7 @@ public class IncompatibilityDetailPanel extends JPanel implements ActionListener
 		this.labPatchLink.setText("");
 		this.patchLink.setText("");
 		this.labNotes.setText("");
+		this.notes.setText("");
 		this.panelButton.remove(this.butEdit);
 		this.repaint();
 	}

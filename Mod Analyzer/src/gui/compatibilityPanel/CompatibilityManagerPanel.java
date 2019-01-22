@@ -248,7 +248,11 @@ public class CompatibilityManagerPanel extends JPanel implements FormEssentials/
 	{
 //		this.resetFilters();
 		Globals.COMPATIBILITY_MOD_SELECTION_PANEL.resetDefaults();
+		Globals.COMPATIBILITY_SELECTION_PANEL.resetDefaults();
 		Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.resetDefaults();
+		Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.setEnabled(false);
 		Globals.MOD_FORM_MOD_DETAILS_PANEL.resetDefaults();
+		Globals.MOD_FORM_FILTER_PANEL.resetDefaults();
+
 	}
 }

@@ -163,7 +163,14 @@ public class CompatibilityModSelectionPanel extends JPanel implements FormEssent
 	}
 	public ModCheckBox getActiveModCheckBox()
 	{
-		return this.MODS.get(this.getActiveModIndex());
+		try
+		{
+			return this.MODS.get(this.getActiveModIndex());
+		}
+		catch(IndexOutOfBoundsException ex)
+		{
+			return null;
+		}
 	}
 	//Others
 	public void removeModFromList(String id)
@@ -192,7 +199,11 @@ public class CompatibilityModSelectionPanel extends JPanel implements FormEssent
 	}
 	public void disableCurrentlyActiveMod()
 	{
-		this.getActiveModCheckBox().highlight(false);
+		try
+		{
+			this.getActiveModCheckBox().highlight(false);
+		}
+		catch(NullPointerException ex) {}
 		this.activeModID = "";
 		this.activeModIndex = 0;
 	}

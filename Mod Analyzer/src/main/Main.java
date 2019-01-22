@@ -7,6 +7,7 @@ import java.awt.Insets;
 import javax.swing.BorderFactory;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.border.EtchedBorder;
 import javax.swing.plaf.FontUIResource;
 
 import constants.Constants;
@@ -24,7 +25,6 @@ public class Main
 					public void run()
 					{
 						Methods.setUIFont(new FontUIResource(Constants.FONT_TYPE_GENERAL, Font.PLAIN, Constants.FONT_GENERAL_SIZE));
-						UIManager.put("OptionPane.background", Color.WHITE);
 						UIManager.put("Panel.background", Constants.PANEL_COLOR);
 						UIManager.put("Label.foreground", Color.WHITE);
 						UIManager.put("Button.foreground", Color.WHITE);
@@ -41,6 +41,9 @@ public class Main
 						UIManager.put("TitledBorder.border", BorderFactory.createLineBorder(Constants.SECTION_BORDER_COLOR, 1));
 						UIManager.put("TextField.background", Constants.MENU_BAR_COLOR);
 						UIManager.put("TextField.foreground", Color.WHITE);
+						UIManager.put("TextField.border", BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+						UIManager.put("OptionPane.background", Constants.PANEL_COLOR);
+						UIManager.put("OptionPane.messageForeground", Color.WHITE);
 						
 	//					Arrays.sort(Constants.TAGS_SKYRIM);
 						Globals.MODS = FileOperation.importAllMods();

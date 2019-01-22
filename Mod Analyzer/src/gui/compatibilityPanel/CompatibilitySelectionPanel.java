@@ -174,6 +174,7 @@ public class CompatibilitySelectionPanel extends JPanel implements FormEssential
 	@Override
 	public void resetDefaults()
 	{
+		this.compatList.clear();
 		this.taGeneralCompat.setText("");
 	}
 }

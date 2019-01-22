@@ -114,14 +114,14 @@ public class OverviewPanel extends JPanel implements ActionListener, FormEssenti
 		this.panelRightTop = new JPanel();
 		this.generalCompat = new GeneralCompatibilityPanel();
 		this.modDetails = new ModDetailsPanel();
-		this.scrollModDetails = new JScrollPane(this.modDetails, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		this.scrollModDetails = ScrollPaneManager.generateDefaultScrollPane(this.modDetails, 10, 10);
 		//			scrollGeneralCompat = ScrollPaneManager.generateDefaultScrollPane(this.generalCompat, 10, 10);
 		
 		//Properties
 		this.panelRightTop.setLayout(new GridLayout(1, 2));
 		this.modDetails.setBorder(this.SECTION_SEPARATOR);
 		this.generalCompat.setBorder(this.SECTION_SEPARATOR);
-		this.scrollModDetails.getVerticalScrollBar().setUnitIncrement(10);
+//		this.scrollModDetails.getVerticalScrollBar().setUnitIncrement(10);
 		
 		//Add to panel
 		this.panelRightTop.add(scrollModDetails);
@@ -131,9 +131,12 @@ public class OverviewPanel extends JPanel implements ActionListener, FormEssenti
 	private void initPanelRight()
 	{
 		//Initialization
-		this.panelRight = new JPanel(new BorderLayout());
+		this.panelRight = new JPanel();
 		this.initPanelCompat();
 		this.initPanelRightTop();
+		
+		//Properties
+		this.panelRight.setLayout(new GridLayout(0,1));
 		
 		//Add to panel
 		this.panelRight.add(this.panelRightTop, BorderLayout.NORTH);

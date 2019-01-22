@@ -122,4 +122,8 @@ public class CompatibilityList
 			entry.getValue().printCompatibility();
 		}
 	}
+	public void clear()
+	{
+		this.compat.clear();
+	}
 }

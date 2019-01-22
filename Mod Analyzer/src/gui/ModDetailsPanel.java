@@ -30,17 +30,18 @@ public class ModDetailsPanel extends JPanel implements FormEssentials
 					labLink, 
 					labDateCreated, 
 					labDateUpdated, 
-					labNotes, 
-					id,  
-					author, 
-					version, 
-					dateCreated, 
-					dateUpdated;
+					labNotes;
 //					notes;
-	private JPanel panelForm, panelNotes, panelCenter;
+	private JPanel panelForm, panelCenter;
 //	private JScrollPane scrollNotes;
 	private WrappableJLabel notes;
-	private TextFieldLabel name, link;
+	private TextFieldLabel name, 
+							link,
+							id,  
+							author, 
+							version, 
+							dateCreated, 
+							dateUpdated;
 	
 	public ModDetailsPanel()
 	{
@@ -51,14 +52,14 @@ public class ModDetailsPanel extends JPanel implements FormEssentials
 	{
 		//Initialization
 		this.initPanelCenter();
-		this.initPanelNotes();
+//		this.initPanelNotes();
 		
 		//Properties
-		this.setLayout(new BorderLayout(10, 10));
+		this.setLayout(new BorderLayout());
 		
 		//Add to panel
 		this.add(this.panelCenter, BorderLayout.CENTER);
-		this.add(this.panelNotes, BorderLayout.SOUTH);
+	//	this.add(this.panelNotes, BorderLayout.SOUTH);
 	}
 	private void initPanelForm()
 	{
@@ -66,19 +67,21 @@ public class ModDetailsPanel extends JPanel implements FormEssentials
 //		this.panelCenter = new JPanel(new SpringLayout());
 		this.panelForm = new JPanel(new GridBagLayout());
 		this.labID = new JLabel ("Mod ID:", SwingConstants.LEFT);
-		this.id = new JLabel();
+		this.id = new TextFieldLabel();
 		this.labName = new JLabel("Mod Name:", SwingConstants.LEFT);
 		this.name = new TextFieldLabel();
 		this.labAuthor = new JLabel("Author:");
-		this.author = new JLabel();
+		this.author = new TextFieldLabel();
 		this.labVersion = new JLabel("Version:");
-		this.version = new JLabel();
+		this.version = new TextFieldLabel();
 		this.labDateCreated = new JLabel("Registered On:");
-		this.dateCreated = new JLabel();
+		this.dateCreated = new TextFieldLabel();
 		this.labDateUpdated = new JLabel("Last Updated On:");
-		this.dateUpdated = new JLabel();
+		this.dateUpdated = new TextFieldLabel();
 		this.labLink = new JLabel("Link:");
 		this.link = new TextFieldLabel();
+		this.labNotes = new JLabel("Notes:");
+		this.notes = new WrappableJLabel();
 		GridBagConstraints c = new GridBagConstraints();
 		
 		//Properties
@@ -91,6 +94,7 @@ public class ModDetailsPanel extends JPanel implements FormEssentials
 		this.labDateCreated.setToolTipText("DD/MM/YYYY");
 		this.labDateUpdated.setFont(Constants.GENERAL_FONT_BOLD);
 		this.labDateUpdated.setToolTipText("DD/MM/YYYY");
+		this.labNotes.setFont(Constants.GENERAL_FONT_BOLD);
 
 		//Add to panel
 		Gbm.goToOrigin(c);
@@ -131,6 +135,11 @@ public class ModDetailsPanel extends JPanel implements FormEssentials
 		this.panelForm.add(this.labDateUpdated, c);			//Date Last Updated Label
 		Gbm.nextGridColumn(c);
 		this.panelForm.add(this.dateUpdated, c);			//Date Last Updated
+		Gbm.newGridLine(c);
+		this.panelForm.add(this.labNotes, c);				//Notes label
+		Gbm.newGridLine(c);
+		c.gridwidth = 2;
+		this.panelForm.add(this.notes, c);					//Notes
 		
 //		SpringUtilities.makeCompactGrid(this.panelCenter, 2, 4, 0, 0, Constants.INSETS_BASE, Constants.INSETS_BASE);
 	}
@@ -214,14 +223,14 @@ public class ModDetailsPanel extends JPanel implements FormEssentials
 		
 //		SpringUtilities.makeCompactGrid(this.panelCenter, 2, 4, 0, 0, Constants.INSETS_BASE, Constants.INSETS_BASE);		
 	}	*/
-	private void initPanelNotes()
+	/*private void initPanelNotes()
 	{
 		//Initialization
 		this.panelNotes = new JPanel();
 		this.labNotes = new JLabel("   Notes:");
+		this.notes = new WrappableJLabel();
 //		this.taNotes = new WrappableJLabel(8, 20);
 //		this.notes = new JLabel();
-		this.notes = new WrappableJLabel();
 //		this.scrollNotes = ScrollPaneManager.generateDefaultScrollPane(this.taNotes, 10, 10);
 //		this.scrollNotes = ScrollPaneManager.generateDefaultScrollPane(this.notes, 10, 10);
 		
@@ -237,7 +246,7 @@ public class ModDetailsPanel extends JPanel implements FormEssentials
 		this.panelNotes.add(this.labNotes, BorderLayout.NORTH);
 		this.panelNotes.add(this.notes, BorderLayout.CENTER);
 		this.panelNotes.add(new JPanel(), BorderLayout.EAST);
-	}
+	}		*/
 
 	//Public methods
 	public void displayModDetails(Mod mod)

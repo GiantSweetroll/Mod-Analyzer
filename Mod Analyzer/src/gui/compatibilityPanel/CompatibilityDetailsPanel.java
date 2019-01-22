@@ -111,6 +111,7 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials,
 		this.radCompatSoft.setSelected(true);
 		this.radPatchNo.setSelected(true);
 		this.radCompatYes.setSelected(true);
+		this.tfLink.setCaretColor(Color.WHITE);
 		
 		//Add to panel
 		Gbm.goToOrigin(c);
@@ -378,6 +379,14 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials,
 		}
 		b = this.radPatchYes.isSelected();
 		this.tfLink.setEditable(b);
+		if (b)
+		{
+			this.tfLink.setBackground(Constants.MENU_BAR_COLOR);
+		}
+		else
+		{
+			this.tfLink.setBackground(this.DISABLED_COLOR);
+		}
 	}
 	
 	//Interfaces
@@ -440,10 +449,12 @@ public class CompatibilityDetailsPanel extends JPanel implements FormEssentials,
 					{
 						tfLink.setText("");
 						tfLink.setEditable(false);
+						tfLink.setBackground(DISABLED_COLOR);
 					}
 					else
 					{
 						tfLink.setEditable(true);
+						tfLink.setBackground(Constants.MENU_BAR_COLOR);
 					}
 				}
 			};

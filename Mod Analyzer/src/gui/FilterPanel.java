@@ -3,6 +3,7 @@ package gui;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -83,10 +84,13 @@ public class FilterPanel extends JPanel implements FormEssentials, ActionListene
 		//Properties
 		this.butReset.addActionListener(this);
 		this.butReset.setActionCommand(this.RESET);
+		this.butReset.setMnemonic(KeyEvent.VK_R);
 		this.butFilter.addActionListener(this);
 		this.butFilter.setActionCommand(this.FILTER);
+		this.butFilter.setMnemonic(KeyEvent.VK_F);
 		this.butDisable.addActionListener(this);
 		this.butDisable.setActionCommand(this.DISABLE_FILTERS);
+		this.butDisable.setMnemonic(KeyEvent.VK_D);
 		
 		//Add to panel
 		this.panelBelow.add(this.butDisable);
@@ -200,7 +204,11 @@ public class FilterPanel extends JPanel implements FormEssentials, ActionListene
 			//Update Compatibility before filtering
 			ModCheckBox mcb = Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModCheckBox();
 		//	System.out.println("Active mod check box: " + mcb.getModName());
-			mcb.updateCompatibility();
+			try
+			{
+				mcb.updateCompatibility();
+			}
+			catch(NullPointerException ex) {}
 			
 			//Filter
 			Set<Mod> mods = Globals.MODS;
@@ -252,6 +260,8 @@ public class FilterPanel extends JPanel implements FormEssentials, ActionListene
 				Filter.modsByDateModified(mods, this.filterDateModified.getDateFrom(), this.filterDateModified.getDateTo(), Filter.DESCENDING_ORDER);
 			}
 			Globals.OVERVIEW.setData(mods);
+			Globals.OVERVIEW.revalidate();
+			Globals.OVERVIEW.repaint();
 			Methods.refreshModList();
 		}
 	}
@@ -264,9 +274,7 @@ public class FilterPanel extends JPanel implements FormEssentials, ActionListene
 	@Override
 	public void resetDefaults()
 	{
-		this.filterDateModified.resetDefaults();
-		this.filterModAuthor.resetDefaults();
-		this.filterModName.resetDefaults();
+		this.disableFilters();
 	}
 	
 	@Override

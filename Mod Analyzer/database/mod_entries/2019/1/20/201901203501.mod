@@ -13,5 +13,14 @@
      <date_modified_day>20</date_modified_day>
      <date_modified_month>1</date_modified_month>
      <date_modified_year>2019</date_modified_year>
-     <compatibility_collection/>
+     <compatibility_collection>
+          <compatibility mod_id="201901222119">
+               <is_compatible>false</is_compatible>
+               <patch_available>false</patch_available>
+               <patch_link/>
+               <severity>medium</severity>
+               <reason>A fort added by Aurlyn Dawnstone is placed at the same place as Artifact's shrine to boethiah.</reason>
+               <compat_notes/>
+          </compatibility>
+     </compatibility_collection>
 </mod_data>

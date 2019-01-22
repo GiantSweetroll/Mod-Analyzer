@@ -4,17 +4,17 @@
      <author>Rigmor</author>
      <id>201812249716</id>
      <version>V3.3</version>
-     <link/>
+     <link>https://www.nexusmods.com/skyrim/mods/53068</link>
      <notes/>
      <general_compatibility/>
      <date_created_day>24</date_created_day>
      <date_created_month>12</date_created_month>
      <date_created_year>2018</date_created_year>
-     <date_modified_day>24</date_modified_day>
-     <date_modified_month>12</date_modified_month>
-     <date_modified_year>2018</date_modified_year>
+     <date_modified_day>22</date_modified_day>
+     <date_modified_month>1</date_modified_month>
+     <date_modified_year>2019</date_modified_year>
      <compatibility_collection>
-          <compatibility mod_id="201901025931">
+          <compatibility mod_id="201901024895">
                <is_compatible>true</is_compatible>
                <patch_available>false</patch_available>
                <patch_link/>
@@ -22,7 +22,7 @@
                <reason/>
                <compat_notes/>
           </compatibility>
-          <compatibility mod_id="201901024895">
+          <compatibility mod_id="201812315715">
                <is_compatible>true</is_compatible>
                <patch_available>false</patch_available>
                <patch_link/>
@@ -46,7 +46,7 @@
                <reason/>
                <compat_notes/>
           </compatibility>
-          <compatibility mod_id="201812315715">
+          <compatibility mod_id="201812310791">
                <is_compatible>true</is_compatible>
                <patch_available>false</patch_available>
                <patch_link/>

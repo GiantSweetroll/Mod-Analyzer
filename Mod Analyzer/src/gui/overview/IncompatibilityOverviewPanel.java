@@ -1,6 +1,5 @@
 package gui.overview;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -97,17 +96,21 @@ public class IncompatibilityOverviewPanel extends JPanel implements ActionListen
 			HashMap<String, Mod> map = Methods.convertToMapByID(Globals.MODS);
 			for (Compatibility compat : list)
 			{
-				ButtonLabel b = new ButtonLabel(" " + map.get(compat.getModID()).getName() + " ");
-				b.setActionCommand(compat.getModID());
-				b.addActionListener(this);
-			//	b.setBorderPainted(true);
-			//	b.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-				b.setMaximumSize(new Dimension(Integer.MAX_VALUE, b.getMaximumSize().height));
-				b.setHorizontalAlignment(SwingConstants.LEFT);
-				b.setBackground(Constants.HIGHLIGHT_COLOR);			
-				this.buttons.add(b);
-				
-				this.compat.put(compat.getModID(), compat);
+				try
+				{
+					ButtonLabel b = new ButtonLabel(" " + map.get(compat.getModID()).getName() + " ");
+					b.setActionCommand(compat.getModID());
+					b.addActionListener(this);
+				//	b.setBorderPainted(true);
+				//	b.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+					b.setMaximumSize(new Dimension(Integer.MAX_VALUE, b.getMaximumSize().height));
+					b.setHorizontalAlignment(SwingConstants.LEFT);
+					b.setBackground(Constants.HIGHLIGHT_COLOR);			
+					this.buttons.add(b);
+					
+					this.compat.put(compat.getModID(), compat);
+				}
+				catch(NullPointerException ex) {}
 			}
 			
 			//Sort Buttons
@@ -157,12 +160,14 @@ public class IncompatibilityOverviewPanel extends JPanel implements ActionListen
 		//Highlight
 		if (this.highlightedButtonIndex!=-1)
 		{
-			this.buttons.get(this.highlightedButtonIndex).setForeground(Color.BLACK);
 			this.buttons.get(this.highlightedButtonIndex).setOpaque(false);
+			this.buttons.get(this.highlightedButtonIndex).repaint();
+	//		this.buttons.get(this.highlightedButtonIndex).setForeground(Color.BLACK);
 		}
 		this.highlightedButtonIndex = Integer.parseInt(((ButtonLabel)e.getSource()).getName());
-		this.buttons.get(this.highlightedButtonIndex).setForeground(Color.WHITE);
-		this.buttons.get(this.highlightedButtonIndex).setOpaque(true);		
+		this.buttons.get(this.highlightedButtonIndex).setOpaque(true);
+		this.buttons.get(this.highlightedButtonIndex).repaint();
+	//	this.buttons.get(this.highlightedButtonIndex).setForeground(Color.WHITE);
 	}
 
 	@Deprecated
