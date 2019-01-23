@@ -272,6 +272,10 @@ public class ModForm extends JPanel implements FormEssentials, ActionListener
 		this.taNotes.setText("");
 		this.activeID = "";
 		this.compatPanel.resetDefaults();
+		this.scrollNotes.getVerticalScrollBar().setValue(0);
+		this.scrollNotes.getHorizontalScrollBar().setValue(0);
+		this.scrollCenter.getHorizontalScrollBar().setValue(0);
+		this.scrollCenter.getVerticalScrollBar().setValue(0);
 		this.revalidate();
 		this.repaint();
 	}

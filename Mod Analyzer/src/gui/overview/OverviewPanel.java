@@ -247,6 +247,8 @@ public class OverviewPanel extends JPanel implements ActionListener, FormEssenti
 		this.modDetails.repaint();
 		this.generalCompat.repaint();
 		this.panelRight.repaint();
+		this.scrollModDetails.getVerticalScrollBar().setValue(0);
+		this.scrollModDetails.getHorizontalScrollBar().setValue(0);
 		this.repaint();
 	}
 	

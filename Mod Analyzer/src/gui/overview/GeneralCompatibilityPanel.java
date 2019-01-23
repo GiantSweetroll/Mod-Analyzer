@@ -32,7 +32,7 @@ public class GeneralCompatibilityPanel extends JPanel implements FormEssentials
 	{
 		super();
 		//Initialization
-		this.labGeneralCompat = new JLabel(" ");
+		this.labGeneralCompat = new JLabel("", SwingConstants.CENTER);
 //		this.generalCompat = new JLabel();
 		this.taGeneralCompat = new WrappableJLabel();
 		this.scrollGeneralCompat = ScrollPaneManager.generateDefaultScrollPane(this.taGeneralCompat, 10, 10);
@@ -42,7 +42,11 @@ public class GeneralCompatibilityPanel extends JPanel implements FormEssentials
 		this.labGeneralCompat.setHorizontalAlignment(SwingConstants.CENTER);
 		this.labGeneralCompat.setFont(Constants.GENERAL_FONT_BOLD);
 		this.labGeneralCompat.setMaximumSize(new Dimension(Integer.MAX_VALUE, this.labGeneralCompat.getMaximumSize().height));
+//		this.labGeneralCompat.setOpaque(true);
+//		this.labGeneralCompat.setBackground(Constants.MENU_BAR_COLOR);
+//		this.labGeneralCompat.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
 		TextAreaManager.autoConfigureTextArea(this.taGeneralCompat, false);
+//		this.taGeneralCompat.setBorder(BorderFactory.createLineBorder(new Color (255, 255, 255, 0), Constants.INSETS_BASE*3));
 		this.taGeneralCompat.setBorder(null);
 		this.scrollGeneralCompat.setBorder(null);
 		
