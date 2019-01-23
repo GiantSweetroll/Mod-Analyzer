@@ -289,14 +289,18 @@ public class ModForm extends JPanel implements FormEssentials, ActionListener
 				if (this.allRequiredFieldsFilled())
 				{
 					//Final update to current active mod item
-					if(Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModCheckBox().isSelected())
+					try
 					{
-						Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.updateCurrentCompatibility();
+						if(Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModCheckBox().isSelected())
+						{
+							Globals.MOD_FORM_COMPATIBILITY_DETAILS_PANEL.updateCurrentCompatibility();
+						}
+						else
+						{
+							Globals.COMPATIBILITY_SELECTION_PANEL.removeCompatibility(Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModID());
+						}
 					}
-					else
-					{
-						Globals.COMPATIBILITY_SELECTION_PANEL.removeCompatibility(Globals.COMPATIBILITY_MOD_SELECTION_PANEL.getActiveModID());
-					}
+					catch(NullPointerException ex) {}
 	//				Methods.printCompatibilityIDs(Globals.COMPATIBILITY_SELECTION_PANEL.getCompatibilityList());
 //					this.prepareForExport();
 					

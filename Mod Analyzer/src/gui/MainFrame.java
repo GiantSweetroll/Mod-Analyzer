@@ -174,6 +174,7 @@ public class MainFrame extends JFrame implements ActionListener, MenuListener
 	{
 		Methods.refreshModList();
 		Globals.OVERVIEW.refresh();
+		Globals.OVERVIEW.repaint();
 		this.editEntry.setEnabled(false);
 		this.delEntry.setEnabled(false);		
 	}
