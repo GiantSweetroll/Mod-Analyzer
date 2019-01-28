@@ -21,7 +21,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
-import javax.swing.border.EtchedBorder;
 
 import constants.Constants;
 import constants.Globals;
@@ -157,7 +156,7 @@ public class OverviewPanel extends JPanel implements ActionListener, FormEssenti
 		this.labMod.setFont(Constants.GENERAL_FONT_BOLD);
 		this.labMod.setBackground(new Color (67, 70, 75));
 		this.labMod.setOpaque(true);
-		this.labMod.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
+		this.labMod.setBorder(BorderFactory.createRaisedBevelBorder());
 		
 		//Add to panel
 	//	this.panelModList.add(Box.createRigidArea(new Dimension(3, 3)));

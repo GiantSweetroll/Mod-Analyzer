@@ -188,6 +188,7 @@ public class MainFrame extends JFrame implements ActionListener, MenuListener
 			case NEW_ENTRY:
 				Globals.MOD_FORM.resetDefaults();
 				Globals.MOD_FORM.setAsNewEntry();
+				Globals.MOD_FORM_FILTER_PANEL.applyFilter();
 				this.changeActivePanel(MainFrame.MOD_FORM);
 				break;
 				

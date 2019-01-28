@@ -16,7 +16,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
-import javax.swing.border.EtchedBorder;
 
 import constants.Constants;
 import constants.Globals;
@@ -73,7 +72,7 @@ public class CompatibilityModSelectionPanel extends JPanel implements FormEssent
 		this.panelTop.setLayout(new BoxLayout(this.panelTop, BoxLayout.X_AXIS));
 		this.panelTop.setMaximumSize(new Dimension(this.panelTop.getMaximumSize().width, 50));
 		this.labMod.setFont(Constants.GENERAL_FONT_BOLD);
-		this.labMod.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
+		this.labMod.setBorder(BorderFactory.createRaisedBevelBorder());
 		this.labMod.setBackground(new Color (67, 70, 75));
 		this.labMod.setOpaque(true);
 		this.labMod.setMaximumSize(new Dimension(Integer.MAX_VALUE, labMod.getMaximumSize().height));

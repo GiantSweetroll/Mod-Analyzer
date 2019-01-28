@@ -120,6 +120,7 @@ public class ModCheckBox extends JPanel implements ItemListener, ActionListener
 			this.justFilling = !Globals.MOD_FORM.isNewEntry();
 		}
 		this.cb.setSelected(b);
+//		this.highlight(b);
 	}
 	public void highlight(boolean b)
 	{
