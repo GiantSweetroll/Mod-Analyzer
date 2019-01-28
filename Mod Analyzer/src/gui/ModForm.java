@@ -346,6 +346,7 @@ public class ModForm extends JPanel implements FormEssentials, ActionListener
 				break;
 			
 			case CANCEL:
+	//			this.resetDefaults();
 				Globals.MAIN_FRAME.changeActivePanel(MainFrame.OVERVIEW);
 				break;
 		}

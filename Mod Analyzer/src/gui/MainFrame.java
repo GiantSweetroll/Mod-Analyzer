@@ -209,6 +209,7 @@ public class MainFrame extends JFrame implements ActionListener, MenuListener
 				
 			case EDIT_ENTRY:
 				Globals.MOD_FORM.resetDefaults();
+				Globals.MOD_FORM_FILTER_PANEL.applyFilter();
 				try
 				{
 					Globals.MOD_FORM.setData(Globals.OVERVIEW.getSelectedMod());
