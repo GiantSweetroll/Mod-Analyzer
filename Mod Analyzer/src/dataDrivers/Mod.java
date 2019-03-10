@@ -20,8 +20,6 @@ public class Mod
 	private CompatibilityList compatibility;
 	private Date dateCreated, dateModified;
 	
-	private Tags tags;			//not used
-	
 	//Constants
 	public static final String NAME = "name",
 								AUTHOR = "author",
@@ -74,7 +72,6 @@ public class Mod
 	public void setLink(String link)	{this.link = link;}
 	public void setNotes(String notes)	{this.notes = notes;}
 	public void setID(String id)	{this.id = id;}
-	public void setTags(Tags tags)	{this.tags = tags;}
 	public void setCompatibility(CompatibilityList compat)	{this.compatibility = compat;}
 	public void setDateCreated(Date date)	{this.dateCreated = date;}
 	public void setDateModified(Date date)	{this.dateModified = date;}
@@ -107,7 +104,6 @@ public class Mod
 	public CompatibilityList getCompatibilities()	{return this.compatibility;}
 	public Date getDateCreated()	{return this.dateCreated;}
 	public Date getDateModified()	{return this.dateModified;}
-	public Tags getTags()	{return this.tags;}
 	public Document getXMLDocument()
 	{
 		try
