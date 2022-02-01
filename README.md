@@ -113,8 +113,6 @@ To get a local copy of the project up and running , follow these simple steps.
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-The app is in Indonesian by default but you may change to English translation in the application settings.
-
 To see how to use the app, please refer to this video demo [here](https://youtu.be/L8rQTe-gHno).
 
 <div align="right">(<a href="#top">back to top</a>)</div>
